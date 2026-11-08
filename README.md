@@ -19,11 +19,6 @@
   * The Full Mode game frame features an 18px thick solid obsidian chassis plus a 4px outer glowing conic rainbow rim (22px total composite bezel).
   * Overlaps the outer perimeter of square 16:9 game captures underneath, **100% eliminating and masking sharp 90-degree square corners**.
 
-* 🐯 **Dynamic Left-Border Running Little Tiger Mascot**
-  * In Full Stage Mode, a delightfully animated little tiger cub patrols and gallops up and down along the outer left bezel of the game frame.
-  * Features bespoke vector craftsmanship: iconic forehead "王" (King) mark, cute pink paw pads, a swishing striped tail, and alternating paw gallop physics.
-  * Positioned safely outside the frame border so it never occludes game capture content while adding lively mascot charm to the stream.
-
 * 📊 **12-Band Continuous Chromatic VU Equalizer**
   * Continuous horizontal gradient across all 12 bars matching the outer frame (Cyan ➔ Lavender ➔ Rose ➔ Amber), eliminating single-bar isolated blocky colors.
   * Dual-layer vertical glass shine with floating crystal transient peak needles and gravitational falloff physics.
@@ -48,8 +43,8 @@
 |                                  +-----------------------------------------------------------+ |
 |  - 100% Reserved for:            |  [Top Flanking Decor: Lanterns / Branches / Cobweb / Frost] |
 |    * Camera / Facecam Box        |                                                           | |
-|    * VTuber Avatar Model   [🐯]  |           85% 4K GAME VIEWPORT DISPLAY AREA               | |
-|    * Live Chat Stream Box  (↕)   |                     (3264 × 1836)                         | |
+|    * VTuber Avatar Model         |           85% 4K GAME VIEWPORT DISPLAY AREA               | |
+|    * Live Chat Stream Box        |                     (3264 × 1836)                         | |
 |                                  |             * 18px Solid Obsidian Chassis Bezel           | |
 |                                  |             * 4px Outer Gemini Rainbow Conic Rim          | |
 |                                  |                                       [🎃 Jack-o'-Lantern]| |
