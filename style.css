@@ -1301,25 +1301,30 @@ body.effect-romantic .hud-corner-tr {
   right: 48px;
   width: 3264px;
   height: 1836px;
-  border-radius: 24px;
+  border-radius: 30px;
   pointer-events: none;
   z-index: 100;
   box-sizing: border-box;
   background: transparent;
+
+  /* Thick 18px Solid Obsidian Chassis Bezel: completely covers square game capture corners */
+  border: 18px solid rgba(12, 16, 24, 0.96);
   box-shadow: 
-    0 24px 60px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(139, 92, 246, 0.7),
-    0 0 40px rgba(66, 133, 244, 0.5),
-    0 0 60px rgba(236, 72, 153, 0.35);
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(139, 92, 246, 0.75),
+    0 0 48px rgba(66, 133, 244, 0.55),
+    0 0 72px rgba(236, 72, 153, 0.4),
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.12),
+    inset 0 4px 16px rgba(0, 0, 0, 0.85);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .game-viewport-frame::before {
   content: '';
   position: absolute;
-  inset: -3.5px;
-  border-radius: 27.5px;
-  padding: 3.5px;
+  inset: -22px; /* wraps around the outer edge of the 18px border */
+  border-radius: 34px;
+  padding: 4px;
   background: conic-gradient(
     from var(--rainbow-angle, 0deg),
     #4285f4 0%,
@@ -1335,9 +1340,50 @@ body.effect-romantic .hud-corner-tr {
   mask-composite: exclude;
   pointer-events: none;
   filter: 
-    drop-shadow(0 0 6px rgba(139, 92, 246, 0.95))
-    drop-shadow(0 0 16px rgba(66, 133, 244, 0.8))
-    drop-shadow(0 0 30px rgba(236, 72, 153, 0.55));
+    drop-shadow(0 0 8px rgba(139, 92, 246, 0.95))
+    drop-shadow(0 0 20px rgba(66, 133, 244, 0.8))
+    drop-shadow(0 0 36px rgba(236, 72, 153, 0.55));
+}
+
+/* Corner Armor Shields: reinforce outer bezel corners */
+.game-corner-shield {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  z-index: 102;
+}
+
+.gc-tl {
+  top: -6px;
+  left: -6px;
+  border-top: 5px solid rgba(255, 255, 255, 0.28);
+  border-left: 5px solid rgba(255, 255, 255, 0.28);
+  border-top-left-radius: 20px;
+}
+
+.gc-tr {
+  top: -6px;
+  right: -6px;
+  border-top: 5px solid rgba(255, 255, 255, 0.28);
+  border-right: 5px solid rgba(255, 255, 255, 0.28);
+  border-top-right-radius: 20px;
+}
+
+.gc-bl {
+  bottom: -6px;
+  left: -6px;
+  border-bottom: 5px solid rgba(255, 255, 255, 0.28);
+  border-left: 5px solid rgba(255, 255, 255, 0.28);
+  border-bottom-left-radius: 20px;
+}
+
+.gc-br {
+  bottom: -6px;
+  right: -6px;
+  border-bottom: 5px solid rgba(255, 255, 255, 0.28);
+  border-right: 5px solid rgba(255, 255, 255, 0.28);
+  border-bottom-right-radius: 20px;
 }
 
 /* Full Mode: Active Layout Transformations */
@@ -1345,50 +1391,198 @@ body.mode-full .game-viewport-frame {
   display: block;
 }
 
+/* Substantial Scaled-Up Bottom Dock Bar */
 body.mode-full .overlay-container {
   top: auto;
-  bottom: 36px;
+  bottom: 40px;
   right: 48px;
   left: auto;
   transform: none;
   width: auto;
   max-width: 3264px;
-  height: var(--overlay-height);
+  height: 112px;
   justify-content: flex-end;
-  padding: 0 12px;
-  gap: 10px;
+  padding: 0 16px;
+  gap: 12px;
+  border-radius: 26px;
+  box-shadow: 
+    0 20px 48px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(139, 92, 246, 0.7),
+    0 0 40px rgba(66, 133, 244, 0.5),
+    0 0 60px rgba(236, 72, 153, 0.35);
 }
 
-/* Bottom elements listed and right-aligned: Notice -> Game Title -> Domain & VU -> Clock */
+/* 1. Notice Panel: Expanded width and larger typography */
 body.mode-full .notice-panel {
   order: 1;
-  width: 1200px;
-  max-width: 1200px;
-  flex: 0 1 1200px;
+  width: 1450px;
+  max-width: 1450px;
+  flex: 0 1 1450px;
+  height: 92px;
+  border-radius: 18px;
+  padding: 0 20px;
+  gap: 16px;
 }
 
+body.mode-full .notice-badge {
+  font-size: 16px;
+  padding: 8px 18px;
+  border-radius: 10px;
+}
+
+body.mode-full .notice-badge .sparkle-icon {
+  width: 20px;
+  height: 20px;
+}
+
+body.mode-full .notice-text-rail {
+  font-size: 34px;
+}
+
+body.mode-full .notice-item {
+  font-size: 34px;
+}
+
+body.mode-full .notice-item .sparkle-icon {
+  width: 26px;
+  height: 26px;
+}
+
+/* 2. Game Title Panel */
 body.mode-full .game-panel {
   order: 2;
   flex: 0 0 auto;
+  height: 92px;
+  padding: 0 24px;
+  border-radius: 18px;
 }
 
+body.mode-full .game-title {
+  font-size: 38px;
+}
+
+/* 3. Brand Domain & Spectrum VU Meter */
 body.mode-full .left-panel {
   order: 3;
   flex: 0 0 auto;
+  gap: 12px;
 }
 
+body.mode-full .brand-domain-bay {
+  height: 92px;
+  padding: 0 22px;
+  border-radius: 18px;
+  gap: 12px;
+}
+
+body.mode-full .brand-domain-bay .sparkle-housing {
+  width: 36px;
+  height: 36px;
+}
+
+body.mode-full .brand-domain-bay .sparkle-icon {
+  width: 30px;
+  height: 30px;
+}
+
+body.mode-full .brand-domain-label {
+  font-size: 38px;
+}
+
+body.mode-full .vu-meter-box {
+  height: 92px;
+  padding: 0 18px;
+  border-radius: 18px;
+}
+
+body.mode-full .vu-bars {
+  height: 48px;
+  gap: 7px;
+}
+
+body.mode-full .vu-bar {
+  width: 9px;
+  height: 48px;
+  border-radius: 4.5px;
+}
+
+body.mode-full .vu-bar-fill {
+  background-size: 100% 100%, 185px 100%;
+}
+
+body.mode-full .vu-bar-peak {
+  width: 9px;
+  height: 2px;
+}
+
+/* Slices across 185px total width (12 * 9px + 11 * 7px = 185px) */
+body.mode-full .vu-bar:nth-child(1) .vu-bar-fill { background-position: 0 0, 0px 0; }
+body.mode-full .vu-bar:nth-child(2) .vu-bar-fill { background-position: 0 0, -16px 0; }
+body.mode-full .vu-bar:nth-child(3) .vu-bar-fill { background-position: 0 0, -32px 0; }
+body.mode-full .vu-bar:nth-child(4) .vu-bar-fill { background-position: 0 0, -48px 0; }
+body.mode-full .vu-bar:nth-child(5) .vu-bar-fill { background-position: 0 0, -64px 0; }
+body.mode-full .vu-bar:nth-child(6) .vu-bar-fill { background-position: 0 0, -80px 0; }
+body.mode-full .vu-bar:nth-child(7) .vu-bar-fill { background-position: 0 0, -96px 0; }
+body.mode-full .vu-bar:nth-child(8) .vu-bar-fill { background-position: 0 0, -112px 0; }
+body.mode-full .vu-bar:nth-child(9) .vu-bar-fill { background-position: 0 0, -128px 0; }
+body.mode-full .vu-bar:nth-child(10) .vu-bar-fill { background-position: 0 0, -144px 0; }
+body.mode-full .vu-bar:nth-child(11) .vu-bar-fill { background-position: 0 0, -160px 0; }
+body.mode-full .vu-bar:nth-child(12) .vu-bar-fill { background-position: 0 0, -176px 0; }
+
+/* 4. Calendar & Digital Clock Panel */
 body.mode-full .right-panel {
   order: 4;
   flex: 0 0 auto;
+  height: 92px;
+  padding: 0 24px;
+  border-radius: 18px;
+  gap: 16px;
+}
+
+body.mode-full .date-group {
+  gap: 3px;
+}
+
+body.mode-full .date-calendar {
+  font-size: 26px;
+}
+
+body.mode-full .date-day {
+  font-size: 15px;
+}
+
+body.mode-full .clock-display {
+  gap: 10px;
+}
+
+body.mode-full .clock-digits-roller {
+  height: 64px;
+}
+
+body.mode-full .clock-digits-roller .roll-item {
+  font-size: 58px;
+  height: 64px;
+  line-height: 64px;
+}
+
+body.mode-full .clock-seconds-roller {
+  height: 36px;
+}
+
+body.mode-full .clock-seconds-roller .roll-item {
+  font-size: 30px;
+  height: 36px;
+  line-height: 36px;
 }
 
 /* Full Mode Thematic Game Viewport Frame Overrides */
 body.mode-full.effect-newyear .game-viewport-frame {
+  border-color: rgba(36, 12, 16, 0.96);
   box-shadow: 
-    0 24px 60px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(225, 29, 72, 0.8),
-    0 0 40px rgba(245, 158, 11, 0.6),
-    0 0 60px rgba(220, 38, 38, 0.4);
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(225, 29, 72, 0.8),
+    0 0 48px rgba(245, 158, 11, 0.65),
+    0 0 72px rgba(220, 38, 38, 0.45);
 }
 body.mode-full.effect-newyear .game-viewport-frame::before {
   background: conic-gradient(
@@ -1396,17 +1590,21 @@ body.mode-full.effect-newyear .game-viewport-frame::before {
     #e11d48 0%, #fbbf24 25%, #dc2626 50%, #f59e0b 75%, #e11d48 100%
   );
   filter: 
-    drop-shadow(0 0 6px rgba(225, 29, 72, 0.95))
-    drop-shadow(0 0 16px rgba(245, 158, 11, 0.8))
-    drop-shadow(0 0 30px rgba(220, 38, 38, 0.55));
+    drop-shadow(0 0 8px rgba(225, 29, 72, 0.95))
+    drop-shadow(0 0 20px rgba(245, 158, 11, 0.8))
+    drop-shadow(0 0 36px rgba(220, 38, 38, 0.55));
+}
+body.mode-full.effect-newyear .game-corner-shield {
+  border-color: rgba(251, 191, 36, 0.5);
 }
 
 body.mode-full.effect-halloween .game-viewport-frame {
+  border-color: rgba(24, 14, 28, 0.96);
   box-shadow: 
-    0 24px 60px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(249, 115, 22, 0.8),
-    0 0 40px rgba(168, 85, 247, 0.6),
-    0 0 60px rgba(234, 88, 12, 0.4);
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(249, 115, 22, 0.8),
+    0 0 48px rgba(168, 85, 247, 0.65),
+    0 0 72px rgba(234, 88, 12, 0.45);
 }
 body.mode-full.effect-halloween .game-viewport-frame::before {
   background: conic-gradient(
@@ -1414,17 +1612,21 @@ body.mode-full.effect-halloween .game-viewport-frame::before {
     #f97316 0%, #a855f7 25%, #ea580c 50%, #7c3aed 75%, #f97316 100%
   );
   filter: 
-    drop-shadow(0 0 6px rgba(249, 115, 22, 0.95))
-    drop-shadow(0 0 16px rgba(168, 85, 247, 0.8))
-    drop-shadow(0 0 30px rgba(234, 88, 12, 0.55));
+    drop-shadow(0 0 8px rgba(249, 115, 22, 0.95))
+    drop-shadow(0 0 20px rgba(168, 85, 247, 0.8))
+    drop-shadow(0 0 36px rgba(234, 88, 12, 0.55));
+}
+body.mode-full.effect-halloween .game-corner-shield {
+  border-color: rgba(168, 85, 247, 0.5);
 }
 
 body.mode-full.effect-romantic .game-viewport-frame {
+  border-color: rgba(30, 16, 26, 0.96);
   box-shadow: 
-    0 24px 60px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(251, 113, 133, 0.8),
-    0 0 40px rgba(192, 132, 252, 0.6),
-    0 0 60px rgba(244, 114, 182, 0.4);
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(251, 113, 133, 0.8),
+    0 0 48px rgba(192, 132, 252, 0.65),
+    0 0 72px rgba(244, 114, 182, 0.45);
 }
 body.mode-full.effect-romantic .game-viewport-frame::before {
   background: conic-gradient(
@@ -1432,9 +1634,12 @@ body.mode-full.effect-romantic .game-viewport-frame::before {
     #fb7185 0%, #fda4af 25%, #c084fc 50%, #f472b6 75%, #fb7185 100%
   );
   filter: 
-    drop-shadow(0 0 6px rgba(251, 113, 133, 0.95))
-    drop-shadow(0 0 16px rgba(192, 132, 252, 0.8))
-    drop-shadow(0 0 30px rgba(244, 114, 182, 0.55));
+    drop-shadow(0 0 8px rgba(251, 113, 133, 0.95))
+    drop-shadow(0 0 20px rgba(192, 132, 252, 0.8))
+    drop-shadow(0 0 36px rgba(244, 114, 182, 0.55));
+}
+body.mode-full.effect-romantic .game-corner-shield {
+  border-color: rgba(251, 113, 133, 0.5);
 }
 
 /* Stage Decor Adjustments in Full Mode */

@@ -276,7 +276,8 @@ function initVuMeter() {
             peakScales[i] = Math.max(cur, peakScales[i] - 0.016);
           }
         }
-        const peakPx = Math.min(29.5, Math.max(2.5, peakScales[i] * 32));
+        const maxH = document.body.classList.contains('mode-full') ? 48 : 32;
+        const peakPx = Math.min(maxH - 2.5, Math.max(2.5, peakScales[i] * maxH));
         peaks[i].style.bottom = `${peakPx.toFixed(1)}px`;
       }
     }
