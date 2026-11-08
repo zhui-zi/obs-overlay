@@ -520,28 +520,37 @@ class AtmosphereParticleFX {
     this.tick = 0;
 
     let count = 90;
-    if (this.mode === 'romantic') count = 65;
+    if (this.mode === 'romantic') count = 140;
     else if (this.mode === 'newyear') count = 110;
     else if (this.mode === 'halloween') count = 75;
 
     for (let i = 0; i < count; i++) {
       if (this.mode === 'romantic') {
-        // Falling Sakura Petals & Gentle Bokeh
+        // Multi-layered Falling Sakura Petals (Hanafubuki) & Soft Starlight Bokeh
+        const isSparkle = i % 7 === 0;
+        const depth = Math.random(); // 0: far/small/gentle, 1: foreground/large
+        const baseW = 11 + depth * 15; // 11 to 26px
+        const baseH = 15 + depth * 19; // 15 to 34px
         this.particles.push({
           x: Math.random() * 3840,
           y: Math.random() * 2160,
-          w: Math.random() * 12 + 10,
-          h: Math.random() * 16 + 14,
-          speedY: Math.random() * 1.5 + 1.1,
-          speedX: Math.random() * 0.8 + 0.4,
+          w: baseW,
+          h: baseH,
+          depth: depth,
+          speedY: 0.9 + depth * 1.6 + Math.random() * 0.4,
+          speedX: 0.6 + depth * 0.9 + Math.random() * 0.5,
+          swayAmp: 1.4 + depth * 1.8,
           windPhase: Math.random() * Math.PI * 2,
-          windSpeed: Math.random() * 0.02 + 0.008,
+          windSpeed: Math.random() * 0.022 + 0.01,
           rotZ: Math.random() * Math.PI * 2,
-          rotSpeedZ: (Math.random() - 0.5) * 0.035,
+          rotSpeedZ: (Math.random() - 0.5) * 0.045,
           pitchAngle: Math.random() * Math.PI * 2,
-          pitchSpeed: Math.random() * 0.04 + 0.015,
-          alpha: Math.random() * 0.55 + 0.35,
-          isSparkle: i % 5 === 0
+          pitchSpeed: Math.random() * 0.038 + 0.016,
+          rollAngle: Math.random() * Math.PI * 2,
+          rollSpeed: Math.random() * 0.028 + 0.012,
+          alpha: (0.42 + depth * 0.5) * (Math.random() * 0.3 + 0.7),
+          colorTier: i % 3,
+          isSparkle: isSparkle
         });
       } else if (this.mode === 'newyear') {
         // Golden Foil Flecks & Celebration Embers
@@ -617,37 +626,70 @@ class AtmosphereParticleFX {
         p.windPhase += p.windSpeed;
         p.rotZ += p.rotSpeedZ;
         p.pitchAngle += p.pitchSpeed;
-        p.y += p.speedY;
-        p.x += p.speedX + Math.sin(p.windPhase) * 1.2;
+        p.rollAngle += p.rollSpeed;
 
-        if (p.y > 2180) {
-          p.y = -20;
+        // Flutter effect: falls slightly faster when slicing the wind, drifts slower when flat
+        const flutter = 0.8 + 0.4 * Math.abs(Math.sin(p.pitchAngle));
+        p.y += p.speedY * flutter;
+        p.x += p.speedX + Math.sin(p.windPhase) * p.swayAmp;
+
+        if (p.y > 2190) {
+          p.y = -30;
           p.x = Math.random() * 3840;
         }
-        if (p.x > 3860) p.x = -20;
-        else if (p.x < -20) p.x = 3860;
+        if (p.x > 3880) p.x = -30;
+        else if (p.x < -30) p.x = 3880;
 
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rotZ);
 
         if (p.isSparkle) {
-          // Warm romantic starlight dust
+          // Warm romantic starlight dust / ambient blossom pollen
           ctx.beginPath();
-          ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+          ctx.arc(0, 0, 2.2 + p.depth * 1.5, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(254, 205, 211, ${p.alpha * 0.9})`;
           ctx.shadowColor = '#fb7185';
-          ctx.shadowBlur = 10;
+          ctx.shadowBlur = 12;
           ctx.fill();
         } else {
-          // 3D Flipping Cherry Blossom Petal
+          // 3D Pitch & Roll True Sakura Petal with Notched Tip
           const scaleY = Math.cos(p.pitchAngle);
-          ctx.scale(1, scaleY);
+          const scaleX = Math.cos(p.rollAngle);
+          ctx.scale(Math.abs(scaleX) < 0.12 ? 0.12 : scaleX, Math.abs(scaleY) < 0.12 ? 0.12 : scaleY);
+
+          const hw = p.w * 0.5;
+          const hh = p.h * 0.5;
+
           ctx.beginPath();
-          ctx.ellipse(0, 0, p.w * 0.5, p.h * 0.5, 0, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(251, 113, 133, ${p.alpha * 0.88})`;
-          ctx.shadowColor = 'rgba(251, 113, 133, 0.45)';
-          ctx.shadowBlur = 8;
+          ctx.moveTo(0, hh);
+          // Left lobe curving out and up to notch tip
+          ctx.bezierCurveTo(-hw * 0.92, hh * 0.58, -hw * 1.08, -hh * 0.22, -hw * 0.45, -hh);
+          // Heart-shaped notch indent
+          ctx.quadraticCurveTo(0, -hh * 0.65, hw * 0.45, -hh);
+          // Right lobe curving down to base
+          ctx.bezierCurveTo(hw * 1.08, -hh * 0.22, hw * 0.92, hh * 0.58, 0, hh);
+          ctx.closePath();
+
+          // Delicate multi-tone blossom gradient
+          const grad = ctx.createLinearGradient(0, hh, 0, -hh);
+          if (p.colorTier === 0) {
+            grad.addColorStop(0, `rgba(255, 241, 242, ${p.alpha * 0.95})`);
+            grad.addColorStop(0.45, `rgba(251, 207, 232, ${p.alpha * 0.9})`);
+            grad.addColorStop(1, `rgba(244, 114, 182, ${p.alpha})`);
+          } else if (p.colorTier === 1) {
+            grad.addColorStop(0, `rgba(255, 255, 255, ${p.alpha})`);
+            grad.addColorStop(0.5, `rgba(254, 226, 226, ${p.alpha * 0.9})`);
+            grad.addColorStop(1, `rgba(251, 113, 133, ${p.alpha * 0.88})`);
+          } else {
+            grad.addColorStop(0, `rgba(253, 232, 238, ${p.alpha * 0.92})`);
+            grad.addColorStop(0.5, `rgba(244, 63, 94, ${p.alpha * 0.86})`);
+            grad.addColorStop(1, `rgba(225, 29, 72, ${p.alpha * 0.95})`);
+          }
+
+          ctx.fillStyle = grad;
+          ctx.shadowColor = 'rgba(251, 113, 133, 0.4)';
+          ctx.shadowBlur = p.depth > 0.6 ? 10 : 5;
           ctx.fill();
         }
         ctx.restore();

@@ -26,8 +26,8 @@
 * 🎆 **Bespoke Full-Screen Festive Atmospheres**
   * Stages are custom-crafted across the entire 4K broadcast screen, with specialized layout geometry in Full Mode:
     * **Chinese New Year (`newyear`)**: Flanking grand red palace lanterns with gold tassels and auspicious clouds framing the top corners of the game viewport, plus shimmering gold foil dust.
-    * **Halloween Night (`halloween`)**: Top-left spiderweb with bobbing spider on the game frame corner, top-right gnarled bare tree with blinking eyes, flying bats, and a glowing Jack-o'-Lantern perched on the bottom-right game frame bezel (zero clutter in the bottom-left).
-    * **Romantic Sakura (`romantic`)**: Sprawling flowering cherry branches framing both top-left & top-right game corners and true 3D Hanafubuki falling petal storm.
+    * **Halloween Night (`halloween`)**: Top-left spiderweb with bobbing spider on the game frame corner, atmospheric flying bats across the screen, and a carved glowing Jack-o'-Lantern perched on top of the bottom dock bar (completely clear of game capture viewports and zero clutter in the bottom-left).
+    * **Romantic Sakura (`romantic`)**: Full-screen pure Hanafubuki falling cherry blossom shower with realistic multi-tone notched sakura petals, multi-axis 3D tumbling flutter physics, and warm rose starlight bokeh (branch-free, completely unobstructed game view).
     * **Holiday Garland Lights (`lights`)**: Cozy draping garland wave string lights over HUD & bottom dock.
     * **Winter Frost & Snow (`snow` / `both`)**: Multi-plane snowfall with crystalline icicles freezing the top corners of the game frame.
 
@@ -86,8 +86,8 @@
 | `snow` | Winter Snowfall | Screen top corner ice frost and crystalline icicles | Multi-plane gentle snowfall |
 | `both` | Lights + Snow | Garland wave string lights + corner icicles | Gentle snowfall |
 | `newyear` | Chinese New Year | Flanking swinging red silk palace lanterns + golden auspicious clouds | Shimmering gold foil diamonds & rising red celebratory embers |
-| `halloween` | Halloween Night | Top-left cobweb with bobbing spider + top-right gnarled tree with blinking eyes + flying bats + bottom glowing Jack-o'-Lantern | Wandering ghostly will-o'-the-wisps with soft trails & purple embers |
-| `romantic` | Romantic Sakura | Top-right & top-left sprawling blooming cherry blossom branches swaying in spring breeze | True 3D Hanafubuki (tumbling falling cherry blossom petals) & warm bokeh |
+| `halloween` | Halloween Night | Top-left cobweb with bobbing spider + flying bats + glowing Jack-o'-Lantern perched on the bottom dock | Wandering ghostly will-o'-the-wisps with soft trails & purple embers |
+| `romantic` | Romantic Sakura | Pure branch-free stage framing for clean game broadcast visibility | True 3D Hanafubuki falling sakura shower with multi-tone notched petals & starlight bokeh |
 
 ---
 
