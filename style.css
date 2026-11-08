@@ -77,7 +77,7 @@ body {
 
 .overlay-container {
   position: absolute;
-  top: 14px;
+  top: 36px;
   left: 50%;
   transform: translateX(-50%);
   width: var(--overlay-width);
@@ -482,7 +482,7 @@ body {
 /* Quick setting drawer */
 .quick-drawer {
   position: absolute;
-  top: 106px;
+  top: 136px;
   left: 50%;
   transform: translateX(-50%);
   width: 580px;
