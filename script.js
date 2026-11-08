@@ -12,11 +12,11 @@
 
 const state = {
   brandDomain: "keita.cc",
-  gameTitle: "黑神话：悟空",
+  gameTitle: "Just Chatting",
   notices: [
-    "✨ 欢迎来到直播间！点赞关注不迷路，交流群：888-666-999",
-    "🌌 每天晚上 20:00 准时开播，感谢各位老铁的大力支持！",
-    "🎮 PC最高画质全景光追 | 欢迎弹幕互动交流点歌！"
+    "非全职个人势主播，虚拟形象画师&建模：심연의심연 (@gonggye_hs)",
+    "随心所欲玩点游戏，主播是老社畜啦不用花钱投喂哦，点点关注就好",
+    "欢迎好友++，个人主页https://keita.cc"
   ],
   themeEffect: "none", // Options: "none" | "lights" | "snow" | "both" | "newyear" | "halloween" | "romantic"
   layoutMode: "light",  // Options: "light" (Top Capsule HUD) | "full" (85% Game Frame + Bottom Dock)

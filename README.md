@@ -133,10 +133,10 @@ In OBS Studio, right-click your Browser Source ➔ **Properties** ➔ **Custom C
   --brand-domain: "keita.cc";
 
   /* Game title */
-  --game-title: "Black Myth: Wukong";
+  --game-title: "Just Chatting";
 
   /* Notice marquee items separated by || */
-  --notices: "✨ Welcome to the stream! || 🌌 Live daily at 20:00 || 🎮 4K Ray Tracing Enabled";
+  --notices: "非全职个人势主播，虚拟形象画师&建模：심연의심연 (@gonggye_hs) || 随心所欲玩点游戏，主播是老社畜啦不用花钱投喂哦，点点关注就好 || 欢迎好友++，个人主页https://keita.cc";
 }
 ```
 
