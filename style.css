@@ -276,28 +276,28 @@ body {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 9px;
-  background: rgba(167, 139, 250, 0.1);
-  border: 1px solid rgba(167, 139, 250, 0.28);
-  padding: 6px 16px;
+  gap: 10px;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.32);
+  padding: 4px 16px;
   border-radius: 9999px;
-  margin-right: 16px;
+  margin-right: 18px;
   z-index: 5;
 }
 
 .notice-badge-icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   fill: #a78bfa;
 }
 
 .notice-badge-text {
   font-family: 'Noto Sans SC', sans-serif;
-  font-size: 24px;
+  font-size: var(--font-hero);
   font-weight: 800;
   letter-spacing: 1.2px;
   color: #ffffff;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .notice-viewport {
