@@ -218,10 +218,11 @@ body {
 .vu-bar {
   width: 6px;
   height: 32px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 3px;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .vu-bar-fill {
@@ -234,94 +235,80 @@ body {
   transform: scaleY(0.15);
   border-radius: 3px;
   will-change: transform;
-  transition: background 0.4s ease;
+  
+  /* Airy Continuous Frame Gradient + Crystal Top Shine */
+  background-image: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.15) 32%, rgba(255, 255, 255, 0) 80%),
+    linear-gradient(90deg, #60a5fa 0%, #a78bfa 35%, #f472b6 70%, #fbbf24 100%);
+  background-size: 100% 100%, 127px 100%;
+  background-repeat: no-repeat;
+  opacity: 0.88;
+  filter: drop-shadow(0 0 5px rgba(167, 139, 250, 0.45));
+  transition: background-image 0.4s ease, filter 0.4s ease;
 }
 
 .vu-bar-peak {
   position: absolute;
   left: 0;
   width: 6px;
-  height: 2.5px;
+  height: 1.5px;
   border-radius: 1px;
   bottom: 4px;
   z-index: 2;
   pointer-events: none;
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 4px #ffffff, 0 0 8px rgba(167, 139, 250, 0.65);
+  opacity: 0.92;
+  transition: box-shadow 0.4s ease;
 }
 
-/* ================= 12-Band Chromatic Frequency Spectrum ================= */
-/* Band 1: Deep Cyan / Electric Teal */
-.vu-bar:nth-child(1) .vu-bar-fill { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 60%, #0369a1 100%); }
-.vu-bar:nth-child(1) .vu-bar-peak { background: #7dd3fc; box-shadow: 0 0 6px #38bdf8; }
+/* Continuous Horizontal Gradient Slices Across All 12 Bars (Seamless like the Outer Frame) */
+.vu-bar:nth-child(1) .vu-bar-fill { background-position: 0 0, 0px 0; }
+.vu-bar:nth-child(2) .vu-bar-fill { background-position: 0 0, -11px 0; }
+.vu-bar:nth-child(3) .vu-bar-fill { background-position: 0 0, -22px 0; }
+.vu-bar:nth-child(4) .vu-bar-fill { background-position: 0 0, -33px 0; }
+.vu-bar:nth-child(5) .vu-bar-fill { background-position: 0 0, -44px 0; }
+.vu-bar:nth-child(6) .vu-bar-fill { background-position: 0 0, -55px 0; }
+.vu-bar:nth-child(7) .vu-bar-fill { background-position: 0 0, -66px 0; }
+.vu-bar:nth-child(8) .vu-bar-fill { background-position: 0 0, -77px 0; }
+.vu-bar:nth-child(9) .vu-bar-fill { background-position: 0 0, -88px 0; }
+.vu-bar:nth-child(10) .vu-bar-fill { background-position: 0 0, -99px 0; }
+.vu-bar:nth-child(11) .vu-bar-fill { background-position: 0 0, -110px 0; }
+.vu-bar:nth-child(12) .vu-bar-fill { background-position: 0 0, -121px 0; }
 
-/* Band 2: Bright Aqua */
-.vu-bar:nth-child(2) .vu-bar-fill { background: linear-gradient(180deg, #06b6d4 0%, #0891b2 60%, #0e7490 100%); }
-.vu-bar:nth-child(2) .vu-bar-peak { background: #67e8f9; box-shadow: 0 0 6px #06b6d4; }
+/* Thematic Frame-Matched Airy Gradients */
+/* Chinese Lunar New Year: Luminous Gold & Red Ribbon Gradient */
+body.effect-newyear .vu-bar-fill {
+  background-image: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.2) 32%, rgba(255, 255, 255, 0) 80%),
+    linear-gradient(90deg, #fde047 0%, #fb923c 35%, #f43f5e 70%, #fde047 100%);
+  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.45));
+}
+body.effect-newyear .vu-bar-peak {
+  box-shadow: 0 0 4px #ffffff, 0 0 8px rgba(251, 191, 36, 0.7);
+}
 
-/* Band 3: Emerald Neon */
-.vu-bar:nth-child(3) .vu-bar-fill { background: linear-gradient(180deg, #10b981 0%, #059669 60%, #047857 100%); }
-.vu-bar:nth-child(3) .vu-bar-peak { background: #6ee7b7; box-shadow: 0 0 6px #10b981; }
+/* Halloween Night: Ethereal Neon Lime, Spectral Violet & Pumpkin Peach */
+body.effect-halloween .vu-bar-fill {
+  background-image: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.18) 32%, rgba(255, 255, 255, 0) 80%),
+    linear-gradient(90deg, #a3e635 0%, #c084fc 45%, #fb923c 80%, #a78bfa 100%);
+  filter: drop-shadow(0 0 5px rgba(192, 132, 252, 0.45));
+}
+body.effect-halloween .vu-bar-peak {
+  box-shadow: 0 0 4px #ffffff, 0 0 8px rgba(192, 132, 252, 0.7);
+}
 
-/* Band 4: Electric Lime */
-.vu-bar:nth-child(4) .vu-bar-fill { background: linear-gradient(180deg, #84cc16 0%, #65a30d 60%, #4d7c0f 100%); }
-.vu-bar:nth-child(4) .vu-bar-peak { background: #bef264; box-shadow: 0 0 6px #84cc16; }
-
-/* Band 5: Sunburst Gold */
-.vu-bar:nth-child(5) .vu-bar-fill { background: linear-gradient(180deg, #eab308 0%, #ca8a04 60%, #a16207 100%); }
-.vu-bar:nth-child(5) .vu-bar-peak { background: #fef08a; box-shadow: 0 0 6px #eab308; }
-
-/* Band 6: Amber Glow */
-.vu-bar:nth-child(6) .vu-bar-fill { background: linear-gradient(180deg, #f59e0b 0%, #d97706 60%, #b45309 100%); }
-.vu-bar:nth-child(6) .vu-bar-peak { background: #fde68a; box-shadow: 0 0 6px #f59e0b; }
-
-/* Band 7: Sunset Orange */
-.vu-bar:nth-child(7) .vu-bar-fill { background: linear-gradient(180deg, #f97316 0%, #ea580c 60%, #c2410c 100%); }
-.vu-bar:nth-child(7) .vu-bar-peak { background: #fed7aa; box-shadow: 0 0 6px #f97316; }
-
-/* Band 8: Coral Flame */
-.vu-bar:nth-child(8) .vu-bar-fill { background: linear-gradient(180deg, #ef4444 0%, #dc2626 60%, #b91c1c 100%); }
-.vu-bar:nth-child(8) .vu-bar-peak { background: #fca5a5; box-shadow: 0 0 6px #ef4444; }
-
-/* Band 9: Ruby Rose */
-.vu-bar:nth-child(9) .vu-bar-fill { background: linear-gradient(180deg, #f43f5e 0%, #e11d48 60%, #be123c 100%); }
-.vu-bar:nth-child(9) .vu-bar-peak { background: #fda4af; box-shadow: 0 0 6px #f43f5e; }
-
-/* Band 10: Hot Magenta */
-.vu-bar:nth-child(10) .vu-bar-fill { background: linear-gradient(180deg, #ec4899 0%, #db2777 60%, #be185d 100%); }
-.vu-bar:nth-child(10) .vu-bar-peak { background: #fbcfe8; box-shadow: 0 0 6px #ec4899; }
-
-/* Band 11: Electric Orchid */
-.vu-bar:nth-child(11) .vu-bar-fill { background: linear-gradient(180deg, #d946ef 0%, #c026d3 60%, #a21caf 100%); }
-.vu-bar:nth-child(11) .vu-bar-peak { background: #f0abfc; box-shadow: 0 0 6px #d946ef; }
-
-/* Band 12: Neon Amethyst / Violet */
-.vu-bar:nth-child(12) .vu-bar-fill { background: linear-gradient(180deg, #a855f7 0%, #9333ea 60%, #7e22ce 100%); }
-.vu-bar:nth-child(12) .vu-bar-peak { background: #e9d5ff; box-shadow: 0 0 6px #a855f7; }
-
-/* Theme-Specific Equalizer Chromatic Overrides */
-/* Chinese Lunar New Year: Gold, Vermilion & Crimson */
-body.effect-newyear .vu-bar:nth-child(3n+1) .vu-bar-fill { background: linear-gradient(180deg, #fde047 0%, #f59e0b 60%, #b45309 100%); }
-body.effect-newyear .vu-bar:nth-child(3n+1) .vu-bar-peak { background: #fef08a; box-shadow: 0 0 8px #fde047; }
-body.effect-newyear .vu-bar:nth-child(3n+2) .vu-bar-fill { background: linear-gradient(180deg, #fb923c 0%, #ea580c 60%, #9a3412 100%); }
-body.effect-newyear .vu-bar:nth-child(3n+2) .vu-bar-peak { background: #fed7aa; box-shadow: 0 0 8px #fb923c; }
-body.effect-newyear .vu-bar:nth-child(3n) .vu-bar-fill { background: linear-gradient(180deg, #f43f5e 0%, #e11d48 60%, #991b1b 100%); }
-body.effect-newyear .vu-bar:nth-child(3n) .vu-bar-peak { background: #fca5a5; box-shadow: 0 0 8px #f43f5e; }
-
-/* Halloween Night: Toxic Lime, Phantom Purple & Pumpkin Orange */
-body.effect-halloween .vu-bar:nth-child(3n+1) .vu-bar-fill { background: linear-gradient(180deg, #a3e635 0%, #65a30d 60%, #3f6212 100%); }
-body.effect-halloween .vu-bar:nth-child(3n+1) .vu-bar-peak { background: #d9f99d; box-shadow: 0 0 8px #a3e635; }
-body.effect-halloween .vu-bar:nth-child(3n+2) .vu-bar-fill { background: linear-gradient(180deg, #c084fc 0%, #9333ea 60%, #581c87 100%); }
-body.effect-halloween .vu-bar:nth-child(3n+2) .vu-bar-peak { background: #e9d5ff; box-shadow: 0 0 8px #c084fc; }
-body.effect-halloween .vu-bar:nth-child(3n) .vu-bar-fill { background: linear-gradient(180deg, #fb923c 0%, #ea580c 60%, #7c2d12 100%); }
-body.effect-halloween .vu-bar:nth-child(3n) .vu-bar-peak { background: #fed7aa; box-shadow: 0 0 8px #fb923c; }
-
-/* Romantic Sakura: Cherry Blossom Pink, Rose Quartz & Peach Cream */
-body.effect-romantic .vu-bar:nth-child(3n+1) .vu-bar-fill { background: linear-gradient(180deg, #fbcfe8 0%, #f472b6 60%, #db2777 100%); }
-body.effect-romantic .vu-bar:nth-child(3n+1) .vu-bar-peak { background: #fdf2f8; box-shadow: 0 0 8px #fbcfe8; }
-body.effect-romantic .vu-bar:nth-child(3n+2) .vu-bar-fill { background: linear-gradient(180deg, #fda4af 0%, #fb7185 60%, #e11d48 100%); }
-body.effect-romantic .vu-bar:nth-child(3n+2) .vu-bar-peak { background: #ffe4e6; box-shadow: 0 0 8px #fda4af; }
-body.effect-romantic .vu-bar:nth-child(3n) .vu-bar-fill { background: linear-gradient(180deg, #e9d5ff 0%, #c084fc 60%, #9333ea 100%); }
-body.effect-romantic .vu-bar:nth-child(3n) .vu-bar-peak { background: #f5f3ff; box-shadow: 0 0 8px #e9d5ff; }
+/* Romantic Sakura: Crystal Rose, Cherry Blossom & Soft Lilac */
+body.effect-romantic .vu-bar-fill {
+  background-image: 
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.22) 32%, rgba(255, 255, 255, 0) 80%),
+    linear-gradient(90deg, #fbcfe8 0%, #fda4af 35%, #f472b6 70%, #c084fc 100%);
+  filter: drop-shadow(0 0 5px rgba(244, 114, 182, 0.45));
+}
+body.effect-romantic .vu-bar-peak {
+  box-shadow: 0 0 4px #ffffff, 0 0 8px rgba(251, 113, 133, 0.7);
+}
 
 /* ================= Bay 2: Game Title ================= */
 .game-panel {
