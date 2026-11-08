@@ -391,24 +391,59 @@ body {
 .clock-display {
   display: flex;
   align-items: baseline;
+  overflow: hidden;
 }
 
 .clock-digits {
+  display: inline-block;
   font-family: 'Google Sans', 'JetBrains Mono', sans-serif;
   font-size: 48px;
   font-weight: 900;
   letter-spacing: 1.5px;
   color: #ffffff;
   line-height: 1;
+  will-change: transform, opacity;
+}
+
+.clock-digits.animate {
+  animation: clock-slide-major 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .clock-seconds {
+  display: inline-block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 24px;
   font-weight: 800;
   margin-left: 6px;
   color: #a78bfa;
-  min-width: 30px;
+  min-width: 32px;
+  will-change: transform, opacity;
+}
+
+.clock-seconds.animate {
+  animation: clock-slide-minor 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes clock-slide-minor {
+  0% {
+    transform: translateY(4px);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes clock-slide-major {
+  0% {
+    transform: translateY(6px);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Quick setting drawer */

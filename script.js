@@ -116,7 +116,7 @@ function updateDisplay() {
   if (elTitle) elTitle.textContent = state.gameTitle;
 }
 
-// Clock & calendar tick
+// Clock & calendar tick with smooth micro-transition animation
 function initClock() {
   const elClock = document.getElementById('clockDigits');
   const elSeconds = document.getElementById('clockSeconds');
@@ -124,6 +124,8 @@ function initClock() {
   const elDay = document.getElementById('dateDay');
 
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  let lastTimeStr = '';
+  let lastSecStr = '';
 
   function tick() {
     const now = new Date();
@@ -131,9 +133,23 @@ function initClock() {
     const hh = String(now.getHours()).padStart(2, '0');
     const mm = String(now.getMinutes()).padStart(2, '0');
     const ss = String(now.getSeconds()).padStart(2, '0');
-    
-    if (elClock) elClock.textContent = `${hh}:${mm}`;
-    if (elSeconds) elSeconds.textContent = ss;
+    const timeStr = `${hh}:${mm}`;
+
+    if (elSeconds && ss !== lastSecStr) {
+      elSeconds.textContent = ss;
+      lastSecStr = ss;
+      elSeconds.classList.remove('animate');
+      void elSeconds.offsetWidth; // Force reflow to re-trigger transition
+      elSeconds.classList.add('animate');
+    }
+
+    if (elClock && timeStr !== lastTimeStr) {
+      elClock.textContent = timeStr;
+      lastTimeStr = timeStr;
+      elClock.classList.remove('animate');
+      void elClock.offsetWidth;
+      elClock.classList.add('animate');
+    }
 
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
@@ -142,7 +158,7 @@ function initClock() {
   }
 
   tick();
-  setInterval(tick, 1000);
+  setInterval(tick, 250); // Sample at 4Hz for zero-latency second boundary response
 }
 
 // Simulated dynamic VU meter
