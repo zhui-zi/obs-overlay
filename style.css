@@ -20,7 +20,8 @@
 
 :root {
   /* OBS Custom CSS live parameters */
-  --layout-mode: "light"; /* Mode toggle: "light" (Standard top capsule) | "full" (85% 4K game viewport + bottom dock) */
+  --layout-mode: "light"; /* Mode toggle: "light" / "lite" (Top Capsule HUD) | "full" (85% 4K game viewport + bottom dock) */
+  --obs-scene-name: ""; /* Optional scene name containing [full] or [lite] for auto switching */
   --brand-domain: "keita.cc";
   --game-title: "黑神话：悟空";
   --notices: "✨ 欢迎来到直播间！点赞关注不迷路，交流群：888-666-999 || 🌌 每天晚上 20:00 准时开播，感谢支持！ || 🎮 PC最高画质全景光追 | 欢迎弹幕互动点歌！";

@@ -30,6 +30,7 @@ let atmosphereInstance = null;
 // Lifecycle initialization
 document.addEventListener('DOMContentLoaded', () => {
   initAtmosphere();
+  initObsSceneAutoSwitch();
   initObsCustomCssListener();
   initUrlParams();
   initClock();
@@ -97,6 +98,13 @@ function readObsCustomCss() {
     }
   }
 
+  // 6. --obs-scene-name or --scene (manual CSS override for scene name)
+  let rawScene = rootStyle.getPropertyValue('--obs-scene-name') || rootStyle.getPropertyValue('--scene');
+  if (rawScene) {
+    let cleanScene = rawScene.trim().replace(/^["']|["']$/g, '');
+    evaluateSceneName(cleanScene);
+  }
+
   updateDisplay();
 }
 
@@ -133,6 +141,10 @@ function initUrlParams() {
 
   if (params.has('mode')) {
     setLayoutMode(params.get('mode').toLowerCase());
+  }
+
+  if (params.has('scene')) {
+    evaluateSceneName(params.get('scene'));
   }
 
   updateDisplay();
@@ -339,6 +351,9 @@ function initSyncListener() {
     }
     if (data.layoutMode !== undefined) {
       setLayoutMode(data.layoutMode);
+    }
+    if (data.sceneName !== undefined) {
+      evaluateSceneName(data.sceneName);
     }
 
     updateDisplay();
@@ -763,13 +778,61 @@ function setThemeEffect(effect) {
 }
 
 function setLayoutMode(mode) {
-  const valid = ['light', 'full'];
-  const m = valid.includes(mode) ? mode : 'light';
-  state.layoutMode = m;
+  if (!mode) return;
+  const normalized = (mode.toLowerCase() === 'full') ? 'full' : 'light';
+  state.layoutMode = normalized;
 
-  document.body.classList.remove('mode-light', 'mode-full');
-  document.body.classList.add(`mode-${m}`);
+  document.body.classList.remove('mode-light', 'mode-full', 'mode-lite');
+  document.body.classList.add(`mode-${normalized}`);
+  if (normalized === 'light') {
+    document.body.classList.add('mode-lite');
+  }
 
   const selectEl = document.getElementById('inputMode');
-  if (selectEl) selectEl.value = m;
+  if (selectEl) selectEl.value = normalized;
+}
+
+// Evaluate scene name for automatic mode switching based on [full] and [lite] tags
+function evaluateSceneName(name) {
+  if (!name || typeof name !== 'string') return;
+  const lower = name.toLowerCase();
+  if (lower.includes('[full]')) {
+    setLayoutMode('full');
+  } else if (lower.includes('[lite]') || lower.includes('[light]')) {
+    setLayoutMode('light');
+  }
+}
+
+// OBS Studio Native Scene Auto-Switch Engine
+function initObsSceneAutoSwitch() {
+  function checkNativeScene() {
+    if (window.obsstudio && typeof window.obsstudio.getCurrentScene === 'function') {
+      window.obsstudio.getCurrentScene((scene) => {
+        if (scene && scene.name) {
+          evaluateSceneName(scene.name);
+        }
+      });
+    }
+  }
+
+  // 1. Initial execution on boot & window load
+  checkNativeScene();
+  window.addEventListener('load', checkNativeScene);
+
+  // 2. Real-time OBS Studio scene changed event
+  window.addEventListener('obsSceneChanged', (event) => {
+    if (event && event.detail && event.detail.name) {
+      evaluateSceneName(event.detail.name);
+    }
+  });
+
+  // 3. Browser source visibility changed event
+  window.addEventListener('obsSourceVisibleChanged', (event) => {
+    if (event && event.detail && event.detail.visible) {
+      checkNativeScene();
+    }
+  });
+
+  // 4. Polling safeguard
+  setInterval(checkNativeScene, 1200);
 }

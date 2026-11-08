@@ -280,6 +280,16 @@
       </div>
 
       <div class="form-group">
+        <label>OBS Scene Auto-Switch Simulator ([full] / [lite])</label>
+        <input type="text" id="ctrlScene" placeholder="e.g. 主游戏机位 [full] or 杂谈互动 [lite]">
+        <div class="quick-preset-chips">
+          <span class="preset-chip" onclick="setScene('主游戏机位 [full]')">🎮 主游戏机位 [full]</span>
+          <span class="preset-chip" onclick="setScene('日常杂谈 [lite]')">☕ 日常杂谈 [lite]</span>
+          <span class="preset-chip" onclick="setScene('电竞赛事机位 [full]')">🏆 电竞赛事 [full]</span>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label>Thematic Atmosphere & Stage Effects</label>
         <select id="ctrlEffect">
           <option value="none">None (Standard Aura)</option>
@@ -316,6 +326,16 @@
       document.getElementById('ctrlGame').value = title;
     }
 
+    function setScene(name) {
+      document.getElementById('ctrlScene').value = name;
+      const lower = name.toLowerCase();
+      if (lower.includes('[full]')) {
+        document.getElementById('ctrlMode').value = 'full';
+      } else if (lower.includes('[lite]') || lower.includes('[light]')) {
+        document.getElementById('ctrlMode').value = 'light';
+      }
+    }
+
     document.getElementById('controlForm').addEventListener('submit', (e) => {
       e.preventDefault();
       
@@ -323,6 +343,7 @@
       const rawNotices = document.getElementById('ctrlNotices').value;
       const themeEffect = document.getElementById('ctrlEffect').value;
       const layoutMode = document.getElementById('ctrlMode').value;
+      const sceneName = document.getElementById('ctrlScene').value.trim();
       const notices = rawNotices
         .split(/\r?\n|\|\|/)
         .map(s => s.trim())
@@ -332,7 +353,8 @@
         gameTitle,
         notices,
         themeEffect,
-        layoutMode
+        layoutMode,
+        sceneName
       });
 
       showToast('✔ Synchronized to OBS canvas');
