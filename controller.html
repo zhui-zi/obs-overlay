@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gemini Aura Edition - Overlay 控制台</title>
+  <title>Gemini Aura Edition - Overlay Controller</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@500;700;900&family=Noto+Sans+SC:wght@500;700&family=JetBrains+Mono:wght@600&display=swap');
 
@@ -36,7 +36,7 @@
       overflow: hidden;
     }
 
-    /* 顶部流光细条 */
+    /* Top rim light */
     .controller-chassis::before {
       content: '';
       position: absolute;
@@ -150,7 +150,7 @@
       z-index: 1;
     }
 
-    /* 彩虹边框 */
+    /* Conic rainbow border */
     .btn-submit::before {
       content: '';
       position: absolute;
@@ -168,7 +168,7 @@
       pointer-events: none;
     }
 
-    /* 彩虹光晕 */
+    /* Rainbow halo */
     .btn-submit::after {
       content: '';
       position: absolute;
@@ -194,17 +194,6 @@
 
     .btn-submit:active {
       transform: translateY(1px);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.06);
-      color: #cbd5e1;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
     }
 
     .quick-preset-chips {
@@ -251,14 +240,14 @@
   <div class="controller-chassis">
     <div class="header-bar">
       <div class="header-title">
-        <span>✨ GEMINI AURA OVERLAY 控制台</span>
+        <span>✨ GEMINI AURA OVERLAY CONTROLLER</span>
       </div>
       <div class="status-badge" id="statusBadge">AURA SYNC: OK</div>
     </div>
 
     <form id="controlForm">
       <div class="form-group">
-        <label>游戏名称 (单行纯粹标题)</label>
+        <label>Game Title</label>
         <input type="text" id="ctrlGame" value="黑神话：悟空">
         <div class="quick-preset-chips">
           <span class="preset-chip" onclick="setGame('黑神话：悟空')">黑神话</span>
@@ -270,18 +259,18 @@
       </div>
 
       <div class="form-group">
-        <label>滚动公告 (多条公告换行或用 || 分隔)</label>
+        <label>Marquee Notices (Newline or || separated)</label>
         <textarea id="ctrlNotices">✨ 欢迎来到直播间！点赞关注不迷路，交流群：888-666-999
 🌌 每天晚上 20:00 准时开播，感谢各位老铁的大力支持！
 🎮 PC最高画质全景光追 | 欢迎弹幕互动交流点歌！</textarea>
-        <div class="help-hint">提示：每换一行代表一条独立公告，在极光跑马灯屏上会自动平滑流动轮播。</div>
+        <div class="help-hint">Each line or || delimiter will loop smoothly across the notice bar.</div>
       </div>
 
       <div class="button-row">
-        <button type="submit" class="btn-submit">🚀 即刻同步到 4K OBS 画面</button>
+        <button type="submit" class="btn-submit">🚀 Sync to 4K OBS Canvas</button>
       </div>
 
-      <div class="alert-toast" id="toast">✔ 指令已同步至 4K OBS 画面！</div>
+      <div class="alert-toast" id="toast">✔ Synchronized to OBS canvas</div>
     </form>
   </div>
 
@@ -316,7 +305,7 @@
         notices
       });
 
-      showToast('✔ 指令已同步至 4K OBS 画面！');
+      showToast('✔ Synchronized to OBS canvas');
     });
   </script>
 </body>

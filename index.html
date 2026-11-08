@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=3840, height=2160, initial-scale=1.0">
-  <title>Google Gemini Aura Glow - 4K Ultra HD OBS Overlay</title>
+  <title>Google Gemini Aura - 4K Ultra HD OBS Overlay</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- 全局 SVG 渐变定义 (用于 Gemini 标志性光辉四芒星) -->
+  <!-- SVG Gradient Definitions -->
   <svg width="0" height="0" style="position: absolute;">
     <defs>
       <linearGradient id="gemini-sparkle-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -20,15 +20,13 @@
     </defs>
   </svg>
 
-  <!-- 4K Gemini 悬浮光辉胶囊岛 (占据 2/3 宽度：2560px，高度：110px) -->
+  <!-- 4K Suspended Capsule HUD -->
   <header class="overlay-container">
     
-    <!-- 左侧区域：个人主页品牌舱 (keita.cc) + 纯粹极光光柱频谱 -->
+    <!-- Left Bay: Brand Domain & Spectrum VU Meter -->
     <div class="panel-section left-panel">
-      <!-- keita.cc 个人主页品牌胶囊 (纯粹单行大字) -->
       <div class="live-indicator-bay brand-domain-bay">
         <div class="sparkle-housing">
-          <!-- Gemini 光辉四芒星图标 -->
           <svg class="sparkle-icon" viewBox="0 0 24 24">
             <path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12z"/>
           </svg>
@@ -38,7 +36,6 @@
         </div>
       </div>
 
-      <!-- 纯粹极光频谱动态量表 (无冗余文字标签) -->
       <div class="vu-meter-box">
         <div class="vu-bars">
           <div class="vu-bar"><div style="width:100%; height:20%; background:currentColor; position:absolute; bottom:0;"></div></div>
@@ -57,31 +54,29 @@
       </div>
     </div>
 
-    <!-- 中左区域：纯粹单行游戏标题 (无多余图标，纯净大字 32px) -->
+    <!-- Center-Left Bay: Game Title -->
     <div class="panel-section game-panel">
       <div class="game-content-single">
         <span class="game-title" id="gameTitle">黑神话：悟空</span>
       </div>
     </div>
 
-    <!-- 中部主区域：Gemini 无缝无限循环公告栏 (首尾相接，零空白) -->
+    <!-- Center Bay: Seamless Continuous Marquee Notice -->
     <div class="panel-section notice-panel">
-      <!-- 纯净内嵌 公告 微胶囊 -->
       <div class="notice-badge">
         <svg class="notice-badge-icon" viewBox="0 0 24 24">
           <path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12z"/>
         </svg>
         <span class="notice-badge-text">公告</span>
       </div>
-      <!-- 无缝双轨跑马灯视窗 -->
       <div class="notice-viewport" id="noticeViewport">
         <div class="notice-track" id="noticeTrack">
-          <!-- JS 自动克隆注入双轨内容，实现 100% 首尾连贯无限滚动 -->
+          <!-- Marquee items populated dynamically via script.js -->
         </div>
       </div>
     </div>
 
-    <!-- 右侧区域：极简 Google 数字时钟与日期 -->
+    <!-- Right Bay: Digital Clock & Date -->
     <div class="panel-section time-panel">
       <div class="date-section">
         <span class="date-day" id="dateDay">SUN</span>
@@ -95,20 +90,20 @@
     </div>
   </header>
 
-  <!-- 网页预览内置快捷设置抽屉 (按 'C' 切换) -->
+  <!-- In-browser Quick Settings Drawer (Toggle with 'C') -->
   <div class="quick-drawer" id="quickDrawer">
-    <h3>✨ Gemini Aura 配置面板 <span style="font-size:14px; color:#94a3b8;">(按 C 关闭)</span></h3>
+    <h3>✨ Gemini Aura Settings <span style="font-size:14px; color:#94a3b8;">(Press C to toggle)</span></h3>
     <label>
-      游戏名称 (Game Title):
+      Game Title:
       <input type="text" id="inputGame">
     </label>
     <label>
-      滚动公告 (多条用 || 分隔):
+      Marquee Notices (Separate with ||):
       <input type="text" id="inputNotice">
     </label>
     <div class="drawer-actions">
-      <button class="btn-primary" id="btnDrawerApply">应用生效</button>
-      <button id="btnDrawerClose">关闭</button>
+      <button class="btn-primary" id="btnDrawerApply">Apply</button>
+      <button id="btnDrawerClose">Close</button>
     </div>
   </div>
 

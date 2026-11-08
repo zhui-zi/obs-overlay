@@ -1,69 +1,55 @@
-# Google Gemini 光辉极光风 (Aura Glow) - 4K 悬浮 HUD Overlay (2/3 宽度)
+# Gemini Aura Overlay (4K OBS HUD)
 
-全新采用 **Google Gemini 官方网页最新 UI 的「光辉极光（Prismatic Aura Glow）」美学**设计。融合了**纯外围 2px 极光流光边框 + 淡淡贴边外晕**、**内部 100% 纯净暗曜石黑底板（绝无任何渗光发虚）**与**双层梯队严谨字体排版**。
-
----
-
-## 🌌 视觉架构核心特点
-
-1. **纯外侧围绕的淡淡微晕 + 通透毛玻璃中间层 (透出游戏动态，绝无内部杂光)**：
-   - 彻底移除了导致全向漫射的模糊层，在整个 2/3 悬浮机身外沿环绕一条 **2px 极光流光边框**（蓝/紫/红/暖金顺滑循环流转），外沿贴边仅向外晕开约 3 像素；
-   - **中间区域增加通透半透明感**：底板采用 `rgba(10, 13, 18, 0.68)` 暗曜石毛玻璃，配合 `backdrop-filter: blur(24px) saturate(160%)`，能自然透出游戏背景中的动态光影与色彩变化，轻盈空灵；
-   - 内部文字采用纯白高对比与微弱物理阴影，字迹如刀刻般锐利清晰，毫不受透明度影响。
-2. **2/3 屏幕黄金宽度（2560px） & 108px 纤薄机身**：
-   - 位于 4K 屏幕上方水平居中，两翼开阔留白，不挡游戏顶部核心视野。
-3. **最左侧个人主页品牌舱 (`keita.cc`) + 纯粹极光频谱**：
-   - 清晰醒目呈现 `keita.cc`（放大至 24px 单行大字，JetBrains Mono 极客粗体），移除冗余的 `OFFICIAL SITE` 说明；
-   - 移除 `SPECTRUM` 文字标头，极光频谱柱垂直居中纯粹律动。
-4. **大号高清晰数字时钟与日期（一目了然）**：
-   - **时钟数字**：大幅放大至 **48px 粗体（900 极粗）**，秒数 **24px**；
-   - **日期星期**：日历放大至 **24px**，星期放大至 **18px**，手机端或远距离观看极为清晰醒目！
-5. **无缝无限循环「公告」跑马灯 (首尾相连，100% 零空白等待)**：
-   - 英文 `NOTICE` 已升级为优雅中文标签 **`公告`**；
-   - 移除游戏标题前方多余的图标按钮，纯粹呈现大字游戏名；
-   - 采用双轨动态克隆机制（Copy A + Copy B 首尾无缝衔接连续滚动）；
-   - 公告条目之间搭配极简优雅的极光四芒星分隔符 `✦`。
+A high-performance, ultra-clean 4K HUD overlay designed for OBS Studio and modern live streaming, styled with Google Gemini's Prismatic Aura design language.
 
 ---
 
-## 🎛️ 如何在 OBS 属性面板直接通过「自定义 CSS」修改内容（最推荐！）
+## Architecture & Visual Specs
 
-在 OBS Studio 中右键点击该「浏览器」源 $\rightarrow$ **「属性」**，滑动到底部的 **「自定义 CSS (Custom CSS)」** 文本框，直接填入或修改：
+- **Canvas & Dimensions**: Optimized for 3840×2160 (4K UHD). Centered suspended capsule spanning 2560px (2/3 width) with a compact 88px height.
+- **Gemini Prismatic Aura**: 2px rotating conic rainbow rim (`#4285f4`, `#8b5cf6`, `#ec4899`, `#f59e0b`) masked to exclude interior bleeding, paired with a tight 3px subtle outer glow (`drop-shadow`).
+- **Obsidian Glass Chassis**: Semi-translucent obsidian backplate (`rgba(10, 13, 18, 0.68)`) with `backdrop-filter: blur(24px) saturate(160%)` to allow dynamic in-game light transmission while maintaining text sharpness.
+- **Seamless Notice Marquee**: Dual-buffer continuous scrolling marquee (`notice-track`) eliminating blank gaps, with an enlarged `公告` badge and sparkle separators (`✦`).
+- **Typography**: Hierarchical typography using Google Sans, JetBrains Mono, and Noto Sans SC. High-contrast clock display (48px / 24px) with calendar and day labels.
+
+---
+
+## Live Configuration via OBS Custom CSS
+
+Directly edit properties in OBS Studio via **Browser Source Properties -> Custom CSS** for instant hot-reloading:
 
 ```css
 :root {
-  /* 1. 最左侧个人主页域名 (默认 keita.cc) */
+  /* Brand domain (left bay) */
   --brand-domain: "keita.cc";
 
-  /* 2. 游戏主标题 (32px 统一主字阶) */
-  --game-title: "黑神话：悟空";
+  /* Active game title */
+  --game-title: "Black Myth: Wukong";
 
-  /* 3. 走马灯轮播公告（多条公告之间用 || 分隔） */
-  --notices: "✨ 欢迎来到直播间！点赞关注不迷路 || 🌌 每天晚上 20:00 准时开播 || 🎮 PC最高画质全景光追 | 欢迎弹幕互动点歌！";
+  /* Marquee notices separated by || */
+  --notices: "✨ Welcome to the stream! || 🌌 Live daily at 20:00 || 🎮 4K Ray Tracing Enabled";
 }
 ```
 
-> **实时热感知特性**：在 OBS 属性窗口中修改上述文字后点击 **「确定」**，页面无需重新加载，**0.5 秒内自动热更新**到直播画面！
-
 ---
 
-## 🚀 在 OBS Studio 中使用步骤
+## Quick Setup in OBS Studio
 
-1. 打开 **OBS Studio**，在「来源」窗口中点击 **「+」** $\rightarrow$ **「浏览器」 (Browser Source)**。
-2. 勾选 **「本地文件」 (Local file)**。
-3. 点击「浏览」，定位并选择：
-   ```text
-   C:\Users\keita\.gemini\antigravity\scratch\obs-skeuomorphic-overlay\index.html
-   ```
-4. 设置参数：
-   - **宽度 (Width)**: `3840`（若画布是 1080p 亦可填 3840，OBS 会自动缩放适配并呈现超采样精细画质）
-   - **高度 (Height)**: `2160`
+1. In OBS Studio, add a **Browser Source**.
+2. Set **URL** to your deployed endpoint (e.g. `https://obs.keita.cc`) or local file path.
+3. Configure dimensions:
+   - **Width**: `3840`
+   - **Height**: `2160`
    - **FPS**: `60`
-5. 点击确定即可。
+4. Enable **Shutdown source when not visible** and **Refresh browser when scene becomes active** as desired.
 
 ---
 
-## 🎛️ 更多控制方式
+## Additional Control Methods
 
-- **专属控制台**：双击打开 [`controller.html`](file:///C:/Users/keita/.gemini/antigravity/scratch/obs-skeuomorphic-overlay/controller.html)，在开播中途直接修改游戏名或多行公告，点击 **「🚀 即刻同步到 4K OBS 画面」**。
-- **后台热键**：在页面处于焦点时依然支持按键盘 **`C`** 键呼出快捷抽屉。
+- **URL Query Parameters**:
+  ```text
+  https://obs.keita.cc/?domain=keita.cc&game=Elden+Ring&notice=First+Notice||Second+Notice
+  ```
+- **Web Controller**: Open [`controller.html`](file:///C:/Users/keita/.gemini/antigravity/scratch/obs-skeuomorphic-overlay/controller.html) to broadcast title and notice updates in real-time via `BroadcastChannel`.
+- **In-Browser Quick Drawer**: Press `C` when focused on the overlay page to toggle the config drawer.

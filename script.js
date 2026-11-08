@@ -1,15 +1,15 @@
 /**
- * Smartisan Warm Wood Edition - 4K Overlay Script
- * Features:
- * - Realtime digital clock & uptime counter
- * - Dynamic animated VU audio meter simulation
- * - Multi-message rotating marquee notice board with high-dpi speed
- * - URL parameters parsing for instant OBS scene setup
- * - BroadcastChannel sync with standalone controller.html
- * - In-browser quick setting drawer (press 'C')
+ * Gemini Aura 4K Overlay Core Engine
+ * Capabilities:
+ * - Realtime digital clock & calendar display
+ * - Dynamic simulated VU audio meter animation
+ * - Seamless infinite marquee track with dual-buffer auto-cloning
+ * - Live CSS variable inspection for OBS Studio Custom CSS hot-reloading
+ * - URL query parameter parser
+ * - Realtime BroadcastChannel inter-window synchronization
+ * - In-browser quick setting drawer
  */
 
-// 默认状态配置
 const state = {
   brandDomain: "keita.cc",
   gameTitle: "黑神话：悟空",
@@ -21,10 +21,10 @@ const state = {
   currentNoticeIndex: 0
 };
 
-// 跨页面双向通信通道
+// Cross-tab broadcast channel
 const channel = new BroadcastChannel('obs_overlay_sync');
 
-// 初始化 DOM
+// Lifecycle initialization
 document.addEventListener('DOMContentLoaded', () => {
   initObsCustomCssListener();
   initUrlParams();
@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initDrawer();
 });
 
-// 监听并实时读取 OBS「自定义 CSS」中注入的变量
+// Realtime OBS Custom CSS variable watcher
 let lastCssValues = { domain: '', title: '', notices: '' };
 
 function readObsCustomCss() {
   const rootStyle = getComputedStyle(document.documentElement);
   
-  // 1. 读取 --brand-domain
+  // 1. --brand-domain
   let rawDomain = rootStyle.getPropertyValue('--brand-domain');
   if (rawDomain) {
     let cleanDomain = rawDomain.trim().replace(/^["']|["']$/g, '');
@@ -51,7 +51,7 @@ function readObsCustomCss() {
     }
   }
 
-  // 2. 读取 --game-title
+  // 2. --game-title
   let rawTitle = rootStyle.getPropertyValue('--game-title');
   if (rawTitle) {
     let cleanTitle = rawTitle.trim().replace(/^["']|["']$/g, '');
@@ -61,7 +61,7 @@ function readObsCustomCss() {
     }
   }
 
-  // 3. 读取 --notices 或 --game-notice
+  // 3. --notices or --game-notice
   let rawNotices = rootStyle.getPropertyValue('--notices') || rootStyle.getPropertyValue('--game-notice');
   if (rawNotices) {
     let cleanNotices = rawNotices.trim().replace(/^["']|["']$/g, '');
@@ -90,7 +90,7 @@ function initObsCustomCssListener() {
   setInterval(readObsCustomCss, 1200);
 }
 
-// 1. 读取 URL Query 参数
+// URL query parameter parser
 function initUrlParams() {
   const params = new URLSearchParams(window.location.search);
   
@@ -108,7 +108,7 @@ function initUrlParams() {
   updateDisplay();
 }
 
-// 2. 更新 DOM 渲染
+// DOM renderer
 function updateDisplay() {
   const elDomain = document.getElementById('brandDomain');
   const elTitle = document.getElementById('gameTitle');
@@ -116,7 +116,7 @@ function updateDisplay() {
   if (elTitle) elTitle.textContent = state.gameTitle;
 }
 
-// 3. 时钟与日期指示器
+// Clock & calendar tick
 function initClock() {
   const elClock = document.getElementById('clockDigits');
   const elSeconds = document.getElementById('clockSeconds');
@@ -128,7 +128,6 @@ function initClock() {
   function tick() {
     const now = new Date();
     
-    // 时分秒
     const hh = String(now.getHours()).padStart(2, '0');
     const mm = String(now.getMinutes()).padStart(2, '0');
     const ss = String(now.getSeconds()).padStart(2, '0');
@@ -136,7 +135,6 @@ function initClock() {
     if (elClock) elClock.textContent = `${hh}:${mm}`;
     if (elSeconds) elSeconds.textContent = ss;
 
-    // 日期
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     if (elCalendar) elCalendar.textContent = `${month}.${day}`;
@@ -147,7 +145,7 @@ function initClock() {
   setInterval(tick, 1000);
 }
 
-// 4. 模拟拟物 VU 电平表动态跳动
+// Simulated dynamic VU meter
 function initVuMeter() {
   const bars = document.querySelectorAll('.vu-bar');
   if (!bars || bars.length === 0) return;
@@ -173,38 +171,32 @@ function initVuMeter() {
   }, 120);
 }
 
-// 5. 无缝无限循环跑马灯 (双轨克隆首尾相接，100% 零空白)
+// Infinite seamless marquee renderer
 function renderSeamlessNotices() {
   const elTrack = document.getElementById('noticeTrack');
-  const elViewport = document.getElementById('noticeViewport');
   if (!elTrack) return;
 
   const notices = state.notices && state.notices.length > 0 
     ? state.notices 
-    : ["欢迎来到直播间！"];
+    : ["✨ Welcome to the stream!"];
 
-  // 单条项模板生成函数
   function makeItemHtml(text) {
     return `<span class="notice-item">${text}<span class="notice-separator">✦</span></span>`;
   }
 
-  // 基础单组拼接
   let baseHtml = notices.map(makeItemHtml).join('');
 
-  // 如果公告条目过少，多重复几次确保第一段足够长
   if (notices.length < 3) {
     baseHtml = baseHtml + baseHtml;
   }
 
-  // 核心：无缝克隆，A 组紧接 B 组形成两段完全相同的内容
+  // Dual-buffer cloning: Track A + Track B for seamless loop
   elTrack.innerHTML = baseHtml + baseHtml;
 
-  // 根据总宽度动态计算滚动周期，保证恒定舒适的移速 (约 65px/s)
-  // 在下一帧计算实际渲染宽度
   requestAnimationFrame(() => {
     const totalWidth = elTrack.scrollWidth;
     const halfWidth = totalWidth / 2;
-    // 移速约每 65px 耗费 1 秒
+    // Maintain a smooth translation velocity (~65px/s)
     const duration = Math.max(18, halfWidth / 65);
     elTrack.style.animationDuration = `${duration}s`;
   });
@@ -214,7 +206,7 @@ function initNotices() {
   renderSeamlessNotices();
 }
 
-// 6. 跨窗口通信监听
+// Inter-window BroadcastChannel listener
 function initSyncListener() {
   channel.onmessage = (event) => {
     const data = event.data;
@@ -231,7 +223,7 @@ function initSyncListener() {
   };
 }
 
-// 7. 内置快捷抽屉 (测试模式按 'C' 唤起)
+// In-browser quick setting drawer
 function initDrawer() {
   const drawer = document.getElementById('quickDrawer');
   if (!drawer) return;

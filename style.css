@@ -1,38 +1,34 @@
 /* ========================================================
-   Google Gemini Aura - 100% Clean Interior Edition (4K)
-   Canvas: 3840 x 2160 | Width: 2560px (2/3 Screen, Centered) | Height: 108px
-   Philosophy: Zero Interior Glare, Razor-sharp 2px Flowing Rim
-               with Subtle Outset-only Glow, Pure Obsidian Core.
+   Google Gemini Aura - 4K Clean HUD Overlay
+   Canvas: 3840 x 2160 | Width: 2560px | Height: 88px
+   Architecture: Zero Interior Glare, 2px Conic Rim with
+                 Outset-only Glow, Translucent Obsidian Core.
    ======================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@500;700;800;900&family=Noto+Sans+SC:wght@500;700;900&family=JetBrains+Mono:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@500;700;800;900&family=Noto+Sans+SC:wght@500;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap');
 
 :root {
-  /* ==========================================================
-     【OBS 自定义 CSS 配置区】
-     在 OBS 浏览器源属性面板底部的「自定义 CSS」中，
-     您可以直接修改下面三个变量的值，点击确定即可立即生效！
-     ========================================================== */
+  /* OBS Custom CSS live parameters */
   --brand-domain: "keita.cc";
   --game-title: "黑神话：悟空";
   --notices: "✨ 欢迎来到直播间！点赞关注不迷路，交流群：888-666-999 || 🌌 每天晚上 20:00 准时开播，感谢支持！ || 🎮 PC最高画质全景光追 | 欢迎弹幕互动点歌！";
 
   --canvas-width: 3840px;
   --canvas-height: 2160px;
-  --overlay-width: 2560px; /* 占据 2/3 宽度的悬浮胶囊 */
-  --overlay-height: 88px;  /* 纤薄修长机身，收窄上下留白 */
+  --overlay-width: 2560px;
+  --overlay-height: 88px;
 
-  /* 严谨统一的双层排版规范 */
-  --font-hero: 32px;       /* 核心主视觉字号：游戏标题、走马灯公告、时钟数字 */
-  --font-sub: 18px;        /* 辅助信息字号：keita.cc 域名、NOTICE 胶囊、日历日期 */
-  --font-label-sm: 14px;   /* 极简副标签：OFFICIAL SITE、星期标签 */
+  /* Typography scale */
+  --font-hero: 32px;
+  --font-sub: 18px;
+  --font-label-sm: 14px;
 
-  /* 通透暗曜石毛玻璃色彩 (中间增加通透透明感，透出游戏动态背景光影) */
+  /* Obsidian glass tokens */
   --bg-obsidian-translucent: rgba(10, 13, 18, 0.68);
   --bg-bay-clean: rgba(255, 255, 255, 0.04);
   --border-bay-clean: rgba(255, 255, 255, 0.08);
 
-  /* 纯净文字色 */
+  /* Text tokens */
   --text-main: #f8fafc;
   --text-pure-white: #ffffff;
   --text-muted: #8b9bb4;
@@ -55,7 +51,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ================= 4K 悬浮胶囊机架 (纯外围淡淡微晕，内部 100% 绝对纯黑，零透光) ================= */
+/* ================= Chassis & Gemini Conic Rim ================= */
 @property --rainbow-angle {
   syntax: '<angle>';
   initial-value: 0deg;
@@ -80,12 +76,10 @@ body {
   padding: 0 12px;
   gap: 10px;
 
-  /* 通透暗曜石毛玻璃 (半透明度 0.68，透出游戏背景但文字清晰锐利) */
   background: var(--bg-obsidian-translucent);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
 
-  /* 优雅圆润的大胶囊造型 */
   border-radius: 20px;
   box-shadow: 
     0 16px 36px rgba(0, 0, 0, 0.7),
@@ -95,7 +89,7 @@ body {
   overflow: visible;
 }
 
-/* 仅在边框上绘制 2px 彩虹流动线，并通过 drop-shadow 仅在外侧晕开淡淡 3px 微光，内部被 mask 绝对镂空 */
+/* 2px Conic rim masked with XOR to prevent interior bleeding */
 .overlay-container::before {
   content: '';
   position: absolute;
@@ -120,13 +114,10 @@ body {
   z-index: 2;
   opacity: 0.95;
 
-  /* 淡淡的一小圈贴边微光 (仅在外侧晕开 3px，内部被 mask 挖空，绝对 0 渗入) */
   filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.45));
 }
 
-/* 彻底删除 ::after 弥散模糊层，杜绝任何全向漫射 */
-
-/* ================= 模块 1: 左侧 - 个人主页品牌舱 (keita.cc) + 纯净频谱 ================= */
+/* ================= Bay 1: Brand Domain & Spectrum ================= */
 .panel-section {
   display: flex;
   align-items: center;
@@ -138,7 +129,6 @@ body {
   gap: 10px;
 }
 
-/* 紧凑纯净品牌胶囊 (纯粹单行大字) */
 .live-indicator-bay {
   display: flex;
   align-items: center;
@@ -160,7 +150,6 @@ body {
   flex-shrink: 0;
 }
 
-/* 纯净清晰的四芒星图标 */
 .sparkle-icon {
   width: 22px;
   height: 22px;
@@ -173,7 +162,6 @@ body {
   align-items: center;
 }
 
-/* keita.cc 主域名标签 (放大至 24px 单行大字，清晰醒目) */
 .brand-domain-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 24px;
@@ -183,7 +171,6 @@ body {
   line-height: 1;
 }
 
-/* 纯粹极光频谱表 (垂直居中排列，无多余文字标签) */
 .vu-meter-box {
   display: flex;
   align-items: center;
@@ -223,7 +210,7 @@ body {
   transition: height 0.15s ease-out;
 }
 
-/* ================= 模块 2: 中左 - 游戏标题 (纯粹文字，自适应包裹，通透半透明) ================= */
+/* ================= Bay 2: Game Title ================= */
 .game-panel {
   flex: 0 0 auto;
   max-width: 900px;
@@ -247,7 +234,6 @@ body {
   flex: 1;
 }
 
-/* 核心主字阶 32px (清晰纯白，字迹锐利) */
 .game-title {
   font-family: 'Google Sans', 'Noto Sans SC', sans-serif;
   font-size: var(--font-hero);
@@ -260,7 +246,7 @@ body {
   text-overflow: ellipsis;
 }
 
-/* ================= 模块 3: 中部 - 无缝无限循环公告栏 (通透半透明，首尾相接零空白) ================= */
+/* ================= Bay 3: Seamless Marquee Notice ================= */
 .notice-panel {
   flex: 1 1 0%;
   min-width: 400px;
@@ -276,7 +262,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) inset;
 }
 
-/* 纯净内嵌 公告 徽章 (放大字阶与图标，醒目大气) */
 .notice-badge {
   flex-shrink: 0;
   display: flex;
@@ -305,7 +290,6 @@ body {
   line-height: 1;
 }
 
-/* 无缝跑马灯视窗 */
 .notice-viewport {
   flex: 1 1 0%;
   overflow: hidden;
@@ -313,12 +297,10 @@ body {
   height: 42px;
   display: flex;
   align-items: center;
-  /* 左右两端极微弱边缘渐隐，让内容出入更加自然高级 */
   mask-image: linear-gradient(90deg, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%);
   -webkit-mask-image: linear-gradient(90deg, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%);
 }
 
-/* 无缝连续滚动双轨轨道 (首尾相接，向左平滑连续滑动到 -50% 瞬间重置) */
 .notice-track {
   display: flex;
   align-items: center;
@@ -333,7 +315,6 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* 单条公告项 (32px 统一主字阶) */
 .notice-item {
   display: inline-flex;
   align-items: center;
@@ -346,7 +327,6 @@ body {
   padding-right: 48px;
 }
 
-/* 公告之间的精致极光四芒星分隔符 */
 .notice-separator {
   display: inline-flex;
   align-items: center;
@@ -356,7 +336,7 @@ body {
   opacity: 0.85;
 }
 
-/* ================= 模块 4: 右侧 - 数字时钟与日期 (字号大幅放大，极度清晰醒目) ================= */
+/* ================= Bay 4: Digital Clock & Date ================= */
 .time-panel {
   flex: 0 0 auto;
   height: 70px;
@@ -378,7 +358,6 @@ body {
   justify-content: center;
 }
 
-/* 星期放大至 18px (清晰醒目) */
 .date-day {
   font-family: 'Google Sans', sans-serif;
   font-size: 18px;
@@ -389,7 +368,6 @@ body {
   text-transform: uppercase;
 }
 
-/* 日期放大至 24px (清晰醒目) */
 .date-calendar {
   font-family: 'JetBrains Mono', monospace;
   font-size: 24px;
@@ -400,7 +378,6 @@ body {
   margin-top: 2px;
 }
 
-/* 核心时钟大字显示 (大幅放大至 48px，字重 900，秒数 24px) */
 .clock-display {
   display: flex;
   align-items: baseline;
@@ -424,10 +401,10 @@ body {
   min-width: 30px;
 }
 
-/* 4K 快速设置抽屉 */
+/* Quick setting drawer */
 .quick-drawer {
   position: absolute;
-  top: 126px;
+  top: 106px;
   left: 50%;
   transform: translateX(-50%);
   width: 580px;
@@ -442,9 +419,11 @@ body {
   z-index: 1000;
   backdrop-filter: blur(20px);
 }
+
 .quick-drawer.active {
   display: flex;
 }
+
 .quick-drawer h3 {
   font-family: 'Google Sans', sans-serif;
   font-size: 19px;
@@ -453,6 +432,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
 .quick-drawer label {
   font-size: 14px;
   color: #94a3b8;
@@ -460,6 +440,7 @@ body {
   flex-direction: column;
   gap: 5px;
 }
+
 .quick-drawer input {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -469,16 +450,19 @@ body {
   font-size: 15px;
   font-family: inherit;
 }
+
 .quick-drawer input:focus {
   outline: none;
   border-color: #60a5fa;
   box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
 }
+
 .quick-drawer .drawer-actions {
   display: flex;
   gap: 10px;
   margin-top: 8px;
 }
+
 .quick-drawer button {
   flex: 1;
   background: rgba(255, 255, 255, 0.08);
@@ -490,6 +474,7 @@ body {
   font-size: 14px;
   font-weight: 700;
 }
+
 .quick-drawer button.btn-primary {
   background: linear-gradient(135deg, #4285f4 0%, #8b5cf6 50%, #ec4899 100%);
   border: none;
