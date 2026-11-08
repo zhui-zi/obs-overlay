@@ -1426,27 +1426,30 @@ body.mode-full .notice-panel {
 }
 
 body.mode-full .notice-badge {
-  font-size: 16px;
-  padding: 8px 18px;
-  border-radius: 10px;
+  padding: 6px 16px;
+  border-radius: 9999px;
 }
 
-body.mode-full .notice-badge .sparkle-icon {
-  width: 20px;
-  height: 20px;
+body.mode-full .notice-badge-text {
+  font-size: var(--font-hero);
+}
+
+body.mode-full .notice-badge-icon {
+  width: 24px;
+  height: 24px;
 }
 
 body.mode-full .notice-text-rail {
-  font-size: 34px;
+  font-size: var(--font-hero);
 }
 
 body.mode-full .notice-item {
-  font-size: 34px;
+  font-size: var(--font-hero);
 }
 
 body.mode-full .notice-item .sparkle-icon {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
 
 /* 2. Game Title Panel */
@@ -1459,7 +1462,7 @@ body.mode-full .game-panel {
 }
 
 body.mode-full .game-title {
-  font-size: 38px;
+  font-size: var(--font-hero);
 }
 
 /* 3. Brand Domain & Spectrum VU Meter */
@@ -1477,17 +1480,17 @@ body.mode-full .brand-domain-bay {
 }
 
 body.mode-full .brand-domain-bay .sparkle-housing {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
 }
 
 body.mode-full .brand-domain-bay .sparkle-icon {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
 }
 
 body.mode-full .brand-domain-label {
-  font-size: 38px;
+  font-size: var(--font-hero);
 }
 
 body.mode-full .vu-meter-box {
