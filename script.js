@@ -353,20 +353,21 @@ function initDrawer() {
   }
 }
 
-// ================= Multi-Theme Hanging Decor & Atmosphere FX =================
+// ================= Multi-Theme Hanging Decor & Bespoke Stage FX =================
 function initHangingDecor(theme) {
   const container = document.getElementById('festiveLights');
   if (!container) return;
 
   container.innerHTML = '';
-  if (theme === 'none' || theme === 'snow') return;
+  // Garland string lights are specifically tailored for 'lights' and 'both'
+  if (theme !== 'lights' && theme !== 'both') return;
 
   const swagCount = 5;
   const bulbsPerSwag = 7;
   const totalItems = swagCount * bulbsPerSwag;
   const maxSag = 24;
 
-  // 1. Build SVG Swag Wire
+  // 1. Build SVG Swag Wire across the top overlay
   const wireSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   wireSvg.setAttribute('class', 'festive-wire-svg');
   wireSvg.setAttribute('viewBox', '0 0 1000 48');
@@ -387,7 +388,7 @@ function initHangingDecor(theme) {
   wireSvg.appendChild(wirePath);
   container.appendChild(wireSvg);
 
-  // 2. Build Thematic Hanging Items
+  // 2. Build Cozy Glass Bulbs
   const track = document.createElement('div');
   track.className = 'festive-bulbs-track';
 
@@ -402,49 +403,13 @@ function initHangingDecor(theme) {
     socket.style.top = `${sagY.toFixed(1)}px`;
     socket.style.animationDelay = delay;
 
-    if (theme === 'newyear') {
-      // Chinese Red Lantern with Gold Wire and Tassel
-      socket.className = 'lantern-socket';
-      socket.innerHTML = `
-        <div class="lantern-gold-wire"></div>
-        <div class="lantern-body"></div>
-        <div class="lantern-tassel"></div>
-      `;
-    } else if (theme === 'halloween') {
-      // Jack-o'-Lanterns and Little Ghosties
-      socket.className = 'halloween-socket';
-      if (i % 2 === 0) {
-        socket.innerHTML = `
-          <div class="pumpkin-stem"></div>
-          <div class="pumpkin-face">🎃</div>
-        `;
-      } else {
-        socket.innerHTML = `
-          <div class="pumpkin-stem" style="background:transparent;"></div>
-          <div class="ghost-figure">👻</div>
-        `;
-      }
-    } else if (theme === 'romantic') {
-      // Rose Crystal Heart Windchime
-      socket.className = 'romantic-socket';
-      socket.innerHTML = `
-        <div class="romantic-silk-wire"></div>
-        <div class="crystal-heart">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-          </svg>
-        </div>
-      `;
-    } else {
-      // Standard Holiday Wave String Lights (lights or both)
-      const colorClass = lightColors[i % lightColors.length];
-      socket.className = `festive-bulb-socket ${colorClass}`;
-      socket.innerHTML = `
-        <div class="bulb-wire"></div>
-        <div class="bulb-cap"></div>
-        <div class="bulb-glass" style="animation-delay: ${-(i * 0.35).toFixed(2)}s;"></div>
-      `;
-    }
+    const colorClass = lightColors[i % lightColors.length];
+    socket.className = `festive-bulb-socket ${colorClass}`;
+    socket.innerHTML = `
+      <div class="bulb-wire"></div>
+      <div class="bulb-cap"></div>
+      <div class="bulb-glass" style="animation-delay: ${-(i * 0.35).toFixed(2)}s;"></div>
+    `;
 
     track.appendChild(socket);
   }
@@ -460,6 +425,7 @@ class AtmosphereParticleFX {
     this.active = false;
     this.animId = null;
     this.mode = 'none';
+    this.tick = 0;
     this.resize();
     window.addEventListener('resize', () => this.resize());
   }
@@ -481,20 +447,77 @@ class AtmosphereParticleFX {
   start() {
     this.active = true;
     this.particles = [];
-    const count = this.mode === 'romantic' ? 75 : (this.mode === 'newyear' ? 120 : 105);
+    this.tick = 0;
+
+    let count = 90;
+    if (this.mode === 'romantic') count = 65;
+    else if (this.mode === 'newyear') count = 110;
+    else if (this.mode === 'halloween') count = 75;
 
     for (let i = 0; i < count; i++) {
-      this.particles.push({
-        x: Math.random() * 3840,
-        y: Math.random() * 2160,
-        radius: Math.random() * 2.8 + 1.2,
-        density: Math.random() * 1.2 + 0.6,
-        alpha: Math.random() * 0.65 + 0.25,
-        windPhase: Math.random() * Math.PI * 2,
-        windSpeed: Math.random() * 0.015 + 0.008,
-        angle: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.04
-      });
+      if (this.mode === 'romantic') {
+        // Falling Sakura Petals & Gentle Bokeh
+        this.particles.push({
+          x: Math.random() * 3840,
+          y: Math.random() * 2160,
+          w: Math.random() * 12 + 10,
+          h: Math.random() * 16 + 14,
+          speedY: Math.random() * 1.5 + 1.1,
+          speedX: Math.random() * 0.8 + 0.4,
+          windPhase: Math.random() * Math.PI * 2,
+          windSpeed: Math.random() * 0.02 + 0.008,
+          rotZ: Math.random() * Math.PI * 2,
+          rotSpeedZ: (Math.random() - 0.5) * 0.035,
+          pitchAngle: Math.random() * Math.PI * 2,
+          pitchSpeed: Math.random() * 0.04 + 0.015,
+          alpha: Math.random() * 0.55 + 0.35,
+          isSparkle: i % 5 === 0
+        });
+      } else if (this.mode === 'newyear') {
+        // Golden Foil Flecks & Celebration Embers
+        const isEmber = i % 3 === 0;
+        this.particles.push({
+          x: Math.random() * 3840,
+          y: Math.random() * 2160,
+          size: isEmber ? Math.random() * 3 + 1.5 : Math.random() * 6 + 3,
+          speedY: isEmber ? -(Math.random() * 1.4 + 0.8) : (Math.random() * 1.6 + 1.0),
+          speedX: (Math.random() - 0.5) * 1.2,
+          rot: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.05,
+          alpha: Math.random() * 0.7 + 0.3,
+          isEmber: isEmber,
+          color: isEmber 
+            ? (i % 2 === 0 ? '#ef4444' : '#f59e0b') 
+            : (i % 4 === 0 ? '#fde047' : '#fbbf24')
+        });
+      } else if (this.mode === 'halloween') {
+        // Will-o'-the-Wisps & Spooky Rising Embers
+        const isWisp = i < 10;
+        this.particles.push({
+          x: Math.random() * 3840,
+          y: Math.random() * 2160,
+          isWisp: isWisp,
+          radius: isWisp ? Math.random() * 14 + 10 : Math.random() * 3 + 1.5,
+          vx: isWisp ? (Math.random() - 0.5) * 1.5 : (Math.random() - 0.5) * 0.8,
+          vy: isWisp ? (Math.random() - 0.5) * 1.2 : -(Math.random() * 1.5 + 0.8),
+          trail: [],
+          alpha: isWisp ? Math.random() * 0.4 + 0.35 : Math.random() * 0.65 + 0.25,
+          color: isWisp
+            ? (i % 2 === 0 ? 'rgba(168, 85, 247,' : 'rgba(56, 189, 248,')
+            : (i % 3 === 0 ? '#f97316' : (i % 3 === 1 ? '#a855f7' : '#84cc16'))
+        });
+      } else {
+        // Winter Snowfall
+        this.particles.push({
+          x: Math.random() * 3840,
+          y: Math.random() * 2160,
+          radius: Math.random() * 2.8 + 1.2,
+          speedY: Math.random() * 1.4 + 0.8,
+          alpha: Math.random() * 0.65 + 0.3,
+          windPhase: Math.random() * Math.PI * 2,
+          windSpeed: Math.random() * 0.015 + 0.008
+        });
+      }
     }
 
     if (!this.animId) {
@@ -514,62 +537,149 @@ class AtmosphereParticleFX {
   render() {
     if (!this.active) return;
     const ctx = this.ctx;
+    this.tick++;
     ctx.clearRect(0, 0, 3840, 2160);
 
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
-      p.windPhase += p.windSpeed;
-      p.angle += p.rotSpeed;
-      p.y += p.density * 1.15;
-      p.x += Math.sin(p.windPhase) * (this.mode === 'romantic' ? 1.4 : 0.85);
-
-      if (p.y > 2160) {
-        p.y = -15;
-        p.x = Math.random() * 3840;
-      }
-      if (p.x > 3840) p.x = 0;
-      else if (p.x < 0) p.x = 3840;
-
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.angle);
 
       if (this.mode === 'romantic') {
-        // Falling Soft Sakura Petal
-        ctx.beginPath();
-        ctx.ellipse(0, 0, p.radius * 2.2, p.radius * 1.1, 0, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(251, 113, 133, ${p.alpha * 0.85})`;
-        ctx.shadowColor = 'rgba(251, 113, 133, 0.5)';
-        ctx.shadowBlur = p.radius * 2;
-        ctx.fill();
+        p.windPhase += p.windSpeed;
+        p.rotZ += p.rotSpeedZ;
+        p.pitchAngle += p.pitchSpeed;
+        p.y += p.speedY;
+        p.x += p.speedX + Math.sin(p.windPhase) * 1.2;
+
+        if (p.y > 2180) {
+          p.y = -20;
+          p.x = Math.random() * 3840;
+        }
+        if (p.x > 3860) p.x = -20;
+        else if (p.x < -20) p.x = 3860;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotZ);
+
+        if (p.isSparkle) {
+          // Warm romantic starlight dust
+          ctx.beginPath();
+          ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(254, 205, 211, ${p.alpha * 0.9})`;
+          ctx.shadowColor = '#fb7185';
+          ctx.shadowBlur = 10;
+          ctx.fill();
+        } else {
+          // 3D Flipping Cherry Blossom Petal
+          const scaleY = Math.cos(p.pitchAngle);
+          ctx.scale(1, scaleY);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.w * 0.5, p.h * 0.5, 0, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(251, 113, 133, ${p.alpha * 0.88})`;
+          ctx.shadowColor = 'rgba(251, 113, 133, 0.45)';
+          ctx.shadowBlur = 8;
+          ctx.fill();
+        }
+        ctx.restore();
+
       } else if (this.mode === 'newyear') {
-        // Golden Festive Sparkle / Gold Dust
+        p.rot += p.rotSpeed;
+        p.y += p.speedY;
+        p.x += p.speedX + Math.sin(this.tick * 0.02 + i) * 0.4;
+
+        if (p.isEmber) {
+          if (p.y < -20) {
+            p.y = 2180;
+            p.x = Math.random() * 3840;
+          }
+        } else {
+          if (p.y > 2180) {
+            p.y = -20;
+            p.x = Math.random() * 3840;
+          }
+        }
+        if (p.x > 3860) p.x = -20;
+        else if (p.x < -20) p.x = 3860;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+
         ctx.beginPath();
-        ctx.arc(0, 0, p.radius * 1.1, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(251, 191, 36, ${p.alpha * 0.9})`;
-        ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
-        ctx.shadowBlur = p.radius * 3;
+        if (p.isEmber) {
+          ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 12;
+        } else {
+          // Gilded gold foil diamond
+          ctx.rect(-p.size * 0.5, -p.size * 0.5, p.size, p.size * 0.7);
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = '#f59e0b';
+          ctx.shadowBlur = 8;
+        }
         ctx.fill();
+        ctx.restore();
+
       } else if (this.mode === 'halloween') {
-        // Spooky Eerie Wisp / Ember
-        ctx.beginPath();
-        ctx.arc(0, 0, p.radius * 1.2, 0, Math.PI * 2);
-        const hue = i % 2 === 0 ? 'rgba(249, 115, 22,' : 'rgba(168, 85, 247,';
-        ctx.fillStyle = `${hue} ${p.alpha * 0.85})`;
-        ctx.shadowColor = i % 2 === 0 ? '#f97316' : '#a855f7';
-        ctx.shadowBlur = p.radius * 3.5;
-        ctx.fill();
+        if (p.isWisp) {
+          // Wandering Ghostly Will-o'-the-Wisp
+          p.x += p.vx + Math.sin(this.tick * 0.015 + i) * 1.4;
+          p.y += p.vy + Math.cos(this.tick * 0.012 + i) * 1.2;
+
+          if (p.x < 100 || p.x > 3740) p.vx *= -1;
+          if (p.y < 80 || p.y > 2080) p.vy *= -1;
+
+          // Trail handling
+          p.trail.unshift({ x: p.x, y: p.y });
+          if (p.trail.length > 5) p.trail.pop();
+
+          for (let t = 0; t < p.trail.length; t++) {
+            const tr = p.trail[t];
+            const tAlpha = (p.alpha * (1 - t / p.trail.length) * 0.5).toFixed(2);
+            ctx.beginPath();
+            ctx.arc(tr.x, tr.y, p.radius * (1 - t * 0.15), 0, Math.PI * 2);
+            ctx.fillStyle = `${p.color} ${tAlpha})`;
+            ctx.shadowColor = p.color.includes('168') ? '#a855f7' : '#38bdf8';
+            ctx.shadowBlur = 18;
+            ctx.fill();
+          }
+        } else {
+          // Rising Spooky Ember
+          p.y += p.vy;
+          p.x += p.vx + Math.sin(this.tick * 0.03 + i) * 0.6;
+          if (p.y < -20) {
+            p.y = 2180;
+            p.x = Math.random() * 3840;
+          }
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 10;
+          ctx.fill();
+        }
+
       } else {
-        // Winter Snowfall Crystal
+        // Winter Snowfall
+        p.windPhase += p.windSpeed;
+        p.y += p.speedY;
+        p.x += Math.sin(p.windPhase) * 0.85;
+
+        if (p.y > 2180) {
+          p.y = -20;
+          p.x = Math.random() * 3840;
+        }
+        if (p.x > 3860) p.x = -20;
+        else if (p.x < -20) p.x = 3860;
+
         ctx.beginPath();
-        ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-        ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
-        ctx.shadowBlur = p.radius * 2;
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.7)';
+        ctx.shadowBlur = 6;
         ctx.fill();
       }
-
-      ctx.restore();
     }
 
     this.animId = requestAnimationFrame(() => this.render());

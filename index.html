@@ -23,11 +23,322 @@
     </defs>
   </svg>
 
+  <!-- Full-Screen Bespoke Thematic Stage Decoration Layer -->
+  <div class="stage-decor-layer" id="stageDecorLayer" aria-hidden="true">
+
+    <!-- 1. Chinese Lunar New Year Stage: Grand Flanking Palace Lanterns & Auspicious Clouds -->
+    <div class="theme-stage-newyear">
+      <!-- Auspicious Golden Cloud Filigree Corners -->
+      <div class="cn-cloud cn-cloud-left">
+        <svg viewBox="0 0 240 140" class="svg-cn-cloud">
+          <defs>
+            <linearGradient id="cnGoldGradL" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a" />
+              <stop offset="45%" stop-color="#f59e0b" />
+              <stop offset="100%" stop-color="#b45309" />
+            </linearGradient>
+            <filter id="cnGlowL" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <path d="M 12 12 C 45 12, 65 28, 80 48 C 100 32, 138 38, 152 64 C 178 54, 212 68, 222 100 C 232 130, 195 138, 170 132 C 142 126, 122 112, 108 118 C 82 128, 46 112, 36 92 C 16 92, 6 68, 16 48 C 6 38, 6 18, 12 12 Z" fill="url(#cnGoldGradL)" opacity="0.88" filter="url(#cnGlowL)"/>
+          <path d="M 28 38 Q 54 22 84 44 Q 114 28 144 58 Q 174 48 196 78" fill="none" stroke="#fef08a" stroke-width="2.5" opacity="0.95"/>
+          <circle cx="98" cy="58" r="4" fill="#fef08a" />
+          <circle cx="154" cy="78" r="3.5" fill="#fef08a" />
+        </svg>
+      </div>
+
+      <div class="cn-cloud cn-cloud-right">
+        <svg viewBox="0 0 240 140" class="svg-cn-cloud" style="transform: scaleX(-1);">
+          <path d="M 12 12 C 45 12, 65 28, 80 48 C 100 32, 138 38, 152 64 C 178 54, 212 68, 222 100 C 232 130, 195 138, 170 132 C 142 126, 122 112, 108 118 C 82 128, 46 112, 36 92 C 16 92, 6 68, 16 48 C 6 38, 6 18, 12 12 Z" fill="url(#cnGoldGradL)" opacity="0.88" filter="url(#cnGlowL)"/>
+          <path d="M 28 38 Q 54 22 84 44 Q 114 28 144 58 Q 174 48 196 78" fill="none" stroke="#fef08a" stroke-width="2.5" opacity="0.95"/>
+          <circle cx="98" cy="58" r="4" fill="#fef08a" />
+          <circle cx="154" cy="78" r="3.5" fill="#fef08a" />
+        </svg>
+      </div>
+
+      <!-- Left Grand Imperial Palace Lantern -->
+      <div class="cn-palace-lantern lantern-pos-left">
+        <div class="lantern-suspension-cord"></div>
+        <div class="lantern-knot">
+          <svg viewBox="0 0 40 40" class="svg-knot">
+            <rect x="12" y="12" width="16" height="16" rx="3" transform="rotate(45 20 20)" fill="#b91c1c" stroke="#fde047" stroke-width="2.2"/>
+            <circle cx="20" cy="20" r="4.2" fill="#fde047"/>
+          </svg>
+        </div>
+        <div class="lantern-roof">
+          <svg viewBox="0 0 120 40" class="svg-roof">
+            <path d="M 8 38 Q 60 10 112 38 L 98 12 Q 60 4 22 12 Z" fill="#991b1b" stroke="#fde047" stroke-width="2"/>
+            <circle cx="60" cy="6" r="5" fill="#fde047"/>
+            <circle cx="10" cy="36" r="3.2" fill="#fde047"/>
+            <circle cx="110" cy="36" r="3.2" fill="#fde047"/>
+          </svg>
+        </div>
+        <div class="lantern-silk-globe">
+          <div class="globe-ribs"></div>
+          <span class="globe-seal-text">福</span>
+        </div>
+        <div class="lantern-base">
+          <svg viewBox="0 0 90 24" class="svg-base">
+            <path d="M 15 2 Q 45 22 75 2 L 65 20 Q 45 24 25 20 Z" fill="#991b1b" stroke="#fde047" stroke-width="2"/>
+            <circle cx="45" cy="18" r="4" fill="#fde047"/>
+          </svg>
+        </div>
+        <div class="lantern-tassel-cluster">
+          <div class="tassel-jade-bead"></div>
+          <div class="tassel-fringes">
+            <div class="tassel-fringe tassel-fringe-1"></div>
+            <div class="tassel-fringe tassel-fringe-2"></div>
+            <div class="tassel-fringe tassel-fringe-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Grand Imperial Palace Lantern -->
+      <div class="cn-palace-lantern lantern-pos-right">
+        <div class="lantern-suspension-cord"></div>
+        <div class="lantern-knot">
+          <svg viewBox="0 0 40 40" class="svg-knot">
+            <rect x="12" y="12" width="16" height="16" rx="3" transform="rotate(45 20 20)" fill="#b91c1c" stroke="#fde047" stroke-width="2.2"/>
+            <circle cx="20" cy="20" r="4.2" fill="#fde047"/>
+          </svg>
+        </div>
+        <div class="lantern-roof">
+          <svg viewBox="0 0 120 40" class="svg-roof">
+            <path d="M 8 38 Q 60 10 112 38 L 98 12 Q 60 4 22 12 Z" fill="#991b1b" stroke="#fde047" stroke-width="2"/>
+            <circle cx="60" cy="6" r="5" fill="#fde047"/>
+            <circle cx="10" cy="36" r="3.2" fill="#fde047"/>
+            <circle cx="110" cy="36" r="3.2" fill="#fde047"/>
+          </svg>
+        </div>
+        <div class="lantern-silk-globe">
+          <div class="globe-ribs"></div>
+          <span class="globe-seal-text">春</span>
+        </div>
+        <div class="lantern-base">
+          <svg viewBox="0 0 90 24" class="svg-base">
+            <path d="M 15 2 Q 45 22 75 2 L 65 20 Q 45 24 25 20 Z" fill="#991b1b" stroke="#fde047" stroke-width="2"/>
+            <circle cx="45" cy="18" r="4" fill="#fde047"/>
+          </svg>
+        </div>
+        <div class="lantern-tassel-cluster">
+          <div class="tassel-jade-bead"></div>
+          <div class="tassel-fringes">
+            <div class="tassel-fringe tassel-fringe-1"></div>
+            <div class="tassel-fringe tassel-fringe-2"></div>
+            <div class="tassel-fringe tassel-fringe-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Halloween Night Stage: Cobweb & Spider, Spooky Gnarled Tree with Eyes, Flying Bats & Jack-o'-Lantern -->
+    <div class="theme-stage-halloween">
+      <!-- Top-Left Spooky Cobweb & Dangling Spider -->
+      <div class="hl-web-corner">
+        <svg viewBox="0 0 340 340" class="svg-spiderweb">
+          <path d="M 0 0 L 320 0 M 0 0 L 280 160 M 0 0 L 210 250 M 0 0 L 110 300 M 0 0 L 0 320" stroke="rgba(216, 180, 254, 0.45)" stroke-width="1.6" fill="none"/>
+          <path d="M 90 0 Q 80 40 0 90 M 170 0 Q 145 80 0 170 M 245 0 Q 210 125 0 245 M 315 0 Q 260 180 0 315" stroke="rgba(216, 180, 254, 0.35)" stroke-width="1.3" fill="none"/>
+          <path d="M 55 0 Q 50 24 0 55 M 130 0 Q 110 60 0 130 M 205 0 Q 175 100 0 205 M 280 0 Q 235 150 0 280" stroke="rgba(216, 180, 254, 0.25)" stroke-width="1.1" fill="none"/>
+        </svg>
+        <div class="hl-spider-anchor">
+          <div class="hl-spider-thread"></div>
+          <div class="hl-spider">
+            <svg viewBox="0 0 36 36" class="svg-spider">
+              <ellipse cx="18" cy="22" rx="7" ry="9" fill="#18181b" stroke="#a855f7" stroke-width="1.5"/>
+              <circle cx="18" cy="12" r="5" fill="#27272a" stroke="#a855f7" stroke-width="1.5"/>
+              <circle cx="16" cy="11" r="1.3" fill="#ef4444"/>
+              <circle cx="20" cy="11" r="1.3" fill="#ef4444"/>
+              <path d="M 14 12 Q 4 8 2 16 M 22 12 Q 32 8 34 16 M 14 16 Q 2 18 3 26 M 22 16 Q 34 18 33 26 M 14 20 Q 2 24 5 32 M 22 20 Q 34 24 31 32 M 15 24 Q 5 32 10 36 M 21 24 Q 31 32 26 36" stroke="#c084fc" stroke-width="1.4" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top-Right Gnarled Spooky Tree Branch with Glowing Eyes -->
+      <div class="hl-tree-corner">
+        <svg viewBox="0 0 460 300" class="svg-spooky-tree">
+          <path d="M 460 20 Q 380 60 320 50 Q 260 40 220 80 Q 180 120 140 100 Q 100 80 60 120 M 320 50 Q 290 10 240 15 M 340 55 Q 310 110 250 140 M 220 80 Q 190 60 160 50 M 170 110 Q 140 160 90 170 M 250 140 Q 220 190 180 200 M 140 100 Q 110 130 80 125" stroke="#09090b" stroke-width="14" stroke-linecap="round" fill="none" filter="drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95))"/>
+          <path d="M 460 20 Q 380 60 320 50 Q 260 40 220 80 Q 180 120 140 100 Q 100 80 60 120 M 320 50 Q 290 10 240 15 M 340 55 Q 310 110 250 140 M 220 80 Q 190 60 160 50 M 170 110 Q 140 160 90 170 M 250 140 Q 220 190 180 200 M 140 100 Q 110 130 80 125" stroke="#1f1d2b" stroke-width="7" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="hl-glowing-eyes">
+          <span class="eye eye-l"></span>
+          <span class="eye eye-r"></span>
+        </div>
+      </div>
+
+      <!-- Atmospheric Flying Bats Across Viewport -->
+      <div class="hl-bat-flock">
+        <div class="hl-bat bat-1">
+          <svg viewBox="0 0 48 24" class="svg-bat">
+            <path d="M 24 16 Q 20 6 8 8 Q 14 16 10 22 Q 18 18 24 20 Q 30 18 38 22 Q 34 16 40 8 Q 28 6 24 16 Z" fill="#09090b"/>
+          </svg>
+        </div>
+        <div class="hl-bat bat-2">
+          <svg viewBox="0 0 48 24" class="svg-bat">
+            <path d="M 24 16 Q 20 6 8 8 Q 14 16 10 22 Q 18 18 24 20 Q 30 18 38 22 Q 34 16 40 8 Q 28 6 24 16 Z" fill="#09090b"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Bottom-Right Glowing Jack-o'-Lantern -->
+      <div class="hl-pumpkin-corner">
+        <svg viewBox="0 0 160 140" class="svg-pumpkin">
+          <defs>
+            <radialGradient id="pumpkinSkinGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fb923c"/>
+              <stop offset="70%" stop-color="#ea580c"/>
+              <stop offset="100%" stop-color="#7c2d12"/>
+            </radialGradient>
+            <filter id="pumpkinFlameGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+          </defs>
+          <path d="M 75 25 Q 70 8 85 4 Q 90 12 85 24 Z" fill="#4d7c0f"/>
+          <ellipse cx="80" cy="80" rx="68" ry="52" fill="url(#pumpkinSkinGrad)" filter="drop-shadow(0 10px 24px rgba(0,0,0,0.85))"/>
+          <ellipse cx="80" cy="80" rx="46" ry="51" fill="none" stroke="#7c2d12" stroke-width="2.5" opacity="0.6"/>
+          <ellipse cx="80" cy="80" rx="24" ry="50" fill="none" stroke="#7c2d12" stroke-width="2.5" opacity="0.6"/>
+          <g class="pumpkin-candle-flame" filter="url(#pumpkinFlameGlow)">
+            <polygon points="52,65 64,55 60,72" fill="#fef08a"/>
+            <polygon points="108,65 96,55 100,72" fill="#fef08a"/>
+            <polygon points="80,72 75,82 85,82" fill="#fef08a"/>
+            <path d="M 44 92 Q 80 125 116 92 Q 106 106 98 96 Q 92 110 80 98 Q 68 110 62 96 Q 54 106 44 92 Z" fill="#fef08a"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 3. Romantic Sakura Stage: Lush Flowering Branches & Petal Accents -->
+    <div class="theme-stage-romantic">
+      <!-- Top-Right Lush Flowering Sakura Branch -->
+      <div class="rm-branch-corner rm-branch-right">
+        <svg viewBox="0 0 540 400" class="svg-sakura-branch">
+          <defs>
+            <linearGradient id="sakuraPetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="45%" stop-color="#fbcfe8"/>
+              <stop offset="100%" stop-color="#f43f5e"/>
+            </linearGradient>
+            <filter id="sakuraSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+          </defs>
+          <path d="M 540 40 Q 420 80 340 70 Q 250 60 180 130 Q 120 190 40 210 M 340 70 Q 300 130 220 170 M 240 65 Q 210 20 150 15 M 180 130 Q 160 180 110 210 M 260 150 Q 230 220 160 250" stroke="#3f2723" stroke-width="10" stroke-linecap="round" fill="none" filter="drop-shadow(0 6px 16px rgba(0,0,0,0.65))"/>
+          <path d="M 540 40 Q 420 80 340 70 Q 250 60 180 130 Q 120 190 40 210 M 340 70 Q 300 130 220 170 M 240 65 Q 210 20 150 15 M 180 130 Q 160 180 110 210 M 260 150 Q 230 220 160 250" stroke="#5d4037" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+          <!-- Clustered 5-Petal Blossoms -->
+          <g transform="translate(180, 130)" filter="url(#sakuraSoftGlow)">
+            <ellipse cx="0" cy="-14" rx="7" ry="12" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="13" cy="-4" rx="7" ry="12" transform="rotate(72 13 -4)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="8" cy="11" rx="7" ry="12" transform="rotate(144 8 11)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-8" cy="11" rx="7" ry="12" transform="rotate(216 -8 11)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-13" cy="-4" rx="7" ry="12" transform="rotate(288 -13 -4)" fill="url(#sakuraPetalGrad)"/>
+            <circle cx="0" cy="0" r="4" fill="#fb7185"/>
+            <circle cx="0" cy="0" r="2" fill="#fde047"/>
+          </g>
+          <g transform="translate(240, 65)">
+            <ellipse cx="0" cy="-12" rx="6" ry="10" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="11" cy="-4" rx="6" ry="10" transform="rotate(72 11 -4)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="7" cy="10" rx="6" ry="10" transform="rotate(144 7 10)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-7" cy="10" rx="6" ry="10" transform="rotate(216 -7 10)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-11" cy="-4" rx="6" ry="10" transform="rotate(288 -11 -4)" fill="url(#sakuraPetalGrad)"/>
+            <circle cx="0" cy="0" r="3" fill="#fb7185"/>
+            <circle cx="0" cy="0" r="1.5" fill="#fde047"/>
+          </g>
+          <g transform="translate(42, 210)" filter="url(#sakuraSoftGlow)">
+            <ellipse cx="0" cy="-13" rx="6.5" ry="11" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="12" cy="-4" rx="6.5" ry="11" transform="rotate(72 12 -4)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="8" cy="10" rx="6.5" ry="11" transform="rotate(144 8 10)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-8" cy="10" rx="6.5" ry="11" transform="rotate(216 -8 10)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-12" cy="-4" rx="6.5" ry="11" transform="rotate(288 -12 -4)" fill="url(#sakuraPetalGrad)"/>
+            <circle cx="0" cy="0" r="3" fill="#fb7185"/>
+            <circle cx="0" cy="0" r="1.5" fill="#fde047"/>
+          </g>
+          <g transform="translate(340, 70)">
+            <ellipse cx="0" cy="-11" rx="5.5" ry="9" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="10" cy="-3" rx="5.5" ry="9" transform="rotate(72 10 -3)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="6" cy="9" rx="5.5" ry="9" transform="rotate(144 6 9)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-6" cy="9" rx="5.5" ry="9" transform="rotate(216 -6 9)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-10" cy="-3" rx="5.5" ry="9" transform="rotate(288 -10 -3)" fill="url(#sakuraPetalGrad)"/>
+            <circle cx="0" cy="0" r="2.5" fill="#fb7185"/>
+          </g>
+          <g transform="translate(160, 250)">
+            <ellipse cx="0" cy="-11" rx="5.5" ry="9" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="10" cy="-3" rx="5.5" ry="9" transform="rotate(72 10 -3)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="6" cy="9" rx="5.5" ry="9" transform="rotate(144 6 9)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-6" cy="9" rx="5.5" ry="9" transform="rotate(216 -6 9)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-10" cy="-3" rx="5.5" ry="9" transform="rotate(288 -10 -3)" fill="url(#sakuraPetalGrad)"/>
+            <circle cx="0" cy="0" r="2.5" fill="#fb7185"/>
+          </g>
+          <circle cx="140" cy="15" r="4.5" fill="#f43f5e"/>
+          <circle cx="148" cy="12" r="3.5" fill="#fbcfe8"/>
+          <circle cx="100" cy="215" r="4" fill="#f43f5e"/>
+        </svg>
+      </div>
+
+      <!-- Top-Left Sakura Sprig -->
+      <div class="rm-branch-corner rm-branch-left">
+        <svg viewBox="0 0 360 260" class="svg-sakura-branch">
+          <path d="M 0 30 Q 100 50 160 45 Q 230 40 280 90 Q 320 130 350 170 M 160 45 Q 180 95 240 120" stroke="#3f2723" stroke-width="8" stroke-linecap="round" fill="none" filter="drop-shadow(0 6px 14px rgba(0,0,0,0.65))"/>
+          <path d="M 0 30 Q 100 50 160 45 Q 230 40 280 90 Q 320 130 350 170 M 160 45 Q 180 95 240 120" stroke="#5d4037" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <g transform="translate(280, 90)">
+            <ellipse cx="0" cy="-12" rx="6" ry="10" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="11" cy="-4" rx="6" ry="10" transform="rotate(72 11 -4)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="7" cy="10" rx="6" ry="10" transform="rotate(144 7 10)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-7" cy="10" rx="6" ry="10" transform="rotate(216 -7 10)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-11" cy="-4" rx="6" ry="10" transform="rotate(288 -11 -4)" fill="url(#sakuraPetalGrad)"/>
+            <circle cx="0" cy="0" r="3" fill="#fb7185"/>
+            <circle cx="0" cy="0" r="1.5" fill="#fde047"/>
+          </g>
+          <g transform="translate(160, 45)">
+            <ellipse cx="0" cy="-10" rx="5" ry="8" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="9" cy="-3" rx="5" ry="8" transform="rotate(72 9 -3)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="6" cy="8" rx="5" ry="8" transform="rotate(144 6 8)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-6" cy="8" rx="5" ry="8" transform="rotate(216 -6 8)" fill="url(#sakuraPetalGrad)"/>
+            <ellipse cx="-9" cy="-3" rx="5" ry="8" transform="rotate(288 -9 -3)" fill="url(#sakuraPetalGrad)"/>
+            <circle cx="0" cy="0" r="2.5" fill="#fb7185"/>
+          </g>
+          <circle cx="345" cy="170" r="4.5" fill="#f43f5e"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 4. Winter Frost Stage: Crystalline Ice Vines in Corners -->
+    <div class="theme-stage-frost">
+      <div class="frost-corner frost-left">
+        <svg viewBox="0 0 280 160" class="svg-frost">
+          <path d="M 0 0 L 280 0 C 240 20, 200 50, 180 30 C 150 10, 130 70, 100 40 C 70 10, 60 110, 35 70 C 12 30, 22 150, 0 160 Z" fill="rgba(224, 242, 254, 0.28)" filter="drop-shadow(0 0 10px rgba(186, 230, 253, 0.7))"/>
+          <polygon points="40,0 45,55 49,0" fill="rgba(255, 255, 255, 0.75)"/>
+          <polygon points="100,0 104,78 108,0" fill="rgba(255, 255, 255, 0.8)"/>
+          <polygon points="165,0 168,42 172,0" fill="rgba(255, 255, 255, 0.65)"/>
+          <polygon points="225,0 228,30 231,0" fill="rgba(255, 255, 255, 0.55)"/>
+        </svg>
+      </div>
+      <div class="frost-corner frost-right">
+        <svg viewBox="0 0 280 160" class="svg-frost" style="transform: scaleX(-1);">
+          <path d="M 0 0 L 280 0 C 240 20, 200 50, 180 30 C 150 10, 130 70, 100 40 C 70 10, 60 110, 35 70 C 12 30, 22 150, 0 160 Z" fill="rgba(224, 242, 254, 0.28)" filter="drop-shadow(0 0 10px rgba(186, 230, 253, 0.7))"/>
+          <polygon points="40,0 45,55 49,0" fill="rgba(255, 255, 255, 0.75)"/>
+          <polygon points="100,0 104,78 108,0" fill="rgba(255, 255, 255, 0.8)"/>
+          <polygon points="165,0 168,42 172,0" fill="rgba(255, 255, 255, 0.65)"/>
+          <polygon points="225,0 228,30 231,0" fill="rgba(255, 255, 255, 0.55)"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
   <!-- 4K Suspended Capsule HUD -->
   <header class="overlay-container">
     
-    <!-- Top Hanging Festive Holiday String Lights -->
+    <!-- Top Hanging Festive Holiday Garland String Lights (For 'lights' & 'both' modes) -->
     <div class="festive-lights-rig" id="festiveLights"></div>
+
+    <!-- Thematic HUD Corner Filigree Accents -->
+    <div class="hud-corner-accent hud-corner-tl"></div>
+    <div class="hud-corner-accent hud-corner-tr"></div>
     
     <!-- Left Bay: Brand Domain & Spectrum VU Meter -->
     <div class="panel-section left-panel">
@@ -119,12 +430,12 @@
       Festive Effect:
       <select id="inputEffect">
         <option value="none">None (Standard Aura)</option>
-        <option value="lights">Hanging Festive Lights</option>
-        <option value="snow">Winter Snowfall</option>
-        <option value="both">Lights + Snowfall</option>
-        <option value="newyear">🧧 Chinese New Year (Lanterns & Gold Dust)</option>
-        <option value="halloween">🎃 Halloween Night (Pumpkins & Spooky Wisps)</option>
-        <option value="romantic">🌸 Romantic Sakura (Crystal Hearts & Petals)</option>
+        <option value="lights">🎄 Festive Garland Lights</option>
+        <option value="snow">❄️ Winter Frost & Snowfall</option>
+        <option value="both">✨ Garland Lights + Snowfall</option>
+        <option value="newyear">🧧 Chinese New Year (Grand Palace Lanterns & Auspicious Gold Dust)</option>
+        <option value="halloween">🎃 Halloween Night (Cobweb, Spider, Spooky Tree & Jack-o'-Lantern)</option>
+        <option value="romantic">🌸 Romantic Sakura (Blooming Cherry Branches & Hanafubuki Petal Storm)</option>
       </select>
     </label>
     <div class="drawer-actions">

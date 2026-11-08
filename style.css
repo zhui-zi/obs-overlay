@@ -593,10 +593,7 @@ body.effect-romantic .snow-canvas {
 }
 
 body.effect-lights .festive-lights-rig,
-body.effect-both .festive-lights-rig,
-body.effect-newyear .festive-lights-rig,
-body.effect-halloween .festive-lights-rig,
-body.effect-romantic .festive-lights-rig {
+body.effect-both .festive-lights-rig {
   display: block;
 }
 
@@ -691,7 +688,49 @@ body.effect-romantic .festive-lights-rig {
   100% { opacity: 1; filter: brightness(1.25); }
 }
 
-/* ================= 1. Chinese Lunar New Year Theme ================= */
+/* ================= Bespoke Full-Screen Ambient Stage Decorations ================= */
+.stage-decor-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3840px;
+  height: 2160px;
+  pointer-events: none;
+  z-index: 90;
+  overflow: hidden;
+}
+
+.theme-stage-newyear,
+.theme-stage-halloween,
+.theme-stage-romantic,
+.theme-stage-frost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3840px;
+  height: 2160px;
+  pointer-events: none;
+  display: none;
+}
+
+body.effect-newyear .theme-stage-newyear {
+  display: block;
+}
+
+body.effect-halloween .theme-stage-halloween {
+  display: block;
+}
+
+body.effect-romantic .theme-stage-romantic {
+  display: block;
+}
+
+body.effect-snow .theme-stage-frost,
+body.effect-both .theme-stage-frost {
+  display: block;
+}
+
+/* ================= 1. Chinese Lunar New Year Bespoke Stage ================= */
 body.effect-newyear .overlay-container {
   box-shadow: 
     0 16px 36px rgba(0, 0, 0, 0.7),
@@ -712,44 +751,209 @@ body.effect-newyear .overlay-container::before {
     drop-shadow(0 0 30px rgba(220, 38, 38, 0.55));
 }
 
-body.effect-newyear .festive-wire-path {
-  stroke: rgba(217, 119, 6, 0.75);
+/* HUD Corner Filigree Accents */
+.hud-corner-accent {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.lantern-socket {
-  position: relative;
+.hud-corner-tl { top: -2px; left: -2px; }
+.hud-corner-tr { top: -2px; right: -2px; }
+
+body.effect-newyear .hud-corner-accent {
+  opacity: 1;
+}
+body.effect-newyear .hud-corner-tl {
+  border-top: 3.5px solid #fbbf24;
+  border-left: 3.5px solid #fbbf24;
+  border-top-left-radius: 20px;
+  box-shadow: -2px -2px 10px rgba(251, 191, 36, 0.8);
+}
+body.effect-newyear .hud-corner-tr {
+  border-top: 3.5px solid #fbbf24;
+  border-right: 3.5px solid #fbbf24;
+  border-top-right-radius: 20px;
+  box-shadow: 2px -2px 10px rgba(251, 191, 36, 0.8);
+}
+
+/* Auspicious Golden Clouds */
+.cn-cloud {
+  position: absolute;
+  width: 240px;
+  height: 140px;
+  z-index: 91;
+}
+
+.cn-cloud-left {
+  top: 15px;
+  left: 25px;
+  filter: drop-shadow(0 4px 14px rgba(245, 158, 11, 0.45));
+  animation: cn-cloud-drift-l 7s ease-in-out infinite alternate;
+}
+
+.cn-cloud-right {
+  top: 15px;
+  right: 25px;
+  filter: drop-shadow(0 4px 14px rgba(245, 158, 11, 0.45));
+  animation: cn-cloud-drift-r 7s ease-in-out infinite alternate 1.5s;
+}
+
+@keyframes cn-cloud-drift-l {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(12px, 8px); }
+}
+
+@keyframes cn-cloud-drift-r {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-12px, 8px); }
+}
+
+/* Grand Imperial Silk Palace Lanterns */
+.cn-palace-lantern {
+  position: absolute;
+  top: 0;
+  width: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 92;
   transform-origin: top center;
-  animation: bulb-sway 4s ease-in-out infinite alternate;
 }
 
-.lantern-gold-wire {
-  width: 1.5px;
-  height: 6px;
+.lantern-pos-left {
+  left: 140px;
+  animation: lantern-sway-l 5.5s ease-in-out infinite alternate;
+}
+
+.lantern-pos-right {
+  right: 140px;
+  animation: lantern-sway-r 5.1s ease-in-out infinite alternate 0.8s;
+}
+
+@keyframes lantern-sway-l {
+  0% { transform: rotate(-3.5deg); }
+  100% { transform: rotate(3.5deg); }
+}
+
+@keyframes lantern-sway-r {
+  0% { transform: rotate(3.2deg); }
+  100% { transform: rotate(-3.2deg); }
+}
+
+.lantern-suspension-cord {
+  width: 2.5px;
+  height: 38px;
   background: #fbbf24;
+  box-shadow: 0 0 8px #fbbf24;
 }
 
-.lantern-body {
-  width: 14px;
-  height: 18px;
-  background: radial-gradient(circle, #f43f5e 20%, #be123c 80%);
-  border-radius: 7px;
-  border: 1px solid #fbbf24;
-  box-shadow: 0 0 12px rgba(244, 63, 94, 0.85), 0 0 24px rgba(251, 191, 36, 0.5);
+.lantern-knot {
+  width: 32px;
+  height: 32px;
+  margin: -2px 0;
+}
+
+.lantern-roof {
+  width: 110px;
+  height: 36px;
+}
+
+.lantern-silk-globe {
+  width: 96px;
+  height: 86px;
+  border-radius: 48px;
+  background: radial-gradient(circle at 50% 35%, #ff4d6d 0%, #e11d48 45%, #991b1b 90%, #450a0a 100%);
+  border: 2.5px solid #fbbf24;
+  box-shadow: 
+    0 0 28px rgba(225, 29, 72, 0.85),
+    0 0 55px rgba(245, 158, 11, 0.5),
+    inset 0 0 16px rgba(254, 240, 138, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  animation: globe-glow 3.5s ease-in-out infinite alternate;
 }
 
-.lantern-tassel {
-  width: 2px;
-  height: 9px;
-  background: #e11d48;
-  margin-top: 1px;
-  box-shadow: 0 0 4px #e11d48;
+@keyframes globe-glow {
+  0% { box-shadow: 0 0 24px rgba(225, 29, 72, 0.8), 0 0 45px rgba(245, 158, 11, 0.4); }
+  100% { box-shadow: 0 0 38px rgba(225, 29, 72, 1), 0 0 70px rgba(245, 158, 11, 0.7); }
 }
 
-/* ================= 2. Halloween Night Theme ================= */
+.globe-ribs {
+  position: absolute;
+  width: 48px;
+  height: 100%;
+  border: 1.5px solid rgba(251, 191, 36, 0.55);
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.globe-seal-text {
+  font-size: 34px;
+  font-weight: 900;
+  color: #fde047;
+  text-shadow: 0 0 10px #fbbf24, 0 0 18px #e11d48;
+  user-select: none;
+}
+
+.lantern-base {
+  width: 80px;
+  height: 22px;
+  margin-top: -1px;
+}
+
+.lantern-tassel-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tassel-jade-bead {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #6ee7b7 20%, #059669 80%);
+  border-radius: 50%;
+  border: 1.5px solid #fde047;
+  margin: 3px 0;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.tassel-fringes {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.tassel-fringe {
+  width: 2.5px;
+  height: 75px;
+  background: linear-gradient(180deg, #e11d48 0%, #fbbf24 60%, #dc2626 100%);
+  border-radius: 2px;
+  transform-origin: top center;
+  animation: tassel-sway 4s ease-in-out infinite alternate;
+}
+
+.tassel-fringe-2 {
+  height: 85px;
+  animation-delay: -0.6s;
+}
+
+.tassel-fringe-3 {
+  animation-delay: -1.2s;
+}
+
+@keyframes tassel-sway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+/* ================= 2. Halloween Night Bespoke Stage ================= */
 body.effect-halloween .overlay-container {
   box-shadow: 
     0 16px 36px rgba(0, 0, 0, 0.7),
@@ -770,51 +974,159 @@ body.effect-halloween .overlay-container::before {
     drop-shadow(0 0 30px rgba(234, 88, 12, 0.55));
 }
 
-body.effect-halloween .festive-wire-path {
-  stroke: rgba(147, 51, 234, 0.7);
+body.effect-halloween .hud-corner-accent {
+  opacity: 1;
+}
+body.effect-halloween .hud-corner-tl {
+  border-top: 3.5px solid #a855f7;
+  border-left: 3.5px solid #a855f7;
+  border-top-left-radius: 20px;
+  box-shadow: -2px -2px 10px rgba(168, 85, 247, 0.8);
+}
+body.effect-halloween .hud-corner-tr {
+  border-top: 3.5px solid #f97316;
+  border-right: 3.5px solid #f97316;
+  border-top-right-radius: 20px;
+  box-shadow: 2px -2px 10px rgba(249, 115, 22, 0.8);
 }
 
-.halloween-socket {
-  position: relative;
+/* Top-Left Spiderweb & Hanging Spider */
+.hl-web-corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 340px;
+  z-index: 91;
+}
+
+.hl-spider-anchor {
+  position: absolute;
+  left: 180px;
+  top: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform-origin: top center;
-  animation: bulb-sway 4.6s ease-in-out infinite alternate;
+  animation: spider-bob 5.5s ease-in-out infinite;
 }
 
-.pumpkin-stem {
-  width: 2px;
-  height: 5px;
-  background: #65a30d;
+.hl-spider-thread {
+  width: 1px;
+  height: 90px;
+  background: rgba(233, 213, 255, 0.5);
 }
 
-.pumpkin-face {
-  width: 17px;
-  height: 15px;
-  background: #f97316;
-  border-radius: 8px;
-  box-shadow: 0 0 14px rgba(249, 115, 22, 0.9);
+.hl-spider {
+  width: 34px;
+  height: 34px;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.85));
+}
+
+@keyframes spider-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(70px); }
+}
+
+/* Top-Right Spooky Tree Branch & Glowing Eyes */
+.hl-tree-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 460px;
+  height: 300px;
+  z-index: 91;
+}
+
+.hl-glowing-eyes {
+  position: absolute;
+  right: 210px;
+  top: 75px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  line-height: 1;
+  gap: 7px;
+  animation: eyes-blink 4.5s infinite;
 }
 
-.ghost-figure {
-  width: 14px;
-  height: 17px;
-  background: #f8fafc;
-  border-radius: 7px 7px 3px 3px;
-  box-shadow: 0 0 12px rgba(192, 132, 252, 0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 8px;
+.eye {
+  width: 5px;
+  height: 6px;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #fbbf24, 0 0 18px #ea580c;
 }
 
-/* ================= 3. Romantic Sakura Theme ================= */
+@keyframes eyes-blink {
+  0%, 92%, 100% { opacity: 1; transform: scaleY(1); }
+  94%, 98% { opacity: 0; transform: scaleY(0.1); }
+}
+
+/* Atmospheric Flying Bats */
+.hl-bat-flock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3840px;
+  height: 400px;
+  z-index: 92;
+}
+
+.hl-bat {
+  position: absolute;
+}
+
+.bat-1 {
+  animation: bat-glide-1 16s linear infinite;
+}
+
+.bat-2 {
+  animation: bat-glide-2 22s linear infinite 8s;
+}
+
+.svg-bat {
+  width: 48px;
+  height: 24px;
+  fill: #09090b;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
+  animation: bat-wing-flap 0.32s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+@keyframes bat-wing-flap {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(-0.6); }
+}
+
+@keyframes bat-glide-1 {
+  0% { transform: translate(3920px, 120px) scale(0.75); }
+  100% { transform: translate(-300px, 80px) scale(0.75); }
+}
+
+@keyframes bat-glide-2 {
+  0% { transform: translate(3920px, 220px) scale(0.55); }
+  100% { transform: translate(-300px, 260px) scale(0.55); }
+}
+
+/* Bottom-Right Carved Jack-o'-Lantern */
+.hl-pumpkin-corner {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  width: 160px;
+  height: 140px;
+  z-index: 95;
+}
+
+.pumpkin-candle-flame {
+  animation: candle-flicker 1.8s steps(2, start) infinite;
+}
+
+@keyframes candle-flicker {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 18px #ea580c) brightness(1.1); }
+  25% { opacity: 0.75; filter: drop-shadow(0 0 10px #f97316) brightness(0.9); }
+  50% { opacity: 0.95; filter: drop-shadow(0 0 24px #ea580c) brightness(1.25); }
+  75% { opacity: 0.7; filter: drop-shadow(0 0 8px #f97316) brightness(0.85); }
+}
+
+/* ================= 3. Romantic Sakura Bespoke Stage ================= */
 body.effect-romantic .overlay-container {
   box-shadow: 
     0 16px 36px rgba(0, 0, 0, 0.7),
@@ -835,29 +1147,74 @@ body.effect-romantic .overlay-container::before {
     drop-shadow(0 0 30px rgba(244, 114, 182, 0.55));
 }
 
-body.effect-romantic .festive-wire-path {
-  stroke: rgba(244, 114, 182, 0.65);
+body.effect-romantic .hud-corner-accent {
+  opacity: 1;
+}
+body.effect-romantic .hud-corner-tl {
+  border-top: 3.5px solid #fb7185;
+  border-left: 3.5px solid #fb7185;
+  border-top-left-radius: 20px;
+  box-shadow: -2px -2px 10px rgba(251, 113, 133, 0.8);
+}
+body.effect-romantic .hud-corner-tr {
+  border-top: 3.5px solid #f472b6;
+  border-right: 3.5px solid #f472b6;
+  border-top-right-radius: 20px;
+  box-shadow: 2px -2px 10px rgba(244, 114, 182, 0.8);
 }
 
-.romantic-socket {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform-origin: top center;
-  animation: bulb-sway 4s ease-in-out infinite alternate;
+/* Flowering Cherry Blossom Branches */
+.rm-branch-corner {
+  position: absolute;
+  top: 0;
+  z-index: 91;
 }
 
-.romantic-silk-wire {
-  width: 1.5px;
-  height: 6px;
-  background: rgba(253, 164, 175, 0.6);
+.rm-branch-right {
+  right: 0;
+  width: 540px;
+  height: 400px;
+  transform-origin: top right;
+  animation: sakura-sway-r 7s ease-in-out infinite alternate;
 }
 
-.crystal-heart {
-  width: 14px;
-  height: 14px;
-  color: #fb7185;
-  filter: drop-shadow(0 0 8px rgba(251, 113, 133, 0.9));
-  animation: bulb-twinkle 2.8s ease-in-out infinite alternate;
+.rm-branch-left {
+  left: 0;
+  width: 360px;
+  height: 260px;
+  transform-origin: top left;
+  animation: sakura-sway-l 6.2s ease-in-out infinite alternate 1s;
+}
+
+@keyframes sakura-sway-r {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-2.2deg); }
+}
+
+@keyframes sakura-sway-l {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* ================= 4. Winter Frost Bespoke Stage ================= */
+.frost-corner {
+  position: absolute;
+  top: 0;
+  width: 280px;
+  height: 160px;
+  z-index: 91;
+  animation: frost-shimmer 4.5s ease-in-out infinite alternate;
+}
+
+.frost-left {
+  left: 0;
+}
+
+.frost-right {
+  right: 0;
+}
+
+@keyframes frost-shimmer {
+  0%, 100% { opacity: 0.82; }
+  50% { opacity: 1; filter: drop-shadow(0 0 14px rgba(186, 230, 253, 0.85)); }
 }
