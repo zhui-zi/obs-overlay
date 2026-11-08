@@ -144,7 +144,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 0 14px;
+  padding: 0 16px;
   height: 70px;
   background: var(--bg-bay-clean);
   border: 1px solid var(--border-bay-clean);
@@ -162,8 +162,8 @@ body {
 }
 
 .sparkle-icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   fill: url(#gemini-sparkle-gradient);
   opacity: 0.95;
 }
@@ -175,11 +175,11 @@ body {
 
 .brand-domain-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 24px;
+  font-size: var(--font-hero);
   font-weight: 800;
   letter-spacing: 0.5px;
   color: #60a5fa;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .vu-meter-box {
