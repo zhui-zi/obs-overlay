@@ -1292,6 +1292,81 @@ body.effect-romantic .hud-corner-tr {
     drop-shadow(0 0 36px rgba(236, 72, 153, 0.55));
 }
 
+/* ================= Dynamic Left-Border Running Little Tiger Mascot ================= */
+.frame-edge-tiger {
+  position: absolute;
+  left: -90px;
+  top: 70px;
+  width: 96px;
+  height: 142px;
+  pointer-events: none;
+  z-index: 125;
+  filter: 
+    drop-shadow(0 10px 24px rgba(0, 0, 0, 0.9))
+    drop-shadow(0 0 16px rgba(245, 158, 11, 0.65));
+  animation: tiger-edge-patrol 18s ease-in-out infinite;
+}
+
+.tiger-chassis {
+  width: 100%;
+  height: 100%;
+  animation: tiger-gallop-bounce 0.32s ease-in-out infinite alternate;
+}
+
+.svg-edge-tiger {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tiger-tail {
+  transform-origin: 50px 92px;
+  animation: tiger-tail-wag 0.45s ease-in-out infinite alternate;
+}
+
+.tiger-paw-pair-a {
+  animation: tiger-paw-stride-a 0.32s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+.tiger-paw-pair-b {
+  animation: tiger-paw-stride-b 0.32s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes tiger-edge-patrol {
+  0% { top: 70px; transform: scaleY(-1); }
+  2% { top: 70px; transform: scaleY(-1); }
+  43% { top: 1640px; transform: scaleY(-1); }
+  46% { top: 1640px; transform: scaleY(-1); }
+  48.5% { top: 1640px; transform: scaleY(1); }
+  51% { top: 1640px; transform: scaleY(1); }
+  92% { top: 70px; transform: scaleY(1); }
+  95% { top: 70px; transform: scaleY(1); }
+  97.5% { top: 70px; transform: scaleY(-1); }
+  100% { top: 70px; transform: scaleY(-1); }
+}
+
+@keyframes tiger-gallop-bounce {
+  0% { transform: translateY(0) scaleX(0.98); }
+  100% { transform: translateY(-5px) scaleX(1.02); }
+}
+
+@keyframes tiger-tail-wag {
+  0% { transform: rotate(-12deg); }
+  100% { transform: rotate(16deg); }
+}
+
+@keyframes tiger-paw-stride-a {
+  0% { transform: translateY(-4px) scale(1.06); }
+  100% { transform: translateY(4px) scale(0.94); }
+}
+
+@keyframes tiger-paw-stride-b {
+  0% { transform: translateY(4px) scale(0.94); }
+  100% { transform: translateY(-4px) scale(1.06); }
+}
+
 /* Full Mode: Active Layout Transformations */
 body.mode-full .game-viewport-frame {
   display: block;
