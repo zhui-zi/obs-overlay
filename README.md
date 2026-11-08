@@ -30,12 +30,12 @@
     *(全频段连续横向流光切片渐变 + 晶莹垂直高光透镜 + 悬浮发光瞬态峰值保持针，告别单调单色色块)*
 
 * 🎆 **Bespoke Full-Screen Festive Atmospheres / 独立定制全屏舞台氛围**  
-  * Drapes and stages are custom-crafted across the entire 4K broadcast screen, not restricted to string bulbs:  
-    * **Chinese New Year (`newyear`)**: Flanking grand red palace lanterns with gold tassels, corner gold clouds, and gold foil dust.  
-    * **Halloween Night (`halloween`)**: Top-left spiderweb with bobbing spider, top-right gnarled bare tree with glowing blinking eyes, flying bats, and bottom glowing Jack-o'-Lantern.  
-    * **Romantic Sakura (`romantic`)**: Sprawling flowering cherry branches swaying in breeze + true 3D Hanafubuki falling petal storm.  
-    * **Holiday Garland Lights (`lights`)**: Cozy draping garland wave string lights over HUD.  
-    * **Winter Frost & Snow (`snow` / `both`)**: Multi-plane snowfall with crystalline icicles.
+  * Drapes and stages are custom-crafted across the entire 4K broadcast screen, with specialized layout geometry in Full Mode:  
+    * **Chinese New Year (`newyear`)**: Flanking grand red palace lanterns with gold tassels and auspicious clouds framing the top corners of the game viewport, plus shimmering gold foil dust.  
+    * **Halloween Night (`halloween`)**: Top-left spiderweb with bobbing spider on game frame corner, top-right gnarled bare tree with glowing blinking eyes, flying bats, and glowing Jack-o'-Lantern perched on the bottom-right game frame bezel (zero clutter in the bottom-left).  
+    * **Romantic Sakura (`romantic`)**: Sprawling flowering cherry branches framing both top-left & top-right game corners + true 3D Hanafubuki falling petal storm.  
+    * **Holiday Garland Lights (`lights`)**: Cozy draping garland wave string lights over HUD & bottom dock.  
+    * **Winter Frost & Snow (`snow` / `both`)**: Multi-plane snowfall with crystalline icicles freezing the top corners of the game frame.
 
 ---
 
@@ -47,19 +47,18 @@
 +------------------------------------------------------------------------------------------------+
 |  [Left Sidebar: 528px Margin]    [Top Margin: 36px]             [Right Margin: 48px]           |
 |                                  +-----------------------------------------------------------+ |
-|  - Reserved for:                 |                                                           | |
+|  - 100% Reserved for:            |  [Top Flanking Decor: Lanterns / Branches / Cobweb / Frost] |
 |    * Camera / Facecam Box        |                                                           | |
 |    * VTuber Avatar Model         |           85% 4K GAME VIEWPORT DISPLAY AREA               | |
-|    * Live Chat Stream            |                     (3264 × 1836)                         | |
-|  - Upper Stage Decor:            |             * 18px Solid Obsidian Chassis Bezel           | |
-|    * Palace Lanterns             |             * 4px Outer Gemini Rainbow Conic Rim          | |
-|    * Spooky Cobweb / Spider      |             * Corner Armor Shields (Zero Square Corner)   | |
-|    * Blooming Sakura Branch      |                                                           | |
-|                                  |                                                           | |
+|    * Live Chat Stream Box        |                     (3264 × 1836)                         | |
+|                                  |             * 18px Solid Obsidian Chassis Bezel           | |
+|                                  |             * 4px Outer Gemini Rainbow Conic Rim          | |
+|                                  |             * Corner Armor Shields (Zero Square Corner)   | |
+|                                  |                                       [🎃 Jack-o'-Lantern]| |
 |                                  +-----------------------------------------------------------+ |
-|  [Bottom Margin: 288px]                                                                        |
-|  - Left Space (Mascot / Pet)     +-----------------------------------------------------------+ |
-|    * Halloween Jack-o'-Lantern   | [Marquee (1000px)] [Game (38px)] [Domain/VU] [Clock(58px)] | |
+|  [Bottom-Left: 100% Clean Space]                                                               |
+|  - Spacious Streamer Zone        +-----------------------------------------------------------+ |
+|    (Zero Decor Clutter)          | [Marquee (1000px)] [Game (38px)] [Domain/VU] [Clock(58px)] | |
 |                                  +-----------------------------------------------------------+ |
 +------------------------------------------------------------------------------------------------+
 ```
@@ -69,10 +68,11 @@
 | **Game Viewport** | `3264px × 1836px` (Strict 16:9) | 85% scale of 4K, positioned at `top: 36px; right: 48px;` |
 | **Top & Right Margins** | `36px` top, `48px` right | Compact margin for tight, elegant screen framing |
 | **Left Sidebar Margin** | `528px` width (`0px` to `528px`) | Spacious zone reserved for webcam, VTuber model, or chat box |
-| **Bottom Margin** | `288px` height (`1872px` to `2160px`) | Houses the enlarged right-aligned dock and stage decor |
+| **Bottom Margin** | `288px` height (`1872px` to `2160px`) | Houses the enlarged right-aligned dock; bottom-left is 100% clean |
 | **Bottom Dock Bar** | Height `112px`, docked at `bottom: 40px; right: 48px;` | Aligned pixel-perfect with the right edge of the game viewport frame |
 | **Notice Marquee** | Width `1000px`, Font `34px` | Balanced compact width and clear text for effortless readability |
 | **Clock Roller** | Height `64px`, Font `58px` | Giant prominent studio master clock with rolling digit physics |
+| **Atmosphere Stages** | Custom framing around Game Viewport & Dock | Zero decor in bottom-left; lanterns, branches, web, and frost frame the game viewport |
 
 ---
 
