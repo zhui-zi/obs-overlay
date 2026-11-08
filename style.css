@@ -26,7 +26,7 @@
 
   --canvas-width: 3840px;
   --canvas-height: 2160px;
-  --overlay-width: 2560px;
+  --overlay-width: 2250px; /* Reduced by 1/5 notice width for balanced proportions */
   --overlay-height: 88px;
 
   /* Typography scale */
@@ -272,7 +272,8 @@ body {
 /* ================= Bay 3: Seamless Marquee Notice ================= */
 .notice-panel {
   flex: 1 1 0%;
-  min-width: 400px;
+  max-width: 1250px;
+  min-width: 320px;
   height: 70px;
   background: rgba(255, 255, 255, 0.035);
   border-radius: 14px;
