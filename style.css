@@ -95,19 +95,22 @@ body {
   border-radius: 20px;
   box-shadow: 
     0 16px 36px rgba(0, 0, 0, 0.7),
+    0 0 18px rgba(139, 92, 246, 0.7),
+    0 0 36px rgba(66, 133, 244, 0.5),
+    0 0 56px rgba(236, 72, 153, 0.35),
     0 1px 0 rgba(255, 255, 255, 0.08) inset;
 
   z-index: 100;
   overflow: visible;
 }
 
-/* 2px Conic rim with 3-tier optical aura diffusion strictly anchored to the border */
+/* 3.5px Bold conic rim with vibrant multi-tier optical aura diffusion */
 .overlay-container::before {
   content: '';
   position: absolute;
-  inset: -2px;
-  border-radius: 22px;
-  padding: 2px;
+  inset: -3.5px;
+  border-radius: 23.5px;
+  padding: 3.5px;
   background: conic-gradient(
     from var(--rainbow-angle, 0deg),
     #4285f4 0%,
@@ -124,14 +127,13 @@ body {
   animation: rotate-overlay-rainbow 6.5s linear infinite;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.95;
+  opacity: 1;
 
-  /* Calibrated 4-tier optical aura diffusion: visible rich glow bloom without interior wash */
+  /* Vivid multi-layer rim drop shadow */
   filter: 
-    drop-shadow(0 0 4px rgba(139, 92, 246, 0.95))
-    drop-shadow(0 0 10px rgba(66, 133, 244, 0.8))
-    drop-shadow(0 0 20px rgba(236, 72, 153, 0.55))
-    drop-shadow(0 0 36px rgba(139, 92, 246, 0.35));
+    drop-shadow(0 0 6px rgba(139, 92, 246, 0.95))
+    drop-shadow(0 0 16px rgba(66, 133, 244, 0.8))
+    drop-shadow(0 0 30px rgba(236, 72, 153, 0.55));
 }
 
 /* Remove full-surface ::after backplate to eliminate all interior text wash */
