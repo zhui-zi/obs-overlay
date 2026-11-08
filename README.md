@@ -20,6 +20,12 @@ Directly edit properties in OBS Studio via **Browser Source Properties -> Custom
 
 ```css
 :root {
+  /* Layout mode toggle:
+     "light"     - Lightweight Mode (Centered Top Capsule HUD)
+     "full"      - Full Stage Mode (85% 4K Game Viewport Frame + Bottom-Right Dock)
+  */
+  --layout-mode: "light";
+
   /* Brand domain (left bay) */
   --brand-domain: "keita.cc";
 

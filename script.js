@@ -18,7 +18,8 @@ const state = {
     "🌌 每天晚上 20:00 准时开播，感谢各位老铁的大力支持！",
     "🎮 PC最高画质全景光追 | 欢迎弹幕互动交流点歌！"
   ],
-  themeEffect: "none", // Options: "none" | "lights" | "snow" | "both"
+  themeEffect: "none", // Options: "none" | "lights" | "snow" | "both" | "newyear" | "halloween" | "romantic"
+  layoutMode: "light",  // Options: "light" (Top Capsule HUD) | "full" (85% Game Frame + Bottom Dock)
   currentNoticeIndex: 0
 };
 
@@ -87,6 +88,15 @@ function readObsCustomCss() {
     }
   }
 
+  // 5. --layout-mode
+  let rawMode = rootStyle.getPropertyValue('--layout-mode');
+  if (rawMode) {
+    let cleanMode = rawMode.trim().replace(/^["']|["']$/g, '').toLowerCase();
+    if (cleanMode && cleanMode !== state.layoutMode) {
+      setLayoutMode(cleanMode);
+    }
+  }
+
   updateDisplay();
 }
 
@@ -119,6 +129,10 @@ function initUrlParams() {
 
   if (params.has('effect')) {
     setThemeEffect(params.get('effect').toLowerCase());
+  }
+
+  if (params.has('mode')) {
+    setLayoutMode(params.get('mode').toLowerCase());
   }
 
   updateDisplay();
@@ -322,6 +336,9 @@ function initSyncListener() {
     if (data.themeEffect !== undefined) {
       setThemeEffect(data.themeEffect);
     }
+    if (data.layoutMode !== undefined) {
+      setLayoutMode(data.layoutMode);
+    }
 
     updateDisplay();
   };
@@ -341,6 +358,8 @@ function initDrawer() {
         document.getElementById('inputNotice').value = state.notices.join(' || ');
         const selectEffect = document.getElementById('inputEffect');
         if (selectEffect) selectEffect.value = state.themeEffect;
+        const selectMode = document.getElementById('inputMode');
+        if (selectMode) selectMode.value = state.layoutMode;
       }
     }
   });
@@ -361,6 +380,11 @@ function initDrawer() {
       const selectEffect = document.getElementById('inputEffect');
       if (selectEffect) {
         setThemeEffect(selectEffect.value);
+      }
+
+      const selectMode = document.getElementById('inputMode');
+      if (selectMode) {
+        setLayoutMode(selectMode.value);
       }
       
       updateDisplay();
@@ -735,4 +759,16 @@ function setThemeEffect(effect) {
 
   const selectEl = document.getElementById('inputEffect');
   if (selectEl) selectEl.value = mode;
+}
+
+function setLayoutMode(mode) {
+  const valid = ['light', 'full'];
+  const m = valid.includes(mode) ? mode : 'light';
+  state.layoutMode = m;
+
+  document.body.classList.remove('mode-light', 'mode-full');
+  document.body.classList.add(`mode-${m}`);
+
+  const selectEl = document.getElementById('inputMode');
+  if (selectEl) selectEl.value = m;
 }

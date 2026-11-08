@@ -20,6 +20,7 @@
 
 :root {
   /* OBS Custom CSS live parameters */
+  --layout-mode: "light"; /* Mode toggle: "light" (Standard top capsule) | "full" (85% 4K game viewport + bottom dock) */
   --brand-domain: "keita.cc";
   --game-title: "黑神话：悟空";
   --notices: "✨ 欢迎来到直播间！点赞关注不迷路，交流群：888-666-999 || 🌌 每天晚上 20:00 准时开播，感谢支持！ || 🎮 PC最高画质全景光追 | 欢迎弹幕互动点歌！";
@@ -1290,4 +1291,158 @@ body.effect-romantic .hud-corner-tr {
 @keyframes frost-shimmer {
   0%, 100% { opacity: 0.82; }
   50% { opacity: 1; filter: drop-shadow(0 0 14px rgba(186, 230, 253, 0.85)); }
+}
+
+/* ================= Full-Screen Stage Mode (85% 4K Game Viewport + Bottom Dock) ================= */
+.game-viewport-frame {
+  display: none;
+  position: absolute;
+  top: 36px;
+  right: 48px;
+  width: 3264px;
+  height: 1836px;
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 100;
+  box-sizing: border-box;
+  background: transparent;
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(139, 92, 246, 0.7),
+    0 0 40px rgba(66, 133, 244, 0.5),
+    0 0 60px rgba(236, 72, 153, 0.35);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.game-viewport-frame::before {
+  content: '';
+  position: absolute;
+  inset: -3.5px;
+  border-radius: 27.5px;
+  padding: 3.5px;
+  background: conic-gradient(
+    from var(--rainbow-angle, 0deg),
+    #4285f4 0%,
+    #8b5cf6 25%,
+    #ec4899 50%,
+    #f59e0b 75%,
+    #4285f4 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  filter: 
+    drop-shadow(0 0 6px rgba(139, 92, 246, 0.95))
+    drop-shadow(0 0 16px rgba(66, 133, 244, 0.8))
+    drop-shadow(0 0 30px rgba(236, 72, 153, 0.55));
+}
+
+/* Full Mode: Active Layout Transformations */
+body.mode-full .game-viewport-frame {
+  display: block;
+}
+
+body.mode-full .overlay-container {
+  top: auto;
+  bottom: 36px;
+  right: 48px;
+  left: auto;
+  transform: none;
+  width: auto;
+  max-width: 3264px;
+  height: var(--overlay-height);
+  justify-content: flex-end;
+  padding: 0 12px;
+  gap: 10px;
+}
+
+/* Bottom elements listed and right-aligned: Notice -> Game Title -> Domain & VU -> Clock */
+body.mode-full .notice-panel {
+  order: 1;
+  width: 1200px;
+  max-width: 1200px;
+  flex: 0 1 1200px;
+}
+
+body.mode-full .game-panel {
+  order: 2;
+  flex: 0 0 auto;
+}
+
+body.mode-full .left-panel {
+  order: 3;
+  flex: 0 0 auto;
+}
+
+body.mode-full .right-panel {
+  order: 4;
+  flex: 0 0 auto;
+}
+
+/* Full Mode Thematic Game Viewport Frame Overrides */
+body.mode-full.effect-newyear .game-viewport-frame {
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(225, 29, 72, 0.8),
+    0 0 40px rgba(245, 158, 11, 0.6),
+    0 0 60px rgba(220, 38, 38, 0.4);
+}
+body.mode-full.effect-newyear .game-viewport-frame::before {
+  background: conic-gradient(
+    from var(--rainbow-angle, 0deg),
+    #e11d48 0%, #fbbf24 25%, #dc2626 50%, #f59e0b 75%, #e11d48 100%
+  );
+  filter: 
+    drop-shadow(0 0 6px rgba(225, 29, 72, 0.95))
+    drop-shadow(0 0 16px rgba(245, 158, 11, 0.8))
+    drop-shadow(0 0 30px rgba(220, 38, 38, 0.55));
+}
+
+body.mode-full.effect-halloween .game-viewport-frame {
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(249, 115, 22, 0.8),
+    0 0 40px rgba(168, 85, 247, 0.6),
+    0 0 60px rgba(234, 88, 12, 0.4);
+}
+body.mode-full.effect-halloween .game-viewport-frame::before {
+  background: conic-gradient(
+    from var(--rainbow-angle, 0deg),
+    #f97316 0%, #a855f7 25%, #ea580c 50%, #7c3aed 75%, #f97316 100%
+  );
+  filter: 
+    drop-shadow(0 0 6px rgba(249, 115, 22, 0.95))
+    drop-shadow(0 0 16px rgba(168, 85, 247, 0.8))
+    drop-shadow(0 0 30px rgba(234, 88, 12, 0.55));
+}
+
+body.mode-full.effect-romantic .game-viewport-frame {
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(251, 113, 133, 0.8),
+    0 0 40px rgba(192, 132, 252, 0.6),
+    0 0 60px rgba(244, 114, 182, 0.4);
+}
+body.mode-full.effect-romantic .game-viewport-frame::before {
+  background: conic-gradient(
+    from var(--rainbow-angle, 0deg),
+    #fb7185 0%, #fda4af 25%, #c084fc 50%, #f472b6 75%, #fb7185 100%
+  );
+  filter: 
+    drop-shadow(0 0 6px rgba(251, 113, 133, 0.95))
+    drop-shadow(0 0 16px rgba(192, 132, 252, 0.8))
+    drop-shadow(0 0 30px rgba(244, 114, 182, 0.55));
+}
+
+/* Stage Decor Adjustments in Full Mode */
+body.mode-full .hl-pumpkin-corner {
+  right: auto;
+  left: 80px;
+  bottom: 40px;
+}
+body.mode-full .cn-palace-lantern.lantern-pos-left {
+  left: 100px;
 }

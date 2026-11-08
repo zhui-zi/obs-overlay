@@ -272,6 +272,14 @@
       </div>
 
       <div class="form-group">
+        <label>Layout Mode</label>
+        <select id="ctrlMode">
+          <option value="light">Lightweight Mode (Top Capsule HUD)</option>
+          <option value="full">Full Stage Mode (85% 4K Game Frame + Bottom Dock)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
         <label>Thematic Atmosphere & Stage Effects</label>
         <select id="ctrlEffect">
           <option value="none">None (Standard Aura)</option>
@@ -314,6 +322,7 @@
       const gameTitle = document.getElementById('ctrlGame').value.trim();
       const rawNotices = document.getElementById('ctrlNotices').value;
       const themeEffect = document.getElementById('ctrlEffect').value;
+      const layoutMode = document.getElementById('ctrlMode').value;
       const notices = rawNotices
         .split(/\r?\n|\|\|/)
         .map(s => s.trim())
@@ -322,7 +331,8 @@
       channel.postMessage({
         gameTitle,
         notices,
-        themeEffect
+        themeEffect,
+        layoutMode
       });
 
       showToast('✔ Synchronized to OBS canvas');

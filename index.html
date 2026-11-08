@@ -330,7 +330,12 @@
 
   </div>
 
-  <!-- 4K Suspended Capsule HUD -->
+  <!-- 85% 4K Game Viewport Frame (For Full Stage Mode) -->
+  <div class="game-viewport-frame" id="gameViewportFrame" aria-hidden="true">
+    <div class="game-viewport-inner-glow"></div>
+  </div>
+
+  <!-- 4K Suspended Capsule HUD / Bottom Dock -->
   <header class="overlay-container">
     
     <!-- Top Hanging Festive Holiday Garland String Lights (For 'lights' & 'both' modes) -->
@@ -425,6 +430,13 @@
     <label>
       Marquee Notices (Separate with ||):
       <input type="text" id="inputNotice">
+    </label>
+    <label>
+      Layout Mode:
+      <select id="inputMode">
+        <option value="light">Lightweight Mode (Top Capsule HUD)</option>
+        <option value="full">Full Stage Mode (85% Game Frame + Bottom Dock)</option>
+      </select>
     </label>
     <label>
       Festive Effect:
