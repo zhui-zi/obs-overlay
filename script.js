@@ -204,14 +204,17 @@ function initClock() {
   setInterval(tick, 250); // Sample at 4Hz for zero-latency response
 }
 
-// Realistic physics-based audio spectrum simulation with organic wave harmonics & smooth decay
+// Realistic physics-based audio spectrum simulation with organic wave harmonics & floating peak caps
 function initVuMeter() {
   const fills = document.querySelectorAll('.vu-bar-fill');
+  const peaks = document.querySelectorAll('.vu-bar-peak');
   if (!fills || fills.length === 0) return;
 
   const barCount = fills.length;
   const currentScales = new Float32Array(barCount).fill(0.15);
   const targetScales = new Float32Array(barCount).fill(0.15);
+  const peakScales = new Float32Array(barCount).fill(0.15);
+  const peakHoldCounters = new Int16Array(barCount).fill(0);
 
   let phase = 0;
   let beatTimer = 0;
@@ -241,10 +244,27 @@ function initVuMeter() {
       const current = currentScales[i];
 
       // Fast attack (rise), smooth damped decay (fall)
-      const lerpFactor = target > current ? 0.28 : 0.085;
+      const lerpFactor = target > current ? 0.32 : 0.088;
       currentScales[i] += (target - current) * lerpFactor;
+      const cur = currentScales[i];
 
-      fills[i].style.transform = `scaleY(${currentScales[i].toFixed(3)})`;
+      fills[i].style.transform = `scaleY(${cur.toFixed(3)})`;
+
+      if (peaks[i]) {
+        if (cur > peakScales[i]) {
+          peakScales[i] = cur;
+          peakHoldCounters[i] = 12; // Hold at transient peak for 12 frames
+        } else {
+          if (peakHoldCounters[i] > 0) {
+            peakHoldCounters[i]--;
+          } else {
+            // Gravitational fall
+            peakScales[i] = Math.max(cur, peakScales[i] - 0.016);
+          }
+        }
+        const peakPx = Math.min(29.5, Math.max(2.5, peakScales[i] * 32));
+        peaks[i].style.bottom = `${peakPx.toFixed(1)}px`;
+      }
     }
     requestAnimationFrame(renderLoop);
   }
