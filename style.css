@@ -276,32 +276,33 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) inset;
 }
 
-/* 纯净内嵌 公告 徽章 */
+/* 纯净内嵌 公告 徽章 (放大字阶与图标，醒目大气) */
 .notice-badge {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 7px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 5px 14px;
+  gap: 9px;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  padding: 6px 16px;
   border-radius: 9999px;
-  margin-right: 14px;
+  margin-right: 16px;
   z-index: 5;
 }
 
 .notice-badge-icon {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   fill: #a78bfa;
 }
 
 .notice-badge-text {
   font-family: 'Noto Sans SC', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #cbd5e1;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  line-height: 1;
 }
 
 /* 无缝跑马灯视窗 */
