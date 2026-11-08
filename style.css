@@ -89,7 +89,7 @@ body {
   overflow: visible;
 }
 
-/* 2px Conic rim masked with XOR to maintain razor-sharp exterior edge */
+/* 2px Conic rim with 3-tier optical aura diffusion strictly anchored to the border */
 .overlay-container::before {
   content: '';
   position: absolute;
@@ -113,33 +113,17 @@ body {
   pointer-events: none;
   z-index: 2;
   opacity: 0.95;
+
+  /* Calibrated 3-tier aura bloom: visible exterior diffusion with zero core bleed */
+  filter: 
+    drop-shadow(0 0 4px rgba(139, 92, 246, 0.85))
+    drop-shadow(0 0 12px rgba(66, 133, 244, 0.6))
+    drop-shadow(0 0 22px rgba(236, 72, 153, 0.35));
 }
 
-/* Restrained exterior aura bloom strictly excluded from interior text area */
+/* Remove full-surface ::after backplate to eliminate all interior text wash */
 .overlay-container::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 26px;
-  padding: 6px;
-  background: conic-gradient(
-    from var(--rainbow-angle, 0deg),
-    #4285f4 0%,
-    #8b5cf6 25%,
-    #ec4899 50%,
-    #f59e0b 75%,
-    #4285f4 100%
-  );
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: rotate-overlay-rainbow 6.5s linear infinite;
-  filter: blur(6px);
-  opacity: 0.55;
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
 /* ================= Bay 1: Brand Domain & Spectrum ================= */
@@ -147,6 +131,7 @@ body {
   display: flex;
   align-items: center;
   position: relative;
+  z-index: 10;
 }
 
 .left-panel {
