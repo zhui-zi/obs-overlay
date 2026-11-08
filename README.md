@@ -8,7 +8,7 @@
 
 * 🌓 **Dual-Mode Dynamic Architecture**
   * **Lightweight Mode (`lite` / `light`)**: Pinned suspended top capsule HUD (`2250px × 88px`), minimal, distraction-free, and sleek. Perfect for full-screen immersion gaming where no window frames are needed.
-  * **Full Stage Mode (`full`)**: 85% 4K Game Viewport Frame (`3264px × 1836px`, strict 16:9) with an enlarged broadcast-grade bottom dock bar (`112px` height, `1000px` notice marquee, unified `32px` typography, `48px` VU meter, and `58px` giant rolling clock).
+  * **Full Stage Mode (`full`)**: 85% 4K Game Viewport Frame (`3264px × 1836px`, strict 16:9) with an enlarged broadcast-grade bottom dock bar (`112px` height, `1000px` notice marquee, unified `36px` typography, `48px` VU meter, and `64px` giant rolling clock).
 
 * 🎬 **Smart OBS Scene Auto-Switching**
   * Integrates native OBS Studio CEF Browser Source API (`window.obsstudio`) and `obsSceneChanged` / `obsTransitionStarted` events.
@@ -51,7 +51,7 @@
 |                                  +-----------------------------------------------------------+ |
 |  [Bottom-Left: 100% Clean Space]                                                               |
 |  - Spacious Streamer Zone        +-----------------------------------------------------------+ |
-|    (Zero Decor Clutter)          | [Marquee (1000px)] [Game (32px)] [Domain/VU] [Clock(58px)] | |
+|    (Zero Decor Clutter)          | [Marquee (1000px)] [Game (36px)] [Domain/VU] [Clock(64px)] | |
 |                                  +-----------------------------------------------------------+ |
 +------------------------------------------------------------------------------------------------+
 ```
@@ -63,8 +63,8 @@
 | **Left Sidebar Margin** | `528px` width (`0px` to `528px`) | Spacious zone reserved for webcam, VTuber avatar model, or chat stream box |
 | **Bottom Margin** | `288px` height (`1872px` to `2160px`) | Houses the enlarged right-aligned dock; bottom-left is 100% clean |
 | **Bottom Dock Bar** | Height `112px`, docked at `bottom: 40px; right: 48px;` | Aligned pixel-perfect with the right edge of the game viewport frame |
-| **Notice Marquee** | Width `1000px`, Font `32px` | Unified 32px typography across domain, game title, and notices |
-| **Clock Roller** | Height `64px`, Font `58px` | Giant studio master clock with rolling digit physics |
+| **Notice Marquee** | Width `1000px`, Font `36px` | Unified 36px typography across domain, game title, and notices |
+| **Clock Roller** | Height `72px`, Font `64px` | Giant studio master clock with rolling digit physics |
 | **Atmosphere Stages** | Custom framing around Game Viewport & Dock | Zero decor in bottom-left; lanterns, branches, web, and frost frame the game viewport |
 
 ---

@@ -33,10 +33,10 @@
   --overlay-height: 88px;
 
   /* Typography scale */
-  --font-hero: 32px;
-  --font-sub: 18px;
-  --font-label-sm: 14px;
-  --star-size: 24px; /* Unified icon dimension for all sparkle stars */
+  --font-hero: 36px;
+  --font-sub: 20px;
+  --font-label-sm: 16px;
+  --star-size: 26px; /* Unified icon dimension for all sparkle stars */
 
   /* Obsidian glass tokens */
   --bg-obsidian-translucent: rgba(10, 13, 18, 0.68);
@@ -397,7 +397,7 @@ body.effect-romantic .vu-bar-peak {
   flex: 1 1 0%;
   overflow: hidden;
   position: relative;
-  height: 42px;
+  height: 48px;
   display: flex;
   align-items: center;
   mask-image: linear-gradient(90deg, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%);
@@ -468,7 +468,7 @@ body.effect-romantic .vu-bar-peak {
 
 .date-day {
   font-family: 'LXGW 975 Yuan SC', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
   color: #94a3b8;
   letter-spacing: 1.5px;
@@ -478,7 +478,7 @@ body.effect-romantic .vu-bar-peak {
 
 .date-calendar {
   font-family: 'LXGW 975 Yuan SC', sans-serif;
-  font-size: 24px;
+  font-size: 27px;
   font-weight: 800;
   color: #e2e8f0;
   letter-spacing: 1px;
@@ -496,29 +496,29 @@ body.effect-romantic .vu-bar-peak {
 
 .clock-digits-roller {
   display: inline-block;
-  height: 52px;
+  height: 58px;
   overflow: hidden;
   position: relative;
   font-family: 'LXGW 975 Yuan SC', sans-serif;
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 900;
   letter-spacing: 1.5px;
   color: #ffffff;
-  line-height: 52px;
+  line-height: 58px;
   font-variant-numeric: tabular-nums;
 }
 
 .clock-seconds-roller {
   display: inline-block;
-  height: 28px;
-  min-width: 34px;
+  height: 34px;
+  min-width: 40px;
   overflow: hidden;
   position: relative;
   font-family: 'LXGW 975 Yuan SC', sans-serif;
-  font-size: 24px;
+  font-size: 27px;
   font-weight: 800;
   color: #a78bfa;
-  line-height: 28px;
+  line-height: 34px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -971,7 +971,7 @@ body.effect-newyear .hud-corner-tr {
 }
 
 .globe-seal-text {
-  font-size: 34px;
+  font-size: 38px;
   font-weight: 900;
   color: #fde047;
   text-shadow: 0 0 10px #fbbf24, 0 0 18px #e11d48;
@@ -1349,8 +1349,8 @@ body.mode-full .notice-badge-text {
 }
 
 body.mode-full .notice-badge-icon {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 body.mode-full .notice-text-rail {
@@ -1362,8 +1362,8 @@ body.mode-full .notice-item {
 }
 
 body.mode-full .notice-item .sparkle-icon {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 /* 2. Game Title Panel */
@@ -1399,8 +1399,8 @@ body.mode-full .brand-domain-bay .sparkle-housing {
 }
 
 body.mode-full .brand-domain-bay .sparkle-icon {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 body.mode-full .brand-domain-label {
@@ -1464,11 +1464,11 @@ body.mode-full .date-group {
 }
 
 body.mode-full .date-calendar {
-  font-size: 26px;
+  font-size: 30px;
 }
 
 body.mode-full .date-day {
-  font-size: 15px;
+  font-size: 18px;
 }
 
 body.mode-full .clock-display {
@@ -1476,23 +1476,24 @@ body.mode-full .clock-display {
 }
 
 body.mode-full .clock-digits-roller {
-  height: 64px;
+  height: 72px;
 }
 
 body.mode-full .clock-digits-roller .roll-item {
-  font-size: 58px;
-  height: 64px;
-  line-height: 64px;
+  font-size: 64px;
+  height: 72px;
+  line-height: 72px;
 }
 
 body.mode-full .clock-seconds-roller {
-  height: 36px;
+  height: 44px;
+  min-width: 48px;
 }
 
 body.mode-full .clock-seconds-roller .roll-item {
-  font-size: 30px;
-  height: 36px;
-  line-height: 36px;
+  font-size: 34px;
+  height: 44px;
+  line-height: 44px;
 }
 
 /* Full Mode Thematic Game Viewport Frame Overrides */
