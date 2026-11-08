@@ -22,6 +22,7 @@
   --font-hero: 32px;
   --font-sub: 18px;
   --font-label-sm: 14px;
+  --star-size: 24px; /* Unified icon dimension for all sparkle stars */
 
   /* Obsidian glass tokens */
   --bg-obsidian-translucent: rgba(10, 13, 18, 0.68);
@@ -162,8 +163,8 @@ body {
 }
 
 .sparkle-icon {
-  width: 24px;
-  height: 24px;
+  width: var(--star-size);
+  height: var(--star-size);
   fill: url(#gemini-sparkle-gradient);
   opacity: 0.95;
 }
@@ -287,8 +288,8 @@ body {
 }
 
 .notice-badge-icon {
-  width: 24px;
-  height: 24px;
+  width: var(--star-size);
+  height: var(--star-size);
   fill: #a78bfa;
 }
 
@@ -341,10 +342,15 @@ body {
 .notice-separator {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   margin-left: 48px;
-  color: #8b5cf6;
-  font-size: 20px;
-  opacity: 0.85;
+}
+
+.notice-separator .sparkle-icon {
+  width: var(--star-size);
+  height: var(--star-size);
+  fill: url(#gemini-sparkle-gradient);
+  opacity: 0.95;
 }
 
 /* ================= Bay 4: Digital Clock & Date ================= */

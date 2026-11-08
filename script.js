@@ -197,7 +197,7 @@ function renderSeamlessNotices() {
     : ["✨ Welcome to the stream!"];
 
   function makeItemHtml(text) {
-    return `<span class="notice-item">${text}<span class="notice-separator">✦</span></span>`;
+    return `<span class="notice-item">${text}<span class="notice-separator"><svg class="sparkle-icon" viewBox="0 0 24 24"><path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12z"/></svg></span></span>`;
   }
 
   let baseHtml = notices.map(makeItemHtml).join('');
