@@ -507,7 +507,7 @@ class AtmosphereParticleFX {
 
   setMode(mode) {
     this.mode = mode;
-    if (['snow', 'both', 'newyear', 'halloween', 'romantic'].includes(mode)) {
+    if (['snow', 'both', 'newyear', 'romantic'].includes(mode)) {
       this.start();
     } else {
       this.stop();
@@ -522,7 +522,6 @@ class AtmosphereParticleFX {
     let count = 90;
     if (this.mode === 'romantic') count = 140;
     else if (this.mode === 'newyear') count = 110;
-    else if (this.mode === 'halloween') count = 75;
 
     for (let i = 0; i < count; i++) {
       if (this.mode === 'romantic') {
@@ -568,22 +567,6 @@ class AtmosphereParticleFX {
           color: isEmber 
             ? (i % 2 === 0 ? '#ef4444' : '#f59e0b') 
             : (i % 4 === 0 ? '#fde047' : '#fbbf24')
-        });
-      } else if (this.mode === 'halloween') {
-        // Will-o'-the-Wisps & Spooky Rising Embers
-        const isWisp = i < 10;
-        this.particles.push({
-          x: Math.random() * 3840,
-          y: Math.random() * 2160,
-          isWisp: isWisp,
-          radius: isWisp ? Math.random() * 14 + 10 : Math.random() * 3 + 1.5,
-          vx: isWisp ? (Math.random() - 0.5) * 1.5 : (Math.random() - 0.5) * 0.8,
-          vy: isWisp ? (Math.random() - 0.5) * 1.2 : -(Math.random() * 1.5 + 0.8),
-          trail: [],
-          alpha: isWisp ? Math.random() * 0.4 + 0.35 : Math.random() * 0.65 + 0.25,
-          color: isWisp
-            ? (i % 2 === 0 ? 'rgba(168, 85, 247,' : 'rgba(56, 189, 248,')
-            : (i % 3 === 0 ? '#f97316' : (i % 3 === 1 ? '#a855f7' : '#84cc16'))
         });
       } else {
         // Winter Snowfall
@@ -732,45 +715,6 @@ class AtmosphereParticleFX {
         }
         ctx.fill();
         ctx.restore();
-
-      } else if (this.mode === 'halloween') {
-        if (p.isWisp) {
-          // Wandering Ghostly Will-o'-the-Wisp
-          p.x += p.vx + Math.sin(this.tick * 0.015 + i) * 1.4;
-          p.y += p.vy + Math.cos(this.tick * 0.012 + i) * 1.2;
-
-          if (p.x < 100 || p.x > 3740) p.vx *= -1;
-          if (p.y < 80 || p.y > 2080) p.vy *= -1;
-
-          // Trail handling
-          p.trail.unshift({ x: p.x, y: p.y });
-          if (p.trail.length > 5) p.trail.pop();
-
-          for (let t = 0; t < p.trail.length; t++) {
-            const tr = p.trail[t];
-            const tAlpha = (p.alpha * (1 - t / p.trail.length) * 0.5).toFixed(2);
-            ctx.beginPath();
-            ctx.arc(tr.x, tr.y, p.radius * (1 - t * 0.15), 0, Math.PI * 2);
-            ctx.fillStyle = `${p.color} ${tAlpha})`;
-            ctx.shadowColor = p.color.includes('168') ? '#a855f7' : '#38bdf8';
-            ctx.shadowBlur = 18;
-            ctx.fill();
-          }
-        } else {
-          // Rising Spooky Ember
-          p.y += p.vy;
-          p.x += p.vx + Math.sin(this.tick * 0.03 + i) * 0.6;
-          if (p.y < -20) {
-            p.y = 2180;
-            p.x = Math.random() * 3840;
-          }
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.shadowColor = p.color;
-          ctx.shadowBlur = 10;
-          ctx.fill();
-        }
 
       } else {
         // Winter Snowfall

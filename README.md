@@ -91,7 +91,7 @@
 | `snow` | Winter Snowfall | Screen top corner ice frost and crystalline icicles | Multi-plane gentle snowfall |
 | `both` | Lights + Snow | Garland wave string lights + corner icicles | Gentle snowfall |
 | `newyear` | Chinese New Year | Flanking swinging red silk palace lanterns + golden auspicious clouds | Shimmering gold foil diamonds & rising red celebratory embers |
-| `halloween` | Halloween Night | Top-left cobweb with bobbing spider + flying bats + glowing Jack-o'-Lantern perched on the bottom dock | Wandering ghostly will-o'-the-wisps with soft trails & purple embers |
+| `halloween` | Halloween Night | Top-left cobweb with bobbing spider + flying bats + enlarged glowing Jack-o'-Lantern perched on the bottom dock | Clean distraction-free atmosphere (0 CPU particle loop) |
 | `romantic` | Romantic Sakura | Pure branch-free stage framing for clean game broadcast visibility | True 3D Hanafubuki falling sakura shower with multi-tone notched petals & starlight bokeh |
 
 ---
