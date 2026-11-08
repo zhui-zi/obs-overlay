@@ -116,7 +116,7 @@ function updateDisplay() {
   if (elTitle) elTitle.textContent = state.gameTitle;
 }
 
-// Clock & calendar tick with diffuse convergence animation
+// Clock & calendar tick with vertical roll ticker animation
 function initClock() {
   const elClock = document.getElementById('clockDigits');
   const elSeconds = document.getElementById('clockSeconds');
@@ -127,6 +127,39 @@ function initClock() {
   let lastTimeStr = '';
   let lastSecStr = '';
 
+  function rollTo(element, newValue, duration = 300) {
+    if (!element) return;
+    let track = element.querySelector('.roll-track');
+    if (!track) {
+      const currentVal = element.textContent.trim();
+      element.innerHTML = `<div class="roll-track"><span class="roll-item">${currentVal}</span></div>`;
+      track = element.querySelector('.roll-track');
+    }
+
+    const currentItem = track.firstElementChild;
+    if (currentItem && currentItem.textContent === newValue) return;
+
+    // Append incoming number below
+    const nextItem = document.createElement('span');
+    nextItem.className = 'roll-item';
+    nextItem.textContent = newValue;
+    track.appendChild(nextItem);
+
+    // Smooth vertical roll transition
+    track.style.transition = `transform ${duration}ms cubic-bezier(0.18, 0.9, 0.25, 1)`;
+    track.style.transform = 'translateY(-50%)';
+
+    const onEnd = () => {
+      track.removeEventListener('transitionend', onEnd);
+      track.style.transition = 'none';
+      track.style.transform = 'translateY(0)';
+      if (track.children.length > 1) {
+        track.removeChild(track.children[0]);
+      }
+    };
+    track.addEventListener('transitionend', onEnd, { once: true });
+  }
+
   function tick() {
     const now = new Date();
     
@@ -135,20 +168,14 @@ function initClock() {
     const ss = String(now.getSeconds()).padStart(2, '0');
     const timeStr = `${hh}:${mm}`;
 
-    if (elSeconds && ss !== lastSecStr) {
-      elSeconds.textContent = ss;
+    if (ss !== lastSecStr) {
       lastSecStr = ss;
-      elSeconds.classList.remove('animate');
-      void elSeconds.offsetWidth; // Force reflow to re-trigger transition
-      elSeconds.classList.add('animate');
+      rollTo(elSeconds, ss, 280);
     }
 
-    if (elClock && timeStr !== lastTimeStr) {
-      elClock.textContent = timeStr;
+    if (timeStr !== lastTimeStr) {
       lastTimeStr = timeStr;
-      elClock.classList.remove('animate');
-      void elClock.offsetWidth;
-      elClock.classList.add('animate');
+      rollTo(elClock, timeStr, 400);
     }
 
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -158,7 +185,7 @@ function initClock() {
   }
 
   tick();
-  setInterval(tick, 250); // Sample at 4Hz for zero-latency second boundary response
+  setInterval(tick, 250); // Sample at 4Hz for zero-latency response
 }
 
 // Simulated dynamic VU meter
