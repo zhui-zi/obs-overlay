@@ -361,19 +361,56 @@ function initFestiveLights() {
 
   container.innerHTML = '';
   const colors = ['color-gold', 'color-ruby', 'color-emerald', 'color-sapphire', 'color-amethyst'];
-  const bulbCount = 38;
+  
+  const swagCount = 5; // 5 graceful garland wave arches
+  const bulbsPerSwag = 7;
+  const totalBulbs = swagCount * bulbsPerSwag;
+  const maxSag = 24; // 24px vertical wave sag amplitude
 
-  for (let i = 0; i < bulbCount; i++) {
+  // 1. Build SVG Swag Wire
+  const wireSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  wireSvg.setAttribute('class', 'festive-wire-svg');
+  wireSvg.setAttribute('viewBox', '0 0 1000 48');
+  wireSvg.setAttribute('preserveAspectRatio', 'none');
+
+  let pathD = 'M 0,6';
+  const swagWidthRatio = 1000 / swagCount;
+  for (let s = 0; s < swagCount; s++) {
+    const startX = s * swagWidthRatio;
+    const endX = (s + 1) * swagWidthRatio;
+    const midX = (startX + endX) / 2;
+    pathD += ` Q ${midX},${6 + maxSag} ${endX},6`;
+  }
+
+  const wirePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  wirePath.setAttribute('d', pathD);
+  wirePath.setAttribute('class', 'festive-wire-path');
+  wireSvg.appendChild(wirePath);
+  container.appendChild(wireSvg);
+
+  // 2. Build Wave-Draped Bulbs Track
+  const bulbsTrack = document.createElement('div');
+  bulbsTrack.className = 'festive-bulbs-track';
+
+  for (let i = 0; i < totalBulbs; i++) {
+    const posInSwag = (i % bulbsPerSwag) / (bulbsPerSwag - 1); // 0 to 1
+    const sagY = Math.sin(posInSwag * Math.PI) * maxSag;
+
     const socket = document.createElement('div');
     const colorClass = colors[i % colors.length];
     socket.className = `festive-bulb-socket ${colorClass}`;
+    socket.style.top = `${sagY.toFixed(1)}px`;
+    socket.style.animationDelay = `${-(i * 0.22).toFixed(2)}s`;
+
     socket.innerHTML = `
       <div class="bulb-wire"></div>
       <div class="bulb-cap"></div>
-      <div class="bulb-glass"></div>
+      <div class="bulb-glass" style="animation-delay: ${-(i * 0.35).toFixed(2)}s;"></div>
     `;
-    container.appendChild(socket);
+    bulbsTrack.appendChild(socket);
   }
+
+  container.appendChild(bulbsTrack);
 }
 
 class Snowfall {
