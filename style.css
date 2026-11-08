@@ -1346,50 +1346,14 @@ body.effect-romantic .hud-corner-tr {
     drop-shadow(0 0 36px rgba(236, 72, 153, 0.55));
 }
 
-/* Corner Armor Shields: reinforce outer bezel corners */
-.game-corner-shield {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  pointer-events: none;
-  z-index: 102;
-}
-
-.gc-tl {
-  top: -6px;
-  left: -6px;
-  border-top: 5px solid rgba(255, 255, 255, 0.28);
-  border-left: 5px solid rgba(255, 255, 255, 0.28);
-  border-top-left-radius: 20px;
-}
-
-.gc-tr {
-  top: -6px;
-  right: -6px;
-  border-top: 5px solid rgba(255, 255, 255, 0.28);
-  border-right: 5px solid rgba(255, 255, 255, 0.28);
-  border-top-right-radius: 20px;
-}
-
-.gc-bl {
-  bottom: -6px;
-  left: -6px;
-  border-bottom: 5px solid rgba(255, 255, 255, 0.28);
-  border-left: 5px solid rgba(255, 255, 255, 0.28);
-  border-bottom-left-radius: 20px;
-}
-
-.gc-br {
-  bottom: -6px;
-  right: -6px;
-  border-bottom: 5px solid rgba(255, 255, 255, 0.28);
-  border-right: 5px solid rgba(255, 255, 255, 0.28);
-  border-bottom-right-radius: 20px;
-}
-
 /* Full Mode: Active Layout Transformations */
 body.mode-full .game-viewport-frame {
   display: block;
+}
+
+/* Hide HUD corner accents in Full Mode */
+body.mode-full .hud-corner-accent {
+  display: none !important;
 }
 
 /* Substantial Scaled-Up Bottom Dock Bar */
@@ -1411,6 +1375,10 @@ body.mode-full .overlay-container {
     0 0 20px rgba(139, 92, 246, 0.7),
     0 0 40px rgba(66, 133, 244, 0.5),
     0 0 60px rgba(236, 72, 153, 0.35);
+}
+
+body.mode-full .overlay-container::before {
+  border-radius: 29.5px;
 }
 
 /* 1. Notice Panel: Scaled typography with balanced compact width */
@@ -1534,6 +1502,7 @@ body.mode-full .vu-bar:nth-child(11) .vu-bar-fill { background-position: 0 0, -1
 body.mode-full .vu-bar:nth-child(12) .vu-bar-fill { background-position: 0 0, -176px 0; }
 
 /* 4. Calendar & Digital Clock Panel */
+body.mode-full .time-panel,
 body.mode-full .right-panel {
   order: 4;
   flex: 0 0 auto;
@@ -1543,6 +1512,7 @@ body.mode-full .right-panel {
   gap: 14px;
 }
 
+body.mode-full .date-section,
 body.mode-full .date-group {
   gap: 3px;
 }
@@ -1598,9 +1568,6 @@ body.mode-full.effect-newyear .game-viewport-frame::before {
     drop-shadow(0 0 20px rgba(245, 158, 11, 0.8))
     drop-shadow(0 0 36px rgba(220, 38, 38, 0.55));
 }
-body.mode-full.effect-newyear .game-corner-shield {
-  border-color: rgba(251, 191, 36, 0.5);
-}
 
 body.mode-full.effect-halloween .game-viewport-frame {
   border-color: rgba(24, 14, 28, 0.96);
@@ -1620,9 +1587,6 @@ body.mode-full.effect-halloween .game-viewport-frame::before {
     drop-shadow(0 0 20px rgba(168, 85, 247, 0.8))
     drop-shadow(0 0 36px rgba(234, 88, 12, 0.55));
 }
-body.mode-full.effect-halloween .game-corner-shield {
-  border-color: rgba(168, 85, 247, 0.5);
-}
 
 body.mode-full.effect-romantic .game-viewport-frame {
   border-color: rgba(30, 16, 26, 0.96);
@@ -1641,9 +1605,6 @@ body.mode-full.effect-romantic .game-viewport-frame::before {
     drop-shadow(0 0 8px rgba(251, 113, 133, 0.95))
     drop-shadow(0 0 20px rgba(192, 132, 252, 0.8))
     drop-shadow(0 0 36px rgba(244, 114, 182, 0.55));
-}
-body.mode-full.effect-romantic .game-corner-shield {
-  border-color: rgba(251, 113, 133, 0.5);
 }
 
 /* ==========================================================================
