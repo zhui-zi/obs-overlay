@@ -20,7 +20,7 @@
   --canvas-width: 3840px;
   --canvas-height: 2160px;
   --overlay-width: 2560px; /* 占据 2/3 宽度的悬浮胶囊 */
-  --overlay-height: 108px; /* 纤薄修长机身 */
+  --overlay-height: 88px;  /* 纤薄修长机身，收窄上下留白 */
 
   /* 严谨统一的双层排版规范 */
   --font-hero: 32px;       /* 核心主视觉字号：游戏标题、走马灯公告、时钟数字 */
@@ -77,8 +77,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 22px;
-  gap: 14px;
+  padding: 0 12px;
+  gap: 10px;
 
   /* 通透暗曜石毛玻璃 (半透明度 0.68，透出游戏背景但文字清晰锐利) */
   background: var(--bg-obsidian-translucent);
@@ -86,7 +86,7 @@ body {
   -webkit-backdrop-filter: blur(24px) saturate(160%);
 
   /* 优雅圆润的大胶囊造型 */
-  border-radius: 26px;
+  border-radius: 20px;
   box-shadow: 
     0 16px 36px rgba(0, 0, 0, 0.7),
     0 1px 0 rgba(255, 255, 255, 0.08) inset;
@@ -100,7 +100,7 @@ body {
   content: '';
   position: absolute;
   inset: -2px;
-  border-radius: 28px;
+  border-radius: 22px;
   padding: 2px;
   background: conic-gradient(
     from var(--rainbow-angle, 0deg),
@@ -142,9 +142,9 @@ body {
 .live-indicator-bay {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 18px;
-  height: 72px;
+  gap: 10px;
+  padding: 0 14px;
+  height: 70px;
   background: var(--bg-bay-clean);
   border: 1px solid var(--border-bay-clean);
   border-radius: 14px;
@@ -188,8 +188,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 16px;
-  height: 72px;
+  padding: 0 12px;
+  height: 70px;
   background: var(--bg-bay-clean);
   border: 1px solid var(--border-bay-clean);
   border-radius: 14px;
@@ -227,10 +227,10 @@ body {
 .game-panel {
   flex: 0 0 auto;
   max-width: 900px;
-  height: 72px;
+  height: 70px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 16px;
   background: rgba(255, 255, 255, 0.035);
   border-radius: 14px;
   position: relative;
@@ -264,14 +264,14 @@ body {
 .notice-panel {
   flex: 1 1 0%;
   min-width: 400px;
-  height: 72px;
+  height: 70px;
   background: rgba(255, 255, 255, 0.035);
   border-radius: 14px;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 0 18px;
+  padding: 0 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) inset;
 }
@@ -286,7 +286,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 5px 14px;
   border-radius: 9999px;
-  margin-right: 18px;
+  margin-right: 14px;
   z-index: 5;
 }
 
@@ -358,14 +358,14 @@ body {
 /* ================= 模块 4: 右侧 - 数字时钟与日期 (字号大幅放大，极度清晰醒目) ================= */
 .time-panel {
   flex: 0 0 auto;
-  height: 72px;
+  height: 70px;
   background: var(--bg-bay-clean);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  padding: 0 22px;
+  gap: 14px;
+  padding: 0 16px;
   position: relative;
   overflow: hidden;
   border: 1px solid var(--border-bay-clean);
