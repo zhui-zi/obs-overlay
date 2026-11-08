@@ -24,12 +24,11 @@ const state = {
 
 // Cross-tab broadcast channel
 const channel = new BroadcastChannel('obs_overlay_sync');
-let snowfallInstance = null;
+let atmosphereInstance = null;
 
 // Lifecycle initialization
 document.addEventListener('DOMContentLoaded', () => {
-  initFestiveLights();
-  initSnowfall();
+  initAtmosphere();
   initObsCustomCssListener();
   initUrlParams();
   initClock();
@@ -354,18 +353,18 @@ function initDrawer() {
   }
 }
 
-// ================= Atmosphere Effects: Festive Lights & Snowfall =================
-function initFestiveLights() {
+// ================= Multi-Theme Hanging Decor & Atmosphere FX =================
+function initHangingDecor(theme) {
   const container = document.getElementById('festiveLights');
   if (!container) return;
 
   container.innerHTML = '';
-  const colors = ['color-gold', 'color-ruby', 'color-emerald', 'color-sapphire', 'color-amethyst'];
-  
-  const swagCount = 5; // 5 graceful garland wave arches
+  if (theme === 'none' || theme === 'snow') return;
+
+  const swagCount = 5;
   const bulbsPerSwag = 7;
-  const totalBulbs = swagCount * bulbsPerSwag;
-  const maxSag = 24; // 24px vertical wave sag amplitude
+  const totalItems = swagCount * bulbsPerSwag;
+  const maxSag = 24;
 
   // 1. Build SVG Swag Wire
   const wireSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -388,38 +387,79 @@ function initFestiveLights() {
   wireSvg.appendChild(wirePath);
   container.appendChild(wireSvg);
 
-  // 2. Build Wave-Draped Bulbs Track
-  const bulbsTrack = document.createElement('div');
-  bulbsTrack.className = 'festive-bulbs-track';
+  // 2. Build Thematic Hanging Items
+  const track = document.createElement('div');
+  track.className = 'festive-bulbs-track';
 
-  for (let i = 0; i < totalBulbs; i++) {
-    const posInSwag = (i % bulbsPerSwag) / (bulbsPerSwag - 1); // 0 to 1
+  const lightColors = ['color-gold', 'color-ruby', 'color-emerald', 'color-sapphire', 'color-amethyst'];
+
+  for (let i = 0; i < totalItems; i++) {
+    const posInSwag = (i % bulbsPerSwag) / (bulbsPerSwag - 1);
     const sagY = Math.sin(posInSwag * Math.PI) * maxSag;
+    const delay = `${-(i * 0.22).toFixed(2)}s`;
 
     const socket = document.createElement('div');
-    const colorClass = colors[i % colors.length];
-    socket.className = `festive-bulb-socket ${colorClass}`;
     socket.style.top = `${sagY.toFixed(1)}px`;
-    socket.style.animationDelay = `${-(i * 0.22).toFixed(2)}s`;
+    socket.style.animationDelay = delay;
 
-    socket.innerHTML = `
-      <div class="bulb-wire"></div>
-      <div class="bulb-cap"></div>
-      <div class="bulb-glass" style="animation-delay: ${-(i * 0.35).toFixed(2)}s;"></div>
-    `;
-    bulbsTrack.appendChild(socket);
+    if (theme === 'newyear') {
+      // Chinese Red Lantern with Gold Wire and Tassel
+      socket.className = 'lantern-socket';
+      socket.innerHTML = `
+        <div class="lantern-gold-wire"></div>
+        <div class="lantern-body"></div>
+        <div class="lantern-tassel"></div>
+      `;
+    } else if (theme === 'halloween') {
+      // Jack-o'-Lanterns and Little Ghosties
+      socket.className = 'halloween-socket';
+      if (i % 2 === 0) {
+        socket.innerHTML = `
+          <div class="pumpkin-stem"></div>
+          <div class="pumpkin-face">🎃</div>
+        `;
+      } else {
+        socket.innerHTML = `
+          <div class="pumpkin-stem" style="background:transparent;"></div>
+          <div class="ghost-figure">👻</div>
+        `;
+      }
+    } else if (theme === 'romantic') {
+      // Rose Crystal Heart Windchime
+      socket.className = 'romantic-socket';
+      socket.innerHTML = `
+        <div class="romantic-silk-wire"></div>
+        <div class="crystal-heart">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+      `;
+    } else {
+      // Standard Holiday Wave String Lights (lights or both)
+      const colorClass = lightColors[i % lightColors.length];
+      socket.className = `festive-bulb-socket ${colorClass}`;
+      socket.innerHTML = `
+        <div class="bulb-wire"></div>
+        <div class="bulb-cap"></div>
+        <div class="bulb-glass" style="animation-delay: ${-(i * 0.35).toFixed(2)}s;"></div>
+      `;
+    }
+
+    track.appendChild(socket);
   }
 
-  container.appendChild(bulbsTrack);
+  container.appendChild(track);
 }
 
-class Snowfall {
+class AtmosphereParticleFX {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.particles = [];
     this.active = false;
     this.animId = null;
+    this.mode = 'none';
     this.resize();
     window.addEventListener('resize', () => this.resize());
   }
@@ -429,11 +469,21 @@ class Snowfall {
     this.canvas.height = 2160;
   }
 
+  setMode(mode) {
+    this.mode = mode;
+    if (['snow', 'both', 'newyear', 'halloween', 'romantic'].includes(mode)) {
+      this.start();
+    } else {
+      this.stop();
+    }
+  }
+
   start() {
-    if (this.active) return;
     this.active = true;
     this.particles = [];
-    for (let i = 0; i < 115; i++) {
+    const count = this.mode === 'romantic' ? 75 : (this.mode === 'newyear' ? 120 : 105);
+
+    for (let i = 0; i < count; i++) {
       this.particles.push({
         x: Math.random() * 3840,
         y: Math.random() * 2160,
@@ -441,10 +491,15 @@ class Snowfall {
         density: Math.random() * 1.2 + 0.6,
         alpha: Math.random() * 0.65 + 0.25,
         windPhase: Math.random() * Math.PI * 2,
-        windSpeed: Math.random() * 0.015 + 0.008
+        windSpeed: Math.random() * 0.015 + 0.008,
+        angle: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.04
       });
     }
-    this.render();
+
+    if (!this.animId) {
+      this.render();
+    }
   }
 
   stop() {
@@ -464,51 +519,88 @@ class Snowfall {
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
       p.windPhase += p.windSpeed;
-      p.y += p.density * 1.2;
-      p.x += Math.sin(p.windPhase) * 0.85;
+      p.angle += p.rotSpeed;
+      p.y += p.density * 1.15;
+      p.x += Math.sin(p.windPhase) * (this.mode === 'romantic' ? 1.4 : 0.85);
 
       if (p.y > 2160) {
-        p.y = -10;
+        p.y = -15;
         p.x = Math.random() * 3840;
       }
       if (p.x > 3840) p.x = 0;
       else if (p.x < 0) p.x = 3840;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-      ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
-      ctx.shadowBlur = p.radius * 2;
-      ctx.fill();
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+
+      if (this.mode === 'romantic') {
+        // Falling Soft Sakura Petal
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.radius * 2.2, p.radius * 1.1, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(251, 113, 133, ${p.alpha * 0.85})`;
+        ctx.shadowColor = 'rgba(251, 113, 133, 0.5)';
+        ctx.shadowBlur = p.radius * 2;
+        ctx.fill();
+      } else if (this.mode === 'newyear') {
+        // Golden Festive Sparkle / Gold Dust
+        ctx.beginPath();
+        ctx.arc(0, 0, p.radius * 1.1, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(251, 191, 36, ${p.alpha * 0.9})`;
+        ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
+        ctx.shadowBlur = p.radius * 3;
+        ctx.fill();
+      } else if (this.mode === 'halloween') {
+        // Spooky Eerie Wisp / Ember
+        ctx.beginPath();
+        ctx.arc(0, 0, p.radius * 1.2, 0, Math.PI * 2);
+        const hue = i % 2 === 0 ? 'rgba(249, 115, 22,' : 'rgba(168, 85, 247,';
+        ctx.fillStyle = `${hue} ${p.alpha * 0.85})`;
+        ctx.shadowColor = i % 2 === 0 ? '#f97316' : '#a855f7';
+        ctx.shadowBlur = p.radius * 3.5;
+        ctx.fill();
+      } else {
+        // Winter Snowfall Crystal
+        ctx.beginPath();
+        ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
+        ctx.shadowBlur = p.radius * 2;
+        ctx.fill();
+      }
+
+      ctx.restore();
     }
 
     this.animId = requestAnimationFrame(() => this.render());
   }
 }
 
-function initSnowfall() {
+function initAtmosphere() {
   const canvas = document.getElementById('snowCanvas');
   if (canvas) {
-    snowfallInstance = new Snowfall(canvas);
+    atmosphereInstance = new AtmosphereParticleFX(canvas);
   }
+  initHangingDecor(state.themeEffect);
 }
 
 function setThemeEffect(effect) {
-  const valid = ['none', 'lights', 'snow', 'both'];
+  const valid = ['none', 'lights', 'snow', 'both', 'newyear', 'halloween', 'romantic'];
   const mode = valid.includes(effect) ? effect : 'none';
   state.themeEffect = mode;
 
-  document.body.classList.remove('effect-lights', 'effect-snow', 'effect-both');
+  document.body.classList.remove(
+    'effect-lights', 'effect-snow', 'effect-both',
+    'effect-newyear', 'effect-halloween', 'effect-romantic'
+  );
   if (mode !== 'none') {
     document.body.classList.add(`effect-${mode}`);
   }
 
-  if (snowfallInstance) {
-    if (mode === 'snow' || mode === 'both') {
-      snowfallInstance.start();
-    } else {
-      snowfallInstance.stop();
-    }
+  initHangingDecor(mode);
+
+  if (atmosphereInstance) {
+    atmosphereInstance.setMode(mode);
   }
 
   const selectEl = document.getElementById('inputEffect');

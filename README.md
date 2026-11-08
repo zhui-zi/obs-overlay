@@ -29,8 +29,16 @@ Directly edit properties in OBS Studio via **Browser Source Properties -> Custom
   /* Marquee notices separated by || */
   --notices: "✨ Welcome to the stream! || 🌌 Live daily at 20:00 || 🎮 4K Ray Tracing Enabled";
 
-  /* Optional festive atmosphere: "none" | "lights" | "snow" | "both" */
-  --theme-effect: "lights";
+  /* Optional atmosphere themes:
+     "none"      - Standard clean Gemini Aura
+     "lights"    - Holiday draped garland string lights
+     "snow"      - Gentle winter snowfall
+     "both"      - String lights + winter snowfall
+     "newyear"   - Chinese Lunar New Year (Red Lanterns, Gold Dust, Crimson Aura)
+     "halloween" - Halloween Night (Jack-o'-lanterns, Ghosties, Pumpkin/Purple Aura)
+     "romantic"  - Romantic Sakura (Crystal Hearts, Falling Petals, Rose Gold Aura)
+  */
+  --theme-effect: "newyear";
 }
 ```
 
