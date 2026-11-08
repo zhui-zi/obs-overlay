@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Realtime OBS Custom CSS variable watcher
-let lastCssValues = { domain: '', title: '', notices: '' };
+let lastCssValues = { domain: '', title: '', notices: '', effect: '', mode: '', scene: '' };
 
 function readObsCustomCss() {
   const rootStyle = getComputedStyle(document.documentElement);
@@ -84,8 +84,11 @@ function readObsCustomCss() {
   let rawEffect = rootStyle.getPropertyValue('--theme-effect');
   if (rawEffect) {
     let cleanEffect = rawEffect.trim().replace(/^["']|["']$/g, '').toLowerCase();
-    if (cleanEffect && cleanEffect !== state.themeEffect) {
-      setThemeEffect(cleanEffect);
+    if (cleanEffect && cleanEffect !== lastCssValues.effect) {
+      lastCssValues.effect = cleanEffect;
+      if (cleanEffect !== state.themeEffect) {
+        setThemeEffect(cleanEffect);
+      }
     }
   }
 
@@ -93,8 +96,11 @@ function readObsCustomCss() {
   let rawMode = rootStyle.getPropertyValue('--layout-mode');
   if (rawMode) {
     let cleanMode = rawMode.trim().replace(/^["']|["']$/g, '').toLowerCase();
-    if (cleanMode && cleanMode !== state.layoutMode) {
-      setLayoutMode(cleanMode);
+    if (cleanMode && cleanMode !== lastCssValues.mode) {
+      lastCssValues.mode = cleanMode;
+      if (cleanMode !== state.layoutMode) {
+        setLayoutMode(cleanMode);
+      }
     }
   }
 
@@ -102,7 +108,10 @@ function readObsCustomCss() {
   let rawScene = rootStyle.getPropertyValue('--obs-scene-name') || rootStyle.getPropertyValue('--scene');
   if (rawScene) {
     let cleanScene = rawScene.trim().replace(/^["']|["']$/g, '');
-    evaluateSceneName(cleanScene);
+    if (cleanScene && cleanScene !== lastCssValues.scene) {
+      lastCssValues.scene = cleanScene;
+      evaluateSceneName(cleanScene);
+    }
   }
 
   updateDisplay();
@@ -353,6 +362,7 @@ function initSyncListener() {
       setLayoutMode(data.layoutMode);
     }
     if (data.sceneName !== undefined) {
+      lastEvaluatedScene = '';
       evaluateSceneName(data.sceneName);
     }
 
@@ -780,6 +790,13 @@ function setThemeEffect(effect) {
 function setLayoutMode(mode) {
   if (!mode) return;
   const normalized = (mode.toLowerCase() === 'full') ? 'full' : 'light';
+
+  // Guard against redundant DOM class thrashing and animation resets
+  if (state.layoutMode === normalized && 
+      document.body.classList.contains(`mode-${normalized}`)) {
+    return;
+  }
+
   state.layoutMode = normalized;
 
   document.body.classList.remove('mode-light', 'mode-full', 'mode-lite');
@@ -792,47 +809,131 @@ function setLayoutMode(mode) {
   if (selectEl) selectEl.value = normalized;
 }
 
-// Evaluate scene name for automatic mode switching based on [full] and [lite] tags
-function evaluateSceneName(name) {
-  if (!name || typeof name !== 'string') return;
-  const lower = name.toLowerCase();
-  if (lower.includes('[full]')) {
+let lastEvaluatedScene = '';
+
+// Universal extractor supporting multiple OBS browser source event shapes & strings
+function extractSceneName(data) {
+  if (!data) return null;
+  if (typeof data === 'string') return data.trim();
+  if (typeof data === 'object') {
+    const candidate = data.name || data.sceneName || data.current_program_scene ||
+      (data.detail ? (typeof data.detail === 'string' ? data.detail : (data.detail.name || data.detail.sceneName)) : null) ||
+      data.scene;
+    if (typeof candidate === 'string') return candidate.trim();
+  }
+  return null;
+}
+
+// Evaluate scene name for automatic mode switching with zero-latency & anti-jitter
+function evaluateSceneName(nameInput) {
+  const sceneName = extractSceneName(nameInput);
+  if (!sceneName) return;
+
+  if (sceneName === lastEvaluatedScene) return;
+  lastEvaluatedScene = sceneName;
+
+  const lower = sceneName.toLowerCase();
+
+  // Full mode markers: [full], 【full】, [全量], 【全量】, (full), （full）
+  const isFull = lower.includes('[full]') || lower.includes('【full】') || 
+                 lower.includes('[全量]') || lower.includes('【全量】') ||
+                 lower.includes('(full)') || lower.includes('（full）');
+
+  // Lite mode markers: [lite], 【lite】, [light], 【light】, [轻量], 【轻量】, (lite), （lite）
+  const isLite = lower.includes('[lite]') || lower.includes('【lite】') || 
+                 lower.includes('[light]') || lower.includes('【light】') ||
+                 lower.includes('[轻量]') || lower.includes('【轻量】') ||
+                 lower.includes('(lite)') || lower.includes('（lite）');
+
+  if (isFull && !isLite) {
     setLayoutMode('full');
-  } else if (lower.includes('[lite]') || lower.includes('[light]')) {
+  } else if (isLite && !isFull) {
     setLayoutMode('light');
   }
 }
 
 // OBS Studio Native Scene Auto-Switch Engine
 function initObsSceneAutoSwitch() {
-  function checkNativeScene() {
-    if (window.obsstudio && typeof window.obsstudio.getCurrentScene === 'function') {
-      window.obsstudio.getCurrentScene((scene) => {
-        if (scene && scene.name) {
-          evaluateSceneName(scene.name);
-        }
-      });
+  let obsCallbacksHooked = false;
+
+  function hookObsStudioCallbacks() {
+    if (obsCallbacksHooked || !window.obsstudio) return;
+    obsCallbacksHooked = true;
+    try {
+      window.obsstudio.onSceneChange = function(scene) {
+        const name = extractSceneName(scene);
+        if (name) evaluateSceneName(name);
+        else checkNativeScene();
+      };
+      window.obsstudio.onActiveChange = function() {
+        checkNativeScene();
+        setTimeout(checkNativeScene, 50);
+      };
+      window.obsstudio.onVisibilityChange = function() {
+        checkNativeScene();
+        setTimeout(checkNativeScene, 50);
+      };
+    } catch (e) {
+      // Ignored if restricted
     }
   }
 
-  // 1. Initial execution on boot & window load
-  checkNativeScene();
+  function checkNativeScene() {
+    if (window.obsstudio) {
+      hookObsStudioCallbacks();
+      if (typeof window.obsstudio.getCurrentScene === 'function') {
+        try {
+          window.obsstudio.getCurrentScene((scene) => {
+            const name = extractSceneName(scene);
+            if (name) {
+              evaluateSceneName(name);
+            }
+          });
+        } catch (e) {
+          // Safe failover
+        }
+      }
+    }
+  }
+
+  // 1. High-frequency bootstrap probes (0ms, 25ms, 60ms, 120ms, 250ms, 500ms, 1000ms)
+  // Guarantees instant mode resolution as soon as OBS injects window.obsstudio
+  [0, 25, 60, 120, 250, 500, 1000].forEach((delay) => {
+    setTimeout(checkNativeScene, delay);
+  });
   window.addEventListener('load', checkNativeScene);
 
-  // 2. Real-time OBS Studio scene changed event
+  // 2. Real-time OBS Studio scene changed event (instantaneous event-driven response)
   window.addEventListener('obsSceneChanged', (event) => {
-    if (event && event.detail && event.detail.name) {
-      evaluateSceneName(event.detail.name);
-    }
-  });
-
-  // 3. Browser source visibility changed event
-  window.addEventListener('obsSourceVisibleChanged', (event) => {
-    if (event && event.detail && event.detail.visible) {
+    const name = extractSceneName(event);
+    if (name) {
+      evaluateSceneName(name);
+    } else {
       checkNativeScene();
     }
   });
 
-  // 4. Polling safeguard
-  setInterval(checkNativeScene, 1200);
+  // 3. OBS transition & visibility lifecycle triggers (catches cutovers on transition start, cut & end)
+  const lifecycleEvents = [
+    'obsTransitionStarted',
+    'obsTransitionEnded',
+    'obsSourceVisibleChanged',
+    'obsSourceActiveChanged',
+    'obsSceneListChanged'
+  ];
+  lifecycleEvents.forEach((evtName) => {
+    window.addEventListener(evtName, (event) => {
+      const name = extractSceneName(event);
+      if (name) {
+        evaluateSceneName(name);
+      }
+      checkNativeScene();
+      setTimeout(checkNativeScene, 40);
+      setTimeout(checkNativeScene, 120);
+      setTimeout(checkNativeScene, 260);
+    });
+  });
+
+  // 4. Fast polling safeguard (250ms interval for near-instant fallback without CPU overhead)
+  setInterval(checkNativeScene, 250);
 }

@@ -329,9 +329,9 @@
     function setScene(name) {
       document.getElementById('ctrlScene').value = name;
       const lower = name.toLowerCase();
-      if (lower.includes('[full]')) {
+      if (lower.includes('[full]') || lower.includes('【full】') || lower.includes('[全量]') || lower.includes('【全量】')) {
         document.getElementById('ctrlMode').value = 'full';
-      } else if (lower.includes('[lite]') || lower.includes('[light]')) {
+      } else if (lower.includes('[lite]') || lower.includes('【lite】') || lower.includes('[light]') || lower.includes('【light】') || lower.includes('[轻量]') || lower.includes('【轻量】')) {
         document.getElementById('ctrlMode').value = 'light';
       }
     }

@@ -103,10 +103,13 @@
 ### 1. OBS Scene Name Auto-Detection (Recommended) / 场景名称智能识别（推荐）
 
 Rename your OBS Studio scenes to include `[full]` or `[lite]`:
-* `Main Game [full]` ➔ Overlay automatically transforms into **Full Stage Mode** with 85% game frame.
-* `Chatting [lite]` (or `[light]`) ➔ Overlay automatically transforms into **Lightweight Top Capsule HUD**.
+* `Main Game [full]` (or `【full】`, `[全量]`, `【全量】`) ➔ Overlay instantly transforms into **Full Stage Mode** with 85% game frame.
+* `Chatting [lite]` (or `[light]`, `【lite】`, `【light】`, `[轻量]`, `【轻量】`) ➔ Overlay instantly transforms into **Lightweight Top Capsule HUD**.
 
-*(只需在 OBS 场景名称中加入 `[full]` 或 `[lite]`，切场景时即刻毫秒级自动切换)*
+> **💡 OBS Permission Tip / OBS 权限设置提示**:  
+> In OBS Studio Browser Source properties, ensure **Page permissions** (页面权限) is set to **"Read access to user information"** (只读访问用户信息) or higher, which grants native event access (`obsSceneChanged`, `obsTransitionStarted`) for zero-latency instant switching.
+
+*(支持英文半角 `[full]` / `[lite]` 与中文全角 `【full】` / `【lite】` / `【全量】` / `【轻量】`，切场景即刻毫秒级响应)*
 
 ---
 
