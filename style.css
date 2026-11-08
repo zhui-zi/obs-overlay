@@ -223,16 +223,17 @@ body {
   overflow: hidden;
 }
 
-.vu-bar::after {
-  content: '';
+.vu-bar-fill {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 30%;
+  height: 100%;
+  transform-origin: bottom center;
+  transform: scaleY(0.15);
   background: linear-gradient(180deg, #ec4899 0%, #8b5cf6 50%, #4285f4 100%);
   border-radius: 3px;
-  transition: height 0.15s ease-out;
+  will-change: transform;
 }
 
 /* ================= Bay 2: Game Title ================= */

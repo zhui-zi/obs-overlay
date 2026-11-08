@@ -188,30 +188,52 @@ function initClock() {
   setInterval(tick, 250); // Sample at 4Hz for zero-latency response
 }
 
-// Simulated dynamic VU meter
+// Realistic physics-based audio spectrum simulation with organic wave harmonics & smooth decay
 function initVuMeter() {
-  const bars = document.querySelectorAll('.vu-bar');
-  if (!bars || bars.length === 0) return;
+  const fills = document.querySelectorAll('.vu-bar-fill');
+  if (!fills || fills.length === 0) return;
 
-  setInterval(() => {
-    const volumeLevel = Math.random() * 0.95 + 0.05;
-    const activeBarCount = Math.floor(volumeLevel * bars.length);
+  const barCount = fills.length;
+  const currentScales = new Float32Array(barCount).fill(0.15);
+  const targetScales = new Float32Array(barCount).fill(0.15);
 
-    bars.forEach((bar, index) => {
-      let height = 0;
-      if (index < activeBarCount) {
-        height = Math.min(100, Math.floor(Math.random() * 40 + 60));
-      } else if (index === activeBarCount) {
-        height = Math.floor(Math.random() * 40 + 10);
-      } else {
-        height = Math.floor(Math.random() * 15);
-      }
-      const pseudoBar = bar.firstElementChild;
-      if (pseudoBar) {
-        pseudoBar.style.height = `${height}%`;
-      }
-    });
-  }, 120);
+  let phase = 0;
+  let beatTimer = 0;
+
+  function updateTargets() {
+    phase += 0.08;
+    beatTimer++;
+    const beat = Math.sin(beatTimer * 0.05) > 0.72 ? 0.35 : 0;
+
+    for (let i = 0; i < barCount; i++) {
+      // Frequency weighting: heavy resonant bass on left, agile flutter on right
+      const freqFactor = 1 - (i / barCount) * 0.42;
+      const wave1 = Math.sin(phase + i * 0.58);
+      const wave2 = Math.cos(phase * 1.5 + i * 0.88);
+      const noise = (Math.random() - 0.5) * 0.22;
+
+      const energy = (wave1 * 0.34 + wave2 * 0.24 + noise + 0.48) * freqFactor + beat;
+      targetScales[i] = Math.max(0.1, Math.min(0.96, energy));
+    }
+  }
+
+  setInterval(updateTargets, 60);
+
+  function renderLoop() {
+    for (let i = 0; i < barCount; i++) {
+      const target = targetScales[i];
+      const current = currentScales[i];
+
+      // Fast attack (rise), smooth damped decay (fall)
+      const lerpFactor = target > current ? 0.28 : 0.085;
+      currentScales[i] += (target - current) * lerpFactor;
+
+      fills[i].style.transform = `scaleY(${currentScales[i].toFixed(3)})`;
+    }
+    requestAnimationFrame(renderLoop);
+  }
+
+  requestAnimationFrame(renderLoop);
 }
 
 // Infinite seamless marquee renderer
