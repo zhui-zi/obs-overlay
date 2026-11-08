@@ -1,0 +1,495 @@
+/* ========================================================
+   Google Gemini Aura - 100% Clean Interior Edition (4K)
+   Canvas: 3840 x 2160 | Width: 2560px (2/3 Screen, Centered) | Height: 108px
+   Philosophy: Zero Interior Glare, Razor-sharp 2px Flowing Rim
+               with Subtle Outset-only Glow, Pure Obsidian Core.
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@500;700;800;900&family=Noto+Sans+SC:wght@500;700;900&family=JetBrains+Mono:wght@600;700&display=swap');
+
+:root {
+  /* ==========================================================
+     【OBS 自定义 CSS 配置区】
+     在 OBS 浏览器源属性面板底部的「自定义 CSS」中，
+     您可以直接修改下面三个变量的值，点击确定即可立即生效！
+     ========================================================== */
+  --brand-domain: "keita.cc";
+  --game-title: "黑神话：悟空";
+  --notices: "✨ 欢迎来到直播间！点赞关注不迷路，交流群：888-666-999 || 🌌 每天晚上 20:00 准时开播，感谢支持！ || 🎮 PC最高画质全景光追 | 欢迎弹幕互动点歌！";
+
+  --canvas-width: 3840px;
+  --canvas-height: 2160px;
+  --overlay-width: 2560px; /* 占据 2/3 宽度的悬浮胶囊 */
+  --overlay-height: 108px; /* 纤薄修长机身 */
+
+  /* 严谨统一的双层排版规范 */
+  --font-hero: 32px;       /* 核心主视觉字号：游戏标题、走马灯公告、时钟数字 */
+  --font-sub: 18px;        /* 辅助信息字号：keita.cc 域名、NOTICE 胶囊、日历日期 */
+  --font-label-sm: 14px;   /* 极简副标签：OFFICIAL SITE、星期标签 */
+
+  /* 通透暗曜石毛玻璃色彩 (中间增加通透透明感，透出游戏动态背景光影) */
+  --bg-obsidian-translucent: rgba(10, 13, 18, 0.68);
+  --bg-bay-clean: rgba(255, 255, 255, 0.04);
+  --border-bay-clean: rgba(255, 255, 255, 0.08);
+
+  /* 纯净文字色 */
+  --text-main: #f8fafc;
+  --text-pure-white: #ffffff;
+  --text-muted: #8b9bb4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  width: 3840px;
+  height: 2160px;
+  overflow: hidden;
+  background-color: transparent;
+  font-family: 'Google Sans', 'Noto Sans SC', sans-serif;
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ================= 4K 悬浮胶囊机架 (纯外围淡淡微晕，内部 100% 绝对纯黑，零透光) ================= */
+@property --rainbow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate-overlay-rainbow {
+  0% { --rainbow-angle: 0deg; }
+  100% { --rainbow-angle: 360deg; }
+}
+
+.overlay-container {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--overlay-width);
+  height: var(--overlay-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  gap: 14px;
+
+  /* 通透暗曜石毛玻璃 (半透明度 0.68，透出游戏背景但文字清晰锐利) */
+  background: var(--bg-obsidian-translucent);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+
+  /* 优雅圆润的大胶囊造型 */
+  border-radius: 26px;
+  box-shadow: 
+    0 16px 36px rgba(0, 0, 0, 0.7),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+
+  z-index: 100;
+  overflow: visible;
+}
+
+/* 仅在边框上绘制 2px 彩虹流动线，并通过 drop-shadow 仅在外侧晕开淡淡 3px 微光，内部被 mask 绝对镂空 */
+.overlay-container::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 28px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--rainbow-angle, 0deg),
+    #4285f4 0%,
+    #8b5cf6 25%,
+    #ec4899 50%,
+    #f59e0b 75%,
+    #4285f4 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate-overlay-rainbow 6.5s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.95;
+
+  /* 淡淡的一小圈贴边微光 (仅在外侧晕开 3px，内部被 mask 挖空，绝对 0 渗入) */
+  filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.45));
+}
+
+/* 彻底删除 ::after 弥散模糊层，杜绝任何全向漫射 */
+
+/* ================= 模块 1: 左侧 - 个人主页品牌舱 (keita.cc) + 纯净频谱 ================= */
+.panel-section {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.left-panel {
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+/* 紧凑纯净品牌胶囊 (纯粹单行大字) */
+.live-indicator-bay {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  height: 72px;
+  background: var(--bg-bay-clean);
+  border: 1px solid var(--border-bay-clean);
+  border-radius: 14px;
+}
+
+.sparkle-housing {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 纯净清晰的四芒星图标 */
+.sparkle-icon {
+  width: 22px;
+  height: 22px;
+  fill: url(#gemini-sparkle-gradient);
+  opacity: 0.95;
+}
+
+.live-text-group {
+  display: flex;
+  align-items: center;
+}
+
+/* keita.cc 主域名标签 (放大至 24px 单行大字，清晰醒目) */
+.brand-domain-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #60a5fa;
+  line-height: 1;
+}
+
+/* 纯粹极光频谱表 (垂直居中排列，无多余文字标签) */
+.vu-meter-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  height: 72px;
+  background: var(--bg-bay-clean);
+  border: 1px solid var(--border-bay-clean);
+  border-radius: 14px;
+}
+
+.vu-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 32px;
+}
+
+.vu-bar {
+  width: 6px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vu-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(180deg, #ec4899 0%, #8b5cf6 50%, #4285f4 100%);
+  border-radius: 3px;
+  transition: height 0.15s ease-out;
+}
+
+/* ================= 模块 2: 中左 - 游戏标题 (纯粹文字，自适应包裹，通透半透明) ================= */
+.game-panel {
+  flex: 0 0 auto;
+  max-width: 900px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 14px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) inset;
+  transition: all 0.3s ease;
+}
+
+.game-content-single {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  flex: 1;
+}
+
+/* 核心主字阶 32px (清晰纯白，字迹锐利) */
+.game-title {
+  font-family: 'Google Sans', 'Noto Sans SC', sans-serif;
+  font-size: var(--font-hero);
+  font-weight: 800;
+  color: var(--text-pure-white);
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ================= 模块 3: 中部 - 无缝无限循环公告栏 (通透半透明，首尾相接零空白) ================= */
+.notice-panel {
+  flex: 1 1 0%;
+  min-width: 400px;
+  height: 72px;
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) inset;
+}
+
+/* 纯净内嵌 公告 徽章 */
+.notice-badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 14px;
+  border-radius: 9999px;
+  margin-right: 18px;
+  z-index: 5;
+}
+
+.notice-badge-icon {
+  width: 14px;
+  height: 14px;
+  fill: #a78bfa;
+}
+
+.notice-badge-text {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+}
+
+/* 无缝跑马灯视窗 */
+.notice-viewport {
+  flex: 1 1 0%;
+  overflow: hidden;
+  position: relative;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  /* 左右两端极微弱边缘渐隐，让内容出入更加自然高级 */
+  mask-image: linear-gradient(90deg, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0px, #000 24px, #000 calc(100% - 24px), transparent 100%);
+}
+
+/* 无缝连续滚动双轨轨道 (首尾相接，向左平滑连续滑动到 -50% 瞬间重置) */
+.notice-track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-seamless 35s linear infinite;
+}
+
+@keyframes marquee-seamless {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 单条公告项 (32px 统一主字阶) */
+.notice-item {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Google Sans', 'Noto Sans SC', sans-serif;
+  font-size: var(--font-hero);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+  color: #f8fafc;
+  padding-right: 48px;
+}
+
+/* 公告之间的精致极光四芒星分隔符 */
+.notice-separator {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 48px;
+  color: #8b5cf6;
+  font-size: 20px;
+  opacity: 0.85;
+}
+
+/* ================= 模块 4: 右侧 - 数字时钟与日期 (字号大幅放大，极度清晰醒目) ================= */
+.time-panel {
+  flex: 0 0 auto;
+  height: 72px;
+  background: var(--bg-bay-clean);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 22px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-bay-clean);
+}
+
+.date-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 星期放大至 18px (清晰醒目) */
+.date-day {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 1.5px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* 日期放大至 24px (清晰醒目) */
+.date-calendar {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  font-weight: 800;
+  color: #e2e8f0;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+/* 核心时钟大字显示 (大幅放大至 48px，字重 900，秒数 24px) */
+.clock-display {
+  display: flex;
+  align-items: baseline;
+}
+
+.clock-digits {
+  font-family: 'Google Sans', 'JetBrains Mono', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.clock-seconds {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  font-weight: 800;
+  margin-left: 6px;
+  color: #a78bfa;
+  min-width: 30px;
+}
+
+/* 4K 快速设置抽屉 */
+.quick-drawer {
+  position: absolute;
+  top: 126px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 580px;
+  background: rgba(13, 16, 23, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+}
+.quick-drawer.active {
+  display: flex;
+}
+.quick-drawer h3 {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 19px;
+  color: #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.quick-drawer label {
+  font-size: 14px;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.quick-drawer input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+}
+.quick-drawer input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+}
+.quick-drawer .drawer-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+.quick-drawer button {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+}
+.quick-drawer button.btn-primary {
+  background: linear-gradient(135deg, #4285f4 0%, #8b5cf6 50%, #ec4899 100%);
+  border: none;
+}
