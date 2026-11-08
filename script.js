@@ -18,14 +18,18 @@ const state = {
     "🌌 每天晚上 20:00 准时开播，感谢各位老铁的大力支持！",
     "🎮 PC最高画质全景光追 | 欢迎弹幕互动交流点歌！"
   ],
+  themeEffect: "none", // Options: "none" | "lights" | "snow" | "both"
   currentNoticeIndex: 0
 };
 
 // Cross-tab broadcast channel
 const channel = new BroadcastChannel('obs_overlay_sync');
+let snowfallInstance = null;
 
 // Lifecycle initialization
 document.addEventListener('DOMContentLoaded', () => {
+  initFestiveLights();
+  initSnowfall();
   initObsCustomCssListener();
   initUrlParams();
   initClock();
@@ -75,6 +79,15 @@ function readObsCustomCss() {
     }
   }
 
+  // 4. --theme-effect
+  let rawEffect = rootStyle.getPropertyValue('--theme-effect');
+  if (rawEffect) {
+    let cleanEffect = rawEffect.trim().replace(/^["']|["']$/g, '').toLowerCase();
+    if (cleanEffect && cleanEffect !== state.themeEffect) {
+      setThemeEffect(cleanEffect);
+    }
+  }
+
   updateDisplay();
 }
 
@@ -103,6 +116,10 @@ function initUrlParams() {
       state.notices = customNotices;
       renderSeamlessNotices();
     }
+  }
+
+  if (params.has('effect')) {
+    setThemeEffect(params.get('effect').toLowerCase());
   }
 
   updateDisplay();
@@ -283,6 +300,9 @@ function initSyncListener() {
       state.notices = data.notices;
       renderSeamlessNotices();
     }
+    if (data.themeEffect !== undefined) {
+      setThemeEffect(data.themeEffect);
+    }
 
     updateDisplay();
   };
@@ -294,12 +314,14 @@ function initDrawer() {
   if (!drawer) return;
 
   window.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
     if (e.key.toLowerCase() === 'c') {
       drawer.classList.toggle('active');
       if (drawer.classList.contains('active')) {
         document.getElementById('inputGame').value = state.gameTitle;
         document.getElementById('inputNotice').value = state.notices.join(' || ');
+        const selectEffect = document.getElementById('inputEffect');
+        if (selectEffect) selectEffect.value = state.themeEffect;
       }
     }
   });
@@ -316,6 +338,11 @@ function initDrawer() {
         state.notices = noticesRaw.split('||').map(s => s.trim()).filter(Boolean);
         renderSeamlessNotices();
       }
+
+      const selectEffect = document.getElementById('inputEffect');
+      if (selectEffect) {
+        setThemeEffect(selectEffect.value);
+      }
       
       updateDisplay();
       drawer.classList.remove('active');
@@ -325,4 +352,128 @@ function initDrawer() {
   if (btnClose) {
     btnClose.addEventListener('click', () => drawer.classList.remove('active'));
   }
+}
+
+// ================= Atmosphere Effects: Festive Lights & Snowfall =================
+function initFestiveLights() {
+  const container = document.getElementById('festiveLights');
+  if (!container) return;
+
+  container.innerHTML = '';
+  const colors = ['color-gold', 'color-ruby', 'color-emerald', 'color-sapphire', 'color-amethyst'];
+  const bulbCount = 38;
+
+  for (let i = 0; i < bulbCount; i++) {
+    const socket = document.createElement('div');
+    const colorClass = colors[i % colors.length];
+    socket.className = `festive-bulb-socket ${colorClass}`;
+    socket.innerHTML = `
+      <div class="bulb-wire"></div>
+      <div class="bulb-cap"></div>
+      <div class="bulb-glass"></div>
+    `;
+    container.appendChild(socket);
+  }
+}
+
+class Snowfall {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.particles = [];
+    this.active = false;
+    this.animId = null;
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+  }
+
+  resize() {
+    this.canvas.width = 3840;
+    this.canvas.height = 2160;
+  }
+
+  start() {
+    if (this.active) return;
+    this.active = true;
+    this.particles = [];
+    for (let i = 0; i < 115; i++) {
+      this.particles.push({
+        x: Math.random() * 3840,
+        y: Math.random() * 2160,
+        radius: Math.random() * 2.8 + 1.2,
+        density: Math.random() * 1.2 + 0.6,
+        alpha: Math.random() * 0.65 + 0.25,
+        windPhase: Math.random() * Math.PI * 2,
+        windSpeed: Math.random() * 0.015 + 0.008
+      });
+    }
+    this.render();
+  }
+
+  stop() {
+    this.active = false;
+    if (this.animId) {
+      cancelAnimationFrame(this.animId);
+      this.animId = null;
+    }
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  render() {
+    if (!this.active) return;
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, 3840, 2160);
+
+    for (let i = 0; i < this.particles.length; i++) {
+      const p = this.particles[i];
+      p.windPhase += p.windSpeed;
+      p.y += p.density * 1.2;
+      p.x += Math.sin(p.windPhase) * 0.85;
+
+      if (p.y > 2160) {
+        p.y = -10;
+        p.x = Math.random() * 3840;
+      }
+      if (p.x > 3840) p.x = 0;
+      else if (p.x < 0) p.x = 3840;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
+      ctx.shadowBlur = p.radius * 2;
+      ctx.fill();
+    }
+
+    this.animId = requestAnimationFrame(() => this.render());
+  }
+}
+
+function initSnowfall() {
+  const canvas = document.getElementById('snowCanvas');
+  if (canvas) {
+    snowfallInstance = new Snowfall(canvas);
+  }
+}
+
+function setThemeEffect(effect) {
+  const valid = ['none', 'lights', 'snow', 'both'];
+  const mode = valid.includes(effect) ? effect : 'none';
+  state.themeEffect = mode;
+
+  document.body.classList.remove('effect-lights', 'effect-snow', 'effect-both');
+  if (mode !== 'none') {
+    document.body.classList.add(`effect-${mode}`);
+  }
+
+  if (snowfallInstance) {
+    if (mode === 'snow' || mode === 'both') {
+      snowfallInstance.start();
+    } else {
+      snowfallInstance.stop();
+    }
+  }
+
+  const selectEl = document.getElementById('inputEffect');
+  if (selectEl) selectEl.value = mode;
 }

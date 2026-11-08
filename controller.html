@@ -92,7 +92,7 @@
       letter-spacing: 0.5px;
     }
 
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -104,11 +104,16 @@
       transition: all 0.2s;
     }
 
-    input:focus, textarea:focus {
+    input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: #9b72cb;
       box-shadow: 0 0 14px rgba(155, 114, 203, 0.4);
       background: rgba(255, 255, 255, 0.08);
+    }
+
+    select option {
+      background: #0d1017;
+      color: #fff;
     }
 
     textarea {
@@ -266,6 +271,16 @@
         <div class="help-hint">Each line or || delimiter will loop smoothly across the notice bar.</div>
       </div>
 
+      <div class="form-group">
+        <label>Festive Atmosphere Effect</label>
+        <select id="ctrlEffect">
+          <option value="none">None (Standard)</option>
+          <option value="lights">Hanging Festive Holiday Lights</option>
+          <option value="snow">Winter Snowfall</option>
+          <option value="both">Lights + Snowfall</option>
+        </select>
+      </div>
+
       <div class="button-row">
         <button type="submit" class="btn-submit">🚀 Sync to 4K OBS Canvas</button>
       </div>
@@ -295,6 +310,7 @@
       
       const gameTitle = document.getElementById('ctrlGame').value.trim();
       const rawNotices = document.getElementById('ctrlNotices').value;
+      const themeEffect = document.getElementById('ctrlEffect').value;
       const notices = rawNotices
         .split(/\r?\n|\|\|/)
         .map(s => s.trim())
@@ -302,7 +318,8 @@
 
       channel.postMessage({
         gameTitle,
-        notices
+        notices,
+        themeEffect
       });
 
       showToast('✔ Synchronized to OBS canvas');

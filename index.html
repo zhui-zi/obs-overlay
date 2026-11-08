@@ -8,6 +8,9 @@
 </head>
 <body>
 
+  <!-- Fullscreen Snowfall Canvas -->
+  <canvas id="snowCanvas" class="snow-canvas"></canvas>
+
   <!-- SVG Gradient Definitions -->
   <svg width="0" height="0" style="position: absolute;">
     <defs>
@@ -22,6 +25,9 @@
 
   <!-- 4K Suspended Capsule HUD -->
   <header class="overlay-container">
+    
+    <!-- Top Hanging Festive Holiday String Lights -->
+    <div class="festive-lights-rig" id="festiveLights"></div>
     
     <!-- Left Bay: Brand Domain & Spectrum VU Meter -->
     <div class="panel-section left-panel">
@@ -108,6 +114,15 @@
     <label>
       Marquee Notices (Separate with ||):
       <input type="text" id="inputNotice">
+    </label>
+    <label>
+      Festive Effect:
+      <select id="inputEffect">
+        <option value="none">None (Standard)</option>
+        <option value="lights">Hanging Festive Lights</option>
+        <option value="snow">Winter Snowfall</option>
+        <option value="both">Lights + Snowfall</option>
+      </select>
     </label>
     <div class="drawer-actions">
       <button class="btn-primary" id="btnDrawerApply">Apply</button>

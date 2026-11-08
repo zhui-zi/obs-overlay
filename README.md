@@ -28,6 +28,9 @@ Directly edit properties in OBS Studio via **Browser Source Properties -> Custom
 
   /* Marquee notices separated by || */
   --notices: "✨ Welcome to the stream! || 🌌 Live daily at 20:00 || 🎮 4K Ray Tracing Enabled";
+
+  /* Optional festive atmosphere: "none" | "lights" | "snow" | "both" */
+  --theme-effect: "lights";
 }
 ```
 
@@ -49,7 +52,7 @@ Directly edit properties in OBS Studio via **Browser Source Properties -> Custom
 
 - **URL Query Parameters**:
   ```text
-  https://obs.keita.cc/?domain=keita.cc&game=Elden+Ring&notice=First+Notice||Second+Notice
+  https://obs.keita.cc/?domain=keita.cc&game=Elden+Ring&effect=lights&notice=First+Notice||Second+Notice
   ```
 - **Web Controller**: Open [`controller.html`](file:///C:/Users/keita/.gemini/antigravity/scratch/obs-skeuomorphic-overlay/controller.html) to broadcast title and notice updates in real-time via `BroadcastChannel`.
 - **In-Browser Quick Drawer**: Press `C` when focused on the overlay page to toggle the config drawer.
