@@ -116,7 +116,7 @@ function updateDisplay() {
   if (elTitle) elTitle.textContent = state.gameTitle;
 }
 
-// Clock & calendar tick with smooth micro-transition animation
+// Clock & calendar tick with diffuse convergence animation
 function initClock() {
   const elClock = document.getElementById('clockDigits');
   const elSeconds = document.getElementById('clockSeconds');

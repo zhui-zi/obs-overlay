@@ -114,11 +114,12 @@ body {
   z-index: 2;
   opacity: 0.95;
 
-  /* Calibrated 3-tier aura bloom: visible exterior diffusion with zero core bleed */
+  /* Calibrated 4-tier optical aura diffusion: visible rich glow bloom without interior wash */
   filter: 
-    drop-shadow(0 0 4px rgba(139, 92, 246, 0.85))
-    drop-shadow(0 0 12px rgba(66, 133, 244, 0.6))
-    drop-shadow(0 0 22px rgba(236, 72, 153, 0.35));
+    drop-shadow(0 0 4px rgba(139, 92, 246, 0.95))
+    drop-shadow(0 0 10px rgba(66, 133, 244, 0.8))
+    drop-shadow(0 0 20px rgba(236, 72, 153, 0.55))
+    drop-shadow(0 0 36px rgba(139, 92, 246, 0.35));
 }
 
 /* Remove full-surface ::after backplate to eliminate all interior text wash */
@@ -391,7 +392,6 @@ body {
 .clock-display {
   display: flex;
   align-items: baseline;
-  overflow: hidden;
 }
 
 .clock-digits {
@@ -402,11 +402,11 @@ body {
   letter-spacing: 1.5px;
   color: #ffffff;
   line-height: 1;
-  will-change: transform, opacity;
+  will-change: transform, filter, opacity;
 }
 
 .clock-digits.animate {
-  animation: clock-slide-major 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: clock-converge-major 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .clock-seconds {
@@ -417,31 +417,44 @@ body {
   margin-left: 6px;
   color: #a78bfa;
   min-width: 32px;
-  will-change: transform, opacity;
+  will-change: transform, filter, opacity;
 }
 
 .clock-seconds.animate {
-  animation: clock-slide-minor 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: clock-converge-minor 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes clock-slide-minor {
+/* Diffuse-to-convergence micro-animation: energy bloom condensing into crisp typography */
+@keyframes clock-converge-minor {
   0% {
-    transform: translateY(4px);
-    opacity: 0.35;
+    transform: scale(1.08);
+    filter: blur(4px) drop-shadow(0 0 8px rgba(167, 139, 250, 0.9));
+    opacity: 0.45;
+  }
+  50% {
+    filter: blur(1.5px) drop-shadow(0 0 4px rgba(167, 139, 250, 0.6));
+    opacity: 0.85;
   }
   100% {
-    transform: translateY(0);
+    transform: scale(1);
+    filter: blur(0) drop-shadow(0 0 0 rgba(167, 139, 250, 0));
     opacity: 1;
   }
 }
 
-@keyframes clock-slide-major {
+@keyframes clock-converge-major {
   0% {
-    transform: translateY(6px);
-    opacity: 0.3;
+    transform: scale(1.06);
+    filter: blur(6px) drop-shadow(0 0 14px rgba(96, 165, 250, 0.95));
+    opacity: 0.35;
+  }
+  60% {
+    filter: blur(2px) drop-shadow(0 0 6px rgba(167, 139, 250, 0.6));
+    opacity: 0.85;
   }
   100% {
-    transform: translateY(0);
+    transform: scale(1);
+    filter: blur(0) drop-shadow(0 0 0 rgba(96, 165, 250, 0));
     opacity: 1;
   }
 }
