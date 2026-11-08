@@ -1413,16 +1413,16 @@ body.mode-full .overlay-container {
     0 0 60px rgba(236, 72, 153, 0.35);
 }
 
-/* 1. Notice Panel: Expanded width and larger typography */
+/* 1. Notice Panel: Scaled typography with balanced compact width */
 body.mode-full .notice-panel {
   order: 1;
-  width: 1450px;
-  max-width: 1450px;
-  flex: 0 1 1450px;
+  width: 1000px;
+  max-width: 1000px;
+  flex: 0 1 1000px;
   height: 92px;
   border-radius: 18px;
-  padding: 0 20px;
-  gap: 16px;
+  padding: 0 18px;
+  gap: 14px;
 }
 
 body.mode-full .notice-badge {
@@ -1454,7 +1454,7 @@ body.mode-full .game-panel {
   order: 2;
   flex: 0 0 auto;
   height: 92px;
-  padding: 0 24px;
+  padding: 0 20px;
   border-radius: 18px;
 }
 
@@ -1535,9 +1535,9 @@ body.mode-full .right-panel {
   order: 4;
   flex: 0 0 auto;
   height: 92px;
-  padding: 0 24px;
+  padding: 0 20px;
   border-radius: 18px;
-  gap: 16px;
+  gap: 14px;
 }
 
 body.mode-full .date-group {
