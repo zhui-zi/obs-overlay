@@ -252,6 +252,17 @@
 
     <form id="controlForm">
       <div class="form-group">
+        <label>Brand / Channel Name (BrandDomain)</label>
+        <input type="text" id="ctrlDomain" value="keita.cc">
+        <div class="quick-preset-chips">
+          <span class="preset-chip" onclick="setDomain('keita.cc')">keita.cc</span>
+          <span class="preset-chip" onclick="setDomain('追子的直播间')">追子的直播间</span>
+          <span class="preset-chip" onclick="setDomain('电台互动慢聊')">电台互动慢聊</span>
+          <span class="preset-chip" onclick="setDomain('LIVE 直播中')">LIVE 直播中</span>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label>Game Title</label>
         <input type="text" id="ctrlGame" value="【游戏】黑神话：悟空">
         <div class="quick-preset-chips">
@@ -322,6 +333,10 @@
       }, 2500);
     }
 
+    function setDomain(domain) {
+      document.getElementById('ctrlDomain').value = domain;
+    }
+
     function setGame(title) {
       document.getElementById('ctrlGame').value = title;
     }
@@ -339,6 +354,7 @@
     document.getElementById('controlForm').addEventListener('submit', (e) => {
       e.preventDefault();
       
+      const brandDomain = document.getElementById('ctrlDomain').value.trim();
       const gameTitle = document.getElementById('ctrlGame').value.trim();
       const rawNotices = document.getElementById('ctrlNotices').value;
       const themeEffect = document.getElementById('ctrlEffect').value;
@@ -350,6 +366,7 @@
         .filter(Boolean);
 
       channel.postMessage({
+        brandDomain,
         gameTitle,
         notices,
         themeEffect,

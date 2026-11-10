@@ -121,8 +121,8 @@ In OBS Studio, right-click your Browser Source ➔ **Properties** ➔ **Custom C
      "none" | "lights" | "snow" | "both" | "newyear" | "halloween" | "romantic" */
   --theme-effect: "newyear";
 
-  /* Brand domain label (left bay) */
-  --brand-domain: "keita.cc";
+  /* Brand domain / Channel label (left bay, fully supports Chinese & English typography) */
+  --brand-domain: "keita.cc"; /* or Chinese e.g. "追子的直播间", alias --band-domain */
 
   /* Broadcast / Game Title (Supports 【游戏】/【观影】/【杂谈】 category prefixes) */
   --title: "【游戏】黑神话：悟空"; /* or --game-title */

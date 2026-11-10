@@ -44,8 +44,8 @@ let lastCssValues = { domain: '', title: '', notices: '', effect: '', mode: '', 
 function readObsCustomCss() {
   const rootStyle = getComputedStyle(document.documentElement);
   
-  // 1. --brand-domain
-  let rawDomain = rootStyle.getPropertyValue('--brand-domain');
+  // 1. --brand-domain (or alias --band-domain)
+  let rawDomain = rootStyle.getPropertyValue('--brand-domain') || rootStyle.getPropertyValue('--band-domain');
   if (rawDomain) {
     let cleanDomain = rawDomain.trim().replace(/^["']|["']$/g, '');
     if (cleanDomain && cleanDomain !== lastCssValues.domain) {
@@ -132,6 +132,8 @@ function initUrlParams() {
   const params = new URLSearchParams(window.location.search);
   
   if (params.has('domain')) state.brandDomain = params.get('domain');
+  else if (params.has('brand')) state.brandDomain = params.get('brand');
+  else if (params.has('band')) state.brandDomain = params.get('band');
   if (params.has('title')) state.gameTitle = params.get('title');
   else if (params.has('game')) state.gameTitle = params.get('game');
   
@@ -467,6 +469,8 @@ function initDrawer() {
     if (e.key.toLowerCase() === 'c') {
       drawer.classList.toggle('active');
       if (drawer.classList.contains('active')) {
+        const inputDomain = document.getElementById('inputDomain');
+        if (inputDomain) inputDomain.value = state.brandDomain;
         document.getElementById('inputGame').value = state.gameTitle;
         document.getElementById('inputNotice').value = state.notices.join(' || ');
         const selectEffect = document.getElementById('inputEffect');
@@ -482,6 +486,10 @@ function initDrawer() {
 
   if (btnApply) {
     btnApply.addEventListener('click', () => {
+      const inputDomain = document.getElementById('inputDomain');
+      if (inputDomain && inputDomain.value.trim()) {
+        state.brandDomain = inputDomain.value.trim();
+      }
       state.gameTitle = document.getElementById('inputGame').value;
       
       const noticesRaw = document.getElementById('inputNotice').value;
