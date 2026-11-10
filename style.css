@@ -1544,14 +1544,14 @@ body.effect-romantic .hud-corner-tr {
   50% { opacity: 1; filter: drop-shadow(0 0 14px rgba(186, 230, 253, 0.85)); }
 }
 
-/* ================= Full-Screen Stage Mode (89.2% 4K Game Viewport + Bottom Dock) ================= */
+/* ================= Full-Screen Stage Mode (88.2% 4K Game Viewport + Bottom Dock) ================= */
 .game-viewport-frame {
   display: none;
   position: absolute;
-  top: 30px;
-  right: 48px;
-  width: 3424px;
-  height: 1926px;
+  top: 50px;
+  right: 50px;
+  width: 3388px;
+  height: 1906px;
   border-radius: 30px;
   pointer-events: none;
   z-index: 100;
@@ -1611,15 +1611,15 @@ body.mode-full .hud-corner-accent {
   display: none !important;
 }
 
-/* Compact Broadcast Bottom Dock Bar (Vertically centered with 50px equal margins above & below) */
+/* Compact Broadcast Bottom Dock Bar (Vertically centered with 50px equal margins above & below, right margin 50px) */
 body.mode-full .overlay-container {
   top: auto;
   bottom: 50px;
-  right: 48px;
+  right: 50px;
   left: auto;
   transform: none;
   width: auto;
-  max-width: 3424px;
+  max-width: 3388px;
   height: 104px;
   justify-content: flex-end;
   padding: 0 16px;
@@ -1891,46 +1891,46 @@ body.mode-full.effect-romantic .game-viewport-frame::before {
 }
 
 /* ==========================================================================
-   Full Mode Bespoke Festival Atmosphere Architecture (Tailored for 3424x1926 Frame)
+   Full Mode Bespoke Festival Atmosphere Architecture (Tailored for 3388x1906 Frame)
    - Bottom-Left Corner & Left Sidebar: 100% Unobstructed (Reserved for Camera/Avatar/Chat)
-   - Decorations frame the 3424x1926 Game Viewport Frame & Bottom Dock organically
+   - Decorations frame the 3388x1906 Game Viewport Frame & Bottom Dock organically
    ========================================================================== */
 
 /* 1. Chinese Lunar New Year in Full Mode */
-/* Flank the top-left and top-right of the 3424x1926 Game Viewport Frame */
+/* Flank the top-left and top-right of the 3388x1906 Game Viewport Frame */
 body.mode-full .cn-palace-lantern.lantern-pos-left {
-  left: 380px;
-  top: 6px;
+  left: 414px;
+  top: 15px;
   width: 140px;
 }
 body.mode-full .cn-palace-lantern.lantern-pos-right {
-  right: 70px;
-  top: 6px;
+  right: 72px;
+  top: 15px;
   width: 140px;
 }
 body.mode-full .cn-cloud-left {
-  left: 290px;
-  top: 10px;
+  left: 324px;
+  top: 20px;
   width: 220px;
 }
 body.mode-full .cn-cloud-right {
   right: 25px;
-  top: 10px;
+  top: 20px;
   width: 220px;
 }
 
 /* 2. Halloween Night in Full Mode */
 /* Cobweb & dangling spider anchor neatly to the top-left corner of the game frame */
 body.mode-full .hl-web-corner {
-  left: 350px;
-  top: 10px;
+  left: 384px;
+  top: 30px;
   width: 320px;
   height: 320px;
 }
 
 /* Bats glide across the upper stage above the game frame */
 body.mode-full .hl-bat-flock {
-  top: 10px;
+  top: 15px;
   height: 320px;
 }
 /* Glowing Jack-o'-Lantern perches on the bottom overlay bar */
@@ -1951,14 +1951,14 @@ body.mode-full .hl-pumpkin-corner {
 /* 4. Winter Frost in Full Mode */
 /* Crystalline icicles freeze along the top-left & top-right bezels of the game frame */
 body.mode-full .frost-left {
-  left: 368px;
-  top: 30px;
+  left: 402px;
+  top: 50px;
   width: 280px;
   height: 160px;
 }
 body.mode-full .frost-right {
-  right: 48px;
-  top: 30px;
+  right: 50px;
+  top: 50px;
   width: 280px;
   height: 160px;
 }
