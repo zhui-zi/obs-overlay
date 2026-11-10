@@ -168,6 +168,11 @@ body {
   border-radius: 14px;
 }
 
+.brand-domain-bay.hidden,
+.brand-domain-bay:has(#brandDomain:empty) {
+  display: none !important;
+}
+
 .sparkle-housing {
   position: relative;
   width: 28px;

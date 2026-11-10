@@ -39,16 +39,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Realtime OBS Custom CSS variable watcher
-let lastCssValues = { domain: '', title: '', notices: '', effect: '', mode: '', scene: '' };
+let lastCssValues = { domain: undefined, title: undefined, notices: undefined, effect: undefined, mode: undefined, scene: undefined };
 
 function readObsCustomCss() {
   const rootStyle = getComputedStyle(document.documentElement);
   
   // 1. --brand-domain (or alias --band-domain)
   let rawDomain = rootStyle.getPropertyValue('--brand-domain') || rootStyle.getPropertyValue('--band-domain');
-  if (rawDomain) {
+  if (rawDomain !== null && rawDomain !== undefined) {
     let cleanDomain = rawDomain.trim().replace(/^["']|["']$/g, '');
-    if (cleanDomain && cleanDomain !== lastCssValues.domain) {
+    if (cleanDomain !== lastCssValues.domain) {
       lastCssValues.domain = cleanDomain;
       state.brandDomain = cleanDomain;
     }
@@ -222,12 +222,22 @@ function parseTitleCategory(rawTitle) {
 // DOM renderer
 function updateDisplay() {
   const elDomain = document.getElementById('brandDomain');
+  const elDomainBay = document.querySelector('.brand-domain-bay');
   const elTitle = document.getElementById('gameTitle');
   const elBadge = document.getElementById('gameBadge');
   const elBadgeIcon = document.getElementById('gameBadgeIcon');
   const elBadgeText = document.getElementById('gameBadgeText');
 
-  if (elDomain) elDomain.textContent = state.brandDomain;
+  const rawDomain = state.brandDomain ? String(state.brandDomain).trim() : '';
+  const isDomainEmpty = !rawDomain || rawDomain.toLowerCase() === 'none';
+
+  if (elDomainBay) {
+    elDomainBay.classList.toggle('hidden', isDomainEmpty);
+    elDomainBay.style.display = isDomainEmpty ? 'none' : 'flex';
+  }
+  if (elDomain) {
+    elDomain.textContent = isDomainEmpty ? '' : rawDomain;
+  }
 
   const parsed = parseTitleCategory(state.gameTitle);
 
