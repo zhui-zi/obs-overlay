@@ -14,9 +14,7 @@ const state = {
   brandDomain: "keita.cc",
   gameTitle: "【游戏】黑神话：悟空",
   notices: [
-    "非全职个人势主播，虚拟形象画师&建模：심연의심연 (@gonggye_hs)",
-    "随心所欲玩点游戏，主播是老社畜啦不用花钱投喂哦，点点关注就好",
-    "欢迎好友++，个人主页https://keita.cc"
+    "没啥说的了，都来我家喝酒吧^^b"
   ],
   themeEffect: "none", // Options: "none" | "lights" | "snow" | "both" | "newyear" | "halloween" | "romantic"
   layoutMode: "light",  // Options: "light" (Top Capsule HUD) | "full" (85% Game Frame + Bottom Dock)
