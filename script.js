@@ -18,6 +18,7 @@ const state = {
   ],
   themeEffect: "none", // Options: "none" | "lights" | "snow" | "both" | "newyear" | "halloween" | "romantic"
   layoutMode: "light",  // Options: "light" (Top Capsule HUD) | "full" (85% Game Frame + Bottom Dock)
+  dayLang: "zh",        // Options: "zh" (周日, 周一...) | "en" (SUN, MON...)
   currentNoticeIndex: 0
 };
 
@@ -112,6 +113,13 @@ function readObsCustomCss() {
     }
   }
 
+  // 7. --day-lang
+  let rawDayLang = rootStyle.getPropertyValue('--day-lang');
+  if (rawDayLang) {
+    let cleanDayLang = rawDayLang.trim().replace(/^["']|["']$/g, '').toLowerCase();
+    if (cleanDayLang) state.dayLang = cleanDayLang;
+  }
+
   updateDisplay();
 }
 
@@ -155,6 +163,12 @@ function initUrlParams() {
 
   if (params.has('scene')) {
     evaluateSceneName(params.get('scene'));
+  }
+
+  if (params.has('daylang')) {
+    state.dayLang = params.get('daylang').toLowerCase();
+  } else if (params.has('lang')) {
+    state.dayLang = params.get('lang').toLowerCase();
   }
 
   updateDisplay();
@@ -273,7 +287,8 @@ function initClock() {
   const elCalendar = document.getElementById('dateCalendar');
   const elDay = document.getElementById('dateDay');
 
-  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const daysOfWeekZh = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+  const daysOfWeekEn = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   let lastTimeStr = '';
   let lastSecStr = '';
 
@@ -331,7 +346,8 @@ function initClock() {
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     if (elCalendar) elCalendar.textContent = `${month}.${day}`;
-    if (elDay) elDay.textContent = daysOfWeek[now.getDay()];
+    const days = state.dayLang === 'en' ? daysOfWeekEn : daysOfWeekZh;
+    if (elDay) elDay.textContent = days[now.getDay()];
   }
 
   tick();
