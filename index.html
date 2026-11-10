@@ -271,6 +271,10 @@
 
     <!-- Center-Left Bay: Game Title -->
     <div class="panel-section game-panel">
+      <div class="game-badge" id="gameBadge" style="display: none;">
+        <span class="game-badge-icon-box" id="gameBadgeIcon"></span>
+        <span class="game-badge-text" id="gameBadgeText">游戏</span>
+      </div>
       <div class="game-content-single">
         <span class="game-title" id="gameTitle">Just Chatting</span>
       </div>
@@ -279,9 +283,16 @@
     <!-- Center Bay: Seamless Continuous Marquee Notice -->
     <div class="panel-section notice-panel">
       <div class="notice-badge">
-        <svg class="notice-badge-icon" viewBox="0 0 24 24">
-          <path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12z"/>
-        </svg>
+        <div class="notice-badge-icon-box">
+          <svg class="notice-badge-icon notice-icon-horn" viewBox="0 0 24 24" fill="none">
+            <g class="notice-horn-body">
+              <path d="M4 10h2l4.5 -4v12l-4.5 -4H4a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1z" fill="#a78bfa" stroke="#c4b5fd" stroke-width="1.2" stroke-linejoin="round"/>
+              <path d="M6 13v2.5a1.5 1.5 0 0 0 3 0V14" stroke="#c4b5fd" stroke-width="1.2" stroke-linecap="round"/>
+            </g>
+            <path class="notice-wave wave-1" d="M14 9a4 4 0 0 1 0 6" stroke="#c4b5fd" stroke-width="1.6" stroke-linecap="round"/>
+            <path class="notice-wave wave-2" d="M17 6.5a7.5 7.5 0 0 1 0 11" stroke="#e0e7ff" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
         <span class="notice-badge-text">公告</span>
       </div>
       <div class="notice-viewport" id="noticeViewport">

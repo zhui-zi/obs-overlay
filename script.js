@@ -12,7 +12,7 @@
 
 const state = {
   brandDomain: "keita.cc",
-  gameTitle: "Just Chatting",
+  gameTitle: "【游戏】黑神话：悟空",
   notices: [
     "非全职个人势主播，虚拟形象画师&建模：심연의심연 (@gonggye_hs)",
     "随心所欲玩点游戏，主播是老社畜啦不用花钱投喂哦，点点关注就好",
@@ -159,12 +159,100 @@ function initUrlParams() {
   updateDisplay();
 }
 
+// Category badge definitions for Game Title
+const CATEGORY_BADGE_CONFIG = {
+  '游戏': {
+    badgeClass: 'badge-game',
+    iconSvg: `<svg class="game-badge-icon badge-icon-game" viewBox="0 0 24 24" fill="none">
+      <path class="gamepad-chassis" d="M6.5 6.5h11a5.5 5.5 0 0 1 5.4 6.6l-1.2 5.5A2.8 2.8 0 0 1 19 20.8h-.2a3 3 0 0 1-2.9-2.2l-.7-2.6H8.8l-.7 2.6a3 3 0 0 1-2.9 2.2H5a2.8 2.8 0 0 1-2.7-2.2L1.1 13.1A5.5 5.5 0 0 1 6.5 6.5z" fill="rgba(56, 189, 248, 0.22)" stroke="#38bdf8" stroke-width="1.5" stroke-linejoin="round"/>
+      <path class="gamepad-dpad" d="M6 10.5v3M4.5 12h3" stroke="#e0f2fe" stroke-width="1.5" stroke-linecap="round"/>
+      <circle class="gamepad-btn btn-top" cx="17.5" cy="10.5" r="1" fill="#f43f5e"/>
+      <circle class="gamepad-btn btn-left" cx="16" cy="12" r="1" fill="#38bdf8"/>
+      <circle class="gamepad-btn btn-right" cx="19" cy="12" r="1" fill="#4ade80"/>
+      <circle class="gamepad-btn btn-bottom" cx="17.5" cy="13.5" r="1" fill="#facc15"/>
+    </svg>`
+  },
+  '观影': {
+    badgeClass: 'badge-movie',
+    iconSvg: `<svg class="game-badge-icon badge-icon-movie" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="10" width="18" height="10" rx="2" fill="rgba(251, 191, 36, 0.2)" stroke="#fbbf24" stroke-width="1.5"/>
+      <line x1="3" y1="14" x2="21" y2="14" stroke="rgba(251, 191, 36, 0.4)" stroke-width="1"/>
+      <circle cx="7" cy="17" r="1" fill="#fde68a"/>
+      <line x1="11" y1="17" x2="17" y2="17" stroke="#fde68a" stroke-width="1.2" stroke-linecap="round"/>
+      <g class="clapper-arm">
+        <path d="M3 6.5h18l-1.5 3.5H3z" fill="rgba(251, 191, 36, 0.3)" stroke="#fbbf24" stroke-width="1.4" stroke-linejoin="round"/>
+        <line x1="6.5" y1="6.5" x2="8.5" y2="10" stroke="#fef08a" stroke-width="1.4"/>
+        <line x1="11.5" y1="6.5" x2="13.5" y2="10" stroke="#fef08a" stroke-width="1.4"/>
+        <line x1="16.5" y1="6.5" x2="18.5" y2="10" stroke="#fef08a" stroke-width="1.4"/>
+      </g>
+    </svg>`
+  },
+  '杂谈': {
+    badgeClass: 'badge-chat',
+    iconSvg: `<svg class="game-badge-icon badge-icon-chat" viewBox="0 0 24 24" fill="none">
+      <path class="chat-bubble-back" d="M14 4h-4a6 6 0 0 0-6 6c0 1.9.9 3.6 2.3 4.7L5.5 18l3.6-1.2c.3.1.6.1.9.1h4a6 6 0 0 0 6-6 6 6 0 0 0-6-6z" fill="rgba(52, 211, 153, 0.15)" stroke="rgba(52, 211, 153, 0.5)" stroke-width="1.2" stroke-linejoin="round"/>
+      <g class="chat-bubble-front">
+        <path d="M14 8h-4a5 5 0 0 0-5 5c0 1.6.7 3 1.9 3.9L6 20l3.1-1c.3.1.6.1.9.1h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5z" fill="rgba(52, 211, 153, 0.28)" stroke="#34d399" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle class="chat-dot chat-dot-1" cx="9.5" cy="13" r="1.1" fill="#ecfdf5"/>
+        <circle class="chat-dot chat-dot-2" cx="12" cy="13" r="1.1" fill="#ecfdf5"/>
+        <circle class="chat-dot chat-dot-3" cx="14.5" cy="13" r="1.1" fill="#ecfdf5"/>
+      </g>
+    </svg>`
+  }
+};
+
+function parseTitleCategory(rawTitle) {
+  if (!rawTitle) return { hasCategory: false, cleanTitle: '' };
+  const str = String(rawTitle).trim();
+  const match = str.match(/^\s*[【\[](游戏|观影|杂谈)[】\]]\s*(.*)$/);
+  if (!match) {
+    return { hasCategory: false, cleanTitle: str };
+  }
+  const category = match[1];
+  const remaining = match[2].trim();
+  return {
+    hasCategory: true,
+    category,
+    cleanTitle: remaining || category,
+    config: CATEGORY_BADGE_CONFIG[category]
+  };
+}
+
 // DOM renderer
 function updateDisplay() {
   const elDomain = document.getElementById('brandDomain');
   const elTitle = document.getElementById('gameTitle');
+  const elBadge = document.getElementById('gameBadge');
+  const elBadgeIcon = document.getElementById('gameBadgeIcon');
+  const elBadgeText = document.getElementById('gameBadgeText');
+
   if (elDomain) elDomain.textContent = state.brandDomain;
-  if (elTitle) elTitle.textContent = state.gameTitle;
+
+  const parsed = parseTitleCategory(state.gameTitle);
+
+  if (parsed.hasCategory && parsed.config) {
+    if (elBadge) {
+      elBadge.className = `game-badge ${parsed.config.badgeClass}`;
+      elBadge.style.display = 'inline-flex';
+    }
+    if (elBadgeIcon) {
+      elBadgeIcon.innerHTML = parsed.config.iconSvg;
+    }
+    if (elBadgeText) {
+      elBadgeText.textContent = parsed.category;
+    }
+    if (elTitle) {
+      elTitle.textContent = parsed.cleanTitle;
+    }
+  } else {
+    if (elBadge) {
+      elBadge.style.display = 'none';
+      elBadge.className = 'game-badge';
+    }
+    if (elTitle) {
+      elTitle.textContent = parsed.cleanTitle;
+    }
+  }
 }
 
 // Clock & calendar tick with vertical roll ticker animation
