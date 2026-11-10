@@ -1289,9 +1289,9 @@ body.effect-romantic .hud-corner-tr {
 .game-viewport-frame::before {
   content: '';
   position: absolute;
-  inset: -22px; /* wraps around the outer edge of the 18px border */
-  border-radius: 34px;
-  padding: 4px;
+  inset: -28px; /* wraps around the outer edge of the 18px border (18px + 10px width) */
+  border-radius: 40px;
+  padding: 10px;
   background: conic-gradient(
     from var(--rainbow-angle, 0deg),
     #4285f4 0%,
@@ -1305,11 +1305,12 @@ body.effect-romantic .hud-corner-tr {
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  animation: rotate-overlay-rainbow 6.5s linear infinite;
   pointer-events: none;
   filter: 
-    drop-shadow(0 0 8px rgba(139, 92, 246, 0.95))
-    drop-shadow(0 0 20px rgba(66, 133, 244, 0.8))
-    drop-shadow(0 0 36px rgba(236, 72, 153, 0.55));
+    drop-shadow(0 0 10px rgba(139, 92, 246, 0.95))
+    drop-shadow(0 0 24px rgba(66, 133, 244, 0.8))
+    drop-shadow(0 0 42px rgba(236, 72, 153, 0.55));
 }
 
 /* Full Mode: Active Layout Transformations */
@@ -1531,9 +1532,9 @@ body.mode-full.effect-newyear .game-viewport-frame::before {
     #e11d48 0%, #fbbf24 25%, #dc2626 50%, #f59e0b 75%, #e11d48 100%
   );
   filter: 
-    drop-shadow(0 0 8px rgba(225, 29, 72, 0.95))
-    drop-shadow(0 0 20px rgba(245, 158, 11, 0.8))
-    drop-shadow(0 0 36px rgba(220, 38, 38, 0.55));
+    drop-shadow(0 0 10px rgba(225, 29, 72, 0.95))
+    drop-shadow(0 0 24px rgba(245, 158, 11, 0.8))
+    drop-shadow(0 0 42px rgba(220, 38, 38, 0.55));
 }
 
 body.mode-full.effect-halloween .game-viewport-frame {
@@ -1550,9 +1551,9 @@ body.mode-full.effect-halloween .game-viewport-frame::before {
     #f97316 0%, #a855f7 25%, #ea580c 50%, #7c3aed 75%, #f97316 100%
   );
   filter: 
-    drop-shadow(0 0 8px rgba(249, 115, 22, 0.95))
-    drop-shadow(0 0 20px rgba(168, 85, 247, 0.8))
-    drop-shadow(0 0 36px rgba(234, 88, 12, 0.55));
+    drop-shadow(0 0 10px rgba(249, 115, 22, 0.95))
+    drop-shadow(0 0 24px rgba(168, 85, 247, 0.8))
+    drop-shadow(0 0 42px rgba(234, 88, 12, 0.55));
 }
 
 body.mode-full.effect-romantic .game-viewport-frame {
@@ -1569,9 +1570,9 @@ body.mode-full.effect-romantic .game-viewport-frame::before {
     #fb7185 0%, #fda4af 25%, #c084fc 50%, #f472b6 75%, #fb7185 100%
   );
   filter: 
-    drop-shadow(0 0 8px rgba(251, 113, 133, 0.95))
-    drop-shadow(0 0 20px rgba(192, 132, 252, 0.8))
-    drop-shadow(0 0 36px rgba(244, 114, 182, 0.55));
+    drop-shadow(0 0 10px rgba(251, 113, 133, 0.95))
+    drop-shadow(0 0 24px rgba(192, 132, 252, 0.8))
+    drop-shadow(0 0 42px rgba(244, 114, 182, 0.55));
 }
 
 /* ==========================================================================
