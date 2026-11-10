@@ -124,11 +124,11 @@ In OBS Studio, right-click your Browser Source ➔ **Properties** ➔ **Custom C
   /* Brand domain label (left bay) */
   --brand-domain: "keita.cc";
 
-  /* Game title */
-  --game-title: "Just Chatting";
+  /* Broadcast / Game Title (Supports 【游戏】/【观影】/【杂谈】 category prefixes) */
+  --title: "【游戏】黑神话：悟空"; /* or --game-title */
 
   /* Notice marquee items separated by || */
-  --notices: "非全职个人势主播，虚拟形象画师&建模：심연의심연 (@gonggye_hs) || 随心所欲玩点游戏，主播是老社畜啦不用花钱投喂哦，点点关注就好 || 欢迎好友++，个人主页https://keita.cc";
+  --notices: "没啥说的了，都来我家喝酒吧^^b";
 }
 ```
 
@@ -137,7 +137,7 @@ In OBS Studio, right-click your Browser Source ➔ **Properties** ➔ **Custom C
 ### 3. URL Query Parameters
 
 ```text
-https://obs.keita.cc/?mode=full&effect=newyear&domain=keita.cc&game=Elden+Ring
+https://obs.keita.cc/?mode=full&effect=newyear&domain=keita.cc&title=【游戏】黑神话：悟空
 ```
 
 Supported query keys:
@@ -145,7 +145,7 @@ Supported query keys:
 * `scene`: e.g. `Apex+[full]`
 * `effect`: `none` | `lights` | `snow` | `both` | `newyear` | `halloween` | `romantic`
 * `domain`: e.g. `keita.cc`
-* `game`: e.g. `Black+Myth`
+* `title`: e.g. `【游戏】黑神话：悟空` (or `game`)
 * `notice`: `Notice+One||Notice+Two`
 
 ---

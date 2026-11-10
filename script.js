@@ -54,8 +54,8 @@ function readObsCustomCss() {
     }
   }
 
-  // 2. --game-title
-  let rawTitle = rootStyle.getPropertyValue('--game-title');
+  // 2. --title (or fallback --game-title)
+  let rawTitle = rootStyle.getPropertyValue('--title') || rootStyle.getPropertyValue('--game-title');
   if (rawTitle) {
     let cleanTitle = rawTitle.trim().replace(/^["']|["']$/g, '');
     if (cleanTitle && cleanTitle !== lastCssValues.title) {
@@ -132,7 +132,8 @@ function initUrlParams() {
   const params = new URLSearchParams(window.location.search);
   
   if (params.has('domain')) state.brandDomain = params.get('domain');
-  if (params.has('game')) state.gameTitle = params.get('game');
+  if (params.has('title')) state.gameTitle = params.get('title');
+  else if (params.has('game')) state.gameTitle = params.get('game');
   
   if (params.has('notice')) {
     const customNotices = params.get('notice').split('||').map(s => s.trim()).filter(Boolean);
