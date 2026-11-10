@@ -1159,6 +1159,8 @@ body.effect-halloween .hud-corner-tr {
   width: 195px;
   height: 170px;
   z-index: 95;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hl-pumpkin-corner svg {
@@ -1168,14 +1170,32 @@ body.effect-halloween .hud-corner-tr {
 }
 
 .pumpkin-candle-flame {
-  animation: candle-flicker 1.8s steps(2, start) infinite;
+  transform-origin: 80px 85px;
+  animation: candle-glow-breathe 3.2s ease-in-out infinite alternate;
+  will-change: opacity, transform;
 }
 
-@keyframes candle-flicker {
-  0%, 100% { opacity: 1; filter: drop-shadow(0 0 18px #ea580c) brightness(1.1); }
-  25% { opacity: 0.75; filter: drop-shadow(0 0 10px #f97316) brightness(0.9); }
-  50% { opacity: 0.95; filter: drop-shadow(0 0 24px #ea580c) brightness(1.25); }
-  75% { opacity: 0.7; filter: drop-shadow(0 0 8px #f97316) brightness(0.85); }
+@keyframes candle-glow-breathe {
+  0% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.88;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  75% {
+    opacity: 0.85;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 0.98;
+    transform: scale(1.01);
+  }
 }
 
 /* ================= 3. Romantic Sakura Bespoke Stage ================= */
@@ -1601,10 +1621,12 @@ body.mode-full .hl-bat-flock {
 body.mode-full .hl-pumpkin-corner {
   left: auto;
   right: 75px;
-  bottom: 146px;
+  bottom: 154px;
   width: 138px;
   height: 121px;
   z-index: 120;
+  will-change: transform;
+  transform: translateZ(0);
   filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 16px rgba(249, 115, 22, 0.6));
 }
 
