@@ -1260,14 +1260,14 @@ body.effect-romantic .hud-corner-tr {
   50% { opacity: 1; filter: drop-shadow(0 0 14px rgba(186, 230, 253, 0.85)); }
 }
 
-/* ================= Full-Screen Stage Mode (85% 4K Game Viewport + Bottom Dock) ================= */
+/* ================= Full-Screen Stage Mode (93.5% 4K Game Viewport + Bottom Dock) ================= */
 .game-viewport-frame {
   display: none;
   position: absolute;
-  top: 36px;
-  right: 48px;
-  width: 3264px;
-  height: 1836px;
+  top: 10px;
+  right: 30px;
+  width: 3590px;
+  height: 2020px;
   border-radius: 30px;
   pointer-events: none;
   z-index: 100;
@@ -1318,6 +1318,10 @@ body.mode-full .game-viewport-frame {
   display: block;
 }
 
+body.mode-full .stage-decor-layer {
+  z-index: 105;
+}
+
 /* Hide HUD corner accents in Full Mode */
 body.mode-full .hud-corner-accent {
   display: none !important;
@@ -1326,13 +1330,13 @@ body.mode-full .hud-corner-accent {
 /* Substantial Scaled-Up Bottom Dock Bar */
 body.mode-full .overlay-container {
   top: auto;
-  bottom: 40px;
-  right: 48px;
+  bottom: 10px;
+  right: 30px;
   left: auto;
   transform: none;
   width: auto;
-  max-width: 3264px;
-  height: 112px;
+  max-width: 3590px;
+  height: 108px;
   justify-content: flex-end;
   padding: 0 16px;
   gap: 12px;
@@ -1354,7 +1358,7 @@ body.mode-full .notice-panel {
   width: 1000px;
   max-width: 1000px;
   flex: 0 1 1000px;
-  height: 92px;
+  height: 90px;
   border-radius: 18px;
   padding: 0 18px;
   gap: 14px;
@@ -1391,7 +1395,7 @@ body.mode-full .notice-item .sparkle-icon {
 body.mode-full .game-panel {
   order: 2;
   flex: 0 0 auto;
-  height: 92px;
+  height: 90px;
   padding: 0 20px;
   border-radius: 18px;
 }
@@ -1408,7 +1412,7 @@ body.mode-full .left-panel {
 }
 
 body.mode-full .brand-domain-bay {
-  height: 92px;
+  height: 90px;
   padding: 0 22px;
   border-radius: 18px;
   gap: 12px;
@@ -1429,7 +1433,7 @@ body.mode-full .brand-domain-label {
 }
 
 body.mode-full .vu-meter-box {
-  height: 92px;
+  height: 90px;
   padding: 0 18px;
   border-radius: 18px;
 }
@@ -1473,7 +1477,7 @@ body.mode-full .time-panel,
 body.mode-full .right-panel {
   order: 4;
   flex: 0 0 auto;
-  height: 92px;
+  height: 90px;
   padding: 0 20px;
   border-radius: 18px;
   gap: 14px;
@@ -1576,55 +1580,55 @@ body.mode-full.effect-romantic .game-viewport-frame::before {
 }
 
 /* ==========================================================================
-   Full Mode Bespoke Festival Atmosphere Architecture (Tailored for 85% Frame)
+   Full Mode Bespoke Festival Atmosphere Architecture (Tailored for 3590x2020 Frame)
    - Bottom-Left Corner & Left Sidebar: 100% Unobstructed (Reserved for Camera/Avatar/Chat)
-   - Decorations frame the 3264x1836 Game Viewport Frame & Bottom Dock organically
+   - Decorations frame the 3590x2020 Game Viewport Frame & Bottom Dock organically
    ========================================================================== */
 
 /* 1. Chinese Lunar New Year in Full Mode */
-/* Flank the top-left and top-right of the 3264x1836 Game Viewport Frame */
+/* Flank the top-left and top-right of the 3590x2020 Game Viewport Frame */
 body.mode-full .cn-palace-lantern.lantern-pos-left {
-  left: 540px;
-  top: 10px;
+  left: 232px;
+  top: 0px;
   width: 140px;
 }
 body.mode-full .cn-palace-lantern.lantern-pos-right {
-  right: 70px;
-  top: 10px;
+  right: 52px;
+  top: 0px;
   width: 140px;
 }
 body.mode-full .cn-cloud-left {
-  left: 450px;
-  top: 15px;
+  left: 142px;
+  top: 4px;
   width: 220px;
 }
 body.mode-full .cn-cloud-right {
-  right: 25px;
-  top: 15px;
+  right: 7px;
+  top: 4px;
   width: 220px;
 }
 
 /* 2. Halloween Night in Full Mode */
 /* Cobweb & dangling spider anchor neatly to the top-left corner of the game frame */
 body.mode-full .hl-web-corner {
-  left: 510px;
-  top: 15px;
+  left: 202px;
+  top: 4px;
   width: 320px;
   height: 320px;
 }
 
 /* Bats glide across the upper stage above the game frame */
 body.mode-full .hl-bat-flock {
-  top: 10px;
+  top: 4px;
   height: 320px;
 }
 /* Glowing Jack-o'-Lantern perches on the bottom overlay bar */
 body.mode-full .hl-pumpkin-corner {
   left: auto;
-  right: 75px;
-  bottom: 154px;
-  width: 138px;
-  height: 121px;
+  right: 55px;
+  bottom: 120px;
+  width: 128px;
+  height: 112px;
   z-index: 120;
   will-change: transform;
   transform: translateZ(0);
@@ -1636,14 +1640,14 @@ body.mode-full .hl-pumpkin-corner {
 /* 4. Winter Frost in Full Mode */
 /* Crystalline icicles freeze along the top-left & top-right bezels of the game frame */
 body.mode-full .frost-left {
-  left: 528px;
-  top: 36px;
+  left: 220px;
+  top: 10px;
   width: 280px;
   height: 160px;
 }
 body.mode-full .frost-right {
-  right: 48px;
-  top: 36px;
+  right: 30px;
+  top: 10px;
   width: 280px;
   height: 160px;
 }

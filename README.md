@@ -8,15 +8,15 @@
 
 * 🌓 **Dual-Mode Dynamic Architecture**
   * **Lightweight Mode (`lite` / `light`)**: Pinned suspended top capsule HUD (`2250px × 88px`), minimal, distraction-free, and sleek. Perfect for full-screen immersion gaming where no window frames are needed.
-  * **Full Stage Mode (`full`)**: 85% 4K Game Viewport Frame (`3264px × 1836px`, strict 16:9) with an enlarged broadcast-grade bottom dock bar (`112px` height, `1000px` notice marquee, unified `36px` typography, `48px` VU meter, and `64px` giant rolling clock).
+  * **Full Stage Mode (`full`)**: Scaled-up 4K Game Viewport Frame (`3590px × 2020px`, strict 16:9, ~93.5% 4K scale) with an enlarged broadcast-grade bottom dock bar (`108px` height, `1000px` notice marquee, unified `36px` typography, `48px` VU meter, and `64px` giant rolling clock).
 
 * 🎬 **Smart OBS Scene Auto-Switching**
   * Integrates native OBS Studio CEF Browser Source API (`window.obsstudio`) and `obsSceneChanged` / `obsTransitionStarted` events.
   * Automatically switches to **Full Mode** if the scene name contains `[full]` (e.g., `Gaming [full]`).
   * Automatically switches to **Lite Mode** if the scene name contains `[lite]` or `[light]` (e.g., `Just Chatting [lite]`).
 
-* 🛡️ **22px Thick Obsidian Bezel & Square Corner Masking**
-  * The Full Mode game frame features an 18px thick solid obsidian chassis plus a 4px outer glowing conic rainbow rim (22px total composite bezel).
+* 🛡️ **28px Solid Obsidian & Conic Rainbow Bezel**
+  * The Full Mode game frame features an 18px thick solid obsidian chassis plus a 10px outer glowing conic rainbow rim (28px total composite bezel).
   * Overlaps the outer perimeter of square 16:9 game captures underneath, **100% eliminating and masking sharp 90-degree square corners**.
 
 * 📊 **12-Band Continuous Chromatic VU Equalizer**
@@ -39,14 +39,14 @@
 
 ```text
 +------------------------------------------------------------------------------------------------+
-|  [Left Sidebar: 528px Margin]    [Top Margin: 36px]             [Right Margin: 48px]           |
+|  [Left Sidebar: 220px Margin]    [Top Margin: 10px]             [Right Margin: 30px]           |
 |                                  +-----------------------------------------------------------+ |
 |  - 100% Reserved for:            |  [Top Flanking Decor: Lanterns / Branches / Cobweb / Frost] |
 |    * Camera / Facecam Box        |                                                           | |
-|    * VTuber Avatar Model         |           85% 4K GAME VIEWPORT DISPLAY AREA               | |
-|    * Live Chat Stream Box        |                     (3264 × 1836)                         | |
+|    * VTuber Avatar Model         |           ENLARGED 4K GAME VIEWPORT DISPLAY AREA          | |
+|    * Live Chat Stream Box        |                     (3590 × 2020)                         | |
 |                                  |             * 18px Solid Obsidian Chassis Bezel           | |
-|                                  |             * 4px Outer Gemini Rainbow Conic Rim          | |
+|                                  |             * 10px Outer Gemini Rainbow Conic Rim         | |
 |                                  |                                       [🎃 Jack-o'-Lantern]| |
 |                                  +-----------------------------------------------------------+ |
 |  [Bottom-Left: 100% Clean Space]                                                               |
@@ -58,11 +58,11 @@
 
 | Region / Parameter | Dimension (4K Canvas: 3840 × 2160) | Purpose & Design Rationale |
 | :--- | :--- | :--- |
-| **Game Viewport** | `3264px × 1836px` (Strict 16:9) | 85% scale of 4K, positioned at `top: 36px; right: 48px;` |
-| **Top & Right Margins** | `36px` top, `48px` right | Compact margins for tight, elegant screen framing |
-| **Left Sidebar Margin** | `528px` width (`0px` to `528px`) | Spacious zone reserved for webcam, VTuber avatar model, or chat stream box |
-| **Bottom Margin** | `288px` height (`1872px` to `2160px`) | Houses the enlarged right-aligned dock; bottom-left is 100% clean |
-| **Bottom Dock Bar** | Height `112px`, docked at `bottom: 40px; right: 48px;` | Aligned pixel-perfect with the right edge of the game viewport frame |
+| **Game Viewport** | `3590px × 2020px` (Strict 16:9) | Enlarged ~93.5% scale of 4K, positioned at `top: 10px; right: 30px;` |
+| **Top & Right Margins** | `10px` top, `30px` right | Compact broadcast margins for expansive game display |
+| **Left Sidebar Margin** | `220px` width (`0px` to `220px`) | Dedicated vertical strip reserved for camera / chat overlay |
+| **Bottom Margin** | `130px` height (`2030px` to `2160px`) | Houses the enlarged right-aligned dock; bottom-left is 100% clean |
+| **Bottom Dock Bar** | Height `108px`, docked at `bottom: 10px; right: 30px;` | Aligned pixel-perfect with the right edge of the game viewport frame |
 | **Notice Marquee** | Width `1000px`, Font `36px` | Unified 36px typography across domain, game title, and notices |
 | **Clock Roller** | Height `72px`, Font `64px` | Giant studio master clock with rolling digit physics |
 | **Atmosphere Stages** | Custom framing around Game Viewport & Dock | Zero decor in bottom-left; lanterns, branches, web, and frost frame the game viewport |
@@ -96,7 +96,7 @@
 ### 1. OBS Scene Name Auto-Detection (Recommended)
 
 Rename your OBS Studio scenes to include `[full]` or `[lite]`:
-* `Main Game [full]` (or `[full]`, `【full】`, `[全量]`, `【全量】`) ➔ Overlay instantly transforms into **Full Stage Mode** with 85% game frame.
+* `Main Game [full]` (or `[full]`, `【full】`, `[全量]`, `【全量】`) ➔ Overlay instantly transforms into **Full Stage Mode** with expanded game frame.
 * `Chatting [lite]` (or `[light]`, `【lite】`, `【light】`, `[轻量]`, `【轻量】`) ➔ Overlay instantly transforms into **Lightweight Top Capsule HUD**.
 
 > **💡 OBS Permission Tip**:  
@@ -174,8 +174,8 @@ Open [`controller.html`](file:///C:/Users/keita/.gemini/antigravity/scratch/obs-
    * **Height**: `2160`
    * **FPS**: `60`
 4. In Full Mode, add your **Game Capture** or **Window Capture** and place it **underneath** the browser source in the source list:
-   * Position game capture at $(X = 528\text{px}, Y = 36\text{px})$.
-   * Set game capture size to `3264 × 1836`.
+   * Position game capture at $(X = 220\text{px}, Y = 10\text{px})$.
+   * Set game capture size to `3590 × 2020`.
    * The 18px obsidian frame will overlap the game boundaries, seamlessly hiding all sharp square corners!
 5. Recommended settings:
    * Check **Shutdown source when not visible**.
