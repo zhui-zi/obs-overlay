@@ -8,7 +8,7 @@
 
 * 🌓 **Dual-Mode Dynamic Architecture**
   * **Lightweight Mode (`lite` / `light`)**: Pinned suspended top capsule HUD (`2250px × 88px`), minimal, distraction-free, and sleek. Perfect for full-screen immersion gaming where no window frames are needed.
-  * **Full Stage Mode (`full`)**: 85% 4K Game Viewport Frame (`3264px × 1836px`, strict 16:9) with an enlarged broadcast-grade bottom dock bar (`120px` height, `1040px` notice marquee, bold `40px` typography, `52px` VU meter, and `72px` giant rolling master clock). Equidistant `84px` breathing margins both above and below the dock bar.
+  * **Full Stage Mode (`full`)**: Scaled 4K Game Viewport Frame (`3424px × 1926px`, strict 16:9, ~89.2% 4K scale) with a compact broadcast-grade bottom dock bar (`104px` height, `1040px` notice marquee, bold `40px` typography, `48px` VU meter, and `70px` studio rolling master clock). Equidistant `50px` breathing margins both above and below the dock bar.
 
 * 🎬 **Smart OBS Scene Auto-Switching**
   * Integrates native OBS Studio CEF Browser Source API (`window.obsstudio`) and `obsSceneChanged` / `obsTransitionStarted` events.
@@ -39,33 +39,33 @@
 
 ```text
 +------------------------------------------------------------------------------------------------+
-|  [Left Sidebar: 528px Margin]    [Top Margin: 36px]             [Right Margin: 48px]           |
+|  [Left Sidebar: 368px Margin]    [Top Margin: 30px]             [Right Margin: 48px]           |
 |                                  +-----------------------------------------------------------+ |
 |  - 100% Reserved for:            |  [Top Flanking Decor: Lanterns / Branches / Cobweb / Frost] |
 |    * Camera / Facecam Box        |                                                           | |
-|    * VTuber Avatar Model         |           85% 4K GAME VIEWPORT DISPLAY AREA               | |
-|    * Live Chat Stream Box        |                     (3264 × 1836)                         | |
+|    * VTuber Avatar Model         |           89.2% 4K GAME VIEWPORT DISPLAY AREA             | |
+|    * Live Chat Stream Box        |                     (3424 × 1926)                         | |
 |                                  |             * 18px Solid Obsidian Chassis Bezel           | |
 |                                  |             * 10px Outer Gemini Rainbow Conic Rim         | |
 |                                  |                                       [🎃 Jack-o'-Lantern]| |
 |                                  +-----------------------------------------------------------+ |
-|                                  [Breathing Margin: Equal 84px Gap Above Info Bar]             |
+|                                  [Breathing Margin: Equal 50px Gap Above Info Bar]             |
 |  [Bottom-Left: 100% Clean Space] +-----------------------------------------------------------+ |
-|  - Spacious Streamer Zone        | [Marquee (1040px)] [Game (40px)] [Domain/VU] [Clock(72px)] | |
+|  - Spacious Streamer Zone        | [Marquee (1040px)] [Game (40px)] [Domain/VU] [Clock(70px)] | |
 |    (Zero Decor Clutter)          +-----------------------------------------------------------+ |
-|                                  [Breathing Margin: Equal 84px Gap Below Info Bar]             |
+|                                  [Breathing Margin: Equal 50px Gap Below Info Bar]             |
 +------------------------------------------------------------------------------------------------+
 ```
 
 | Region / Parameter | Dimension (4K Canvas: 3840 × 2160) | Purpose & Design Rationale |
 | :--- | :--- | :--- |
-| **Game Viewport** | `3264px × 1836px` (Strict 16:9) | 85% scale of 4K, positioned at `top: 36px; right: 48px;` |
-| **Top & Right Margins** | `36px` top, `48px` right | Balanced broadcast margins for game display |
-| **Left Sidebar Margin** | `528px` width (`0px` to `528px`) | Spacious zone reserved for webcam, VTuber avatar model, or chat stream box |
-| **Bottom Margin Zone** | `288px` height (`1872px` to `2160px`) | Houses the enlarged right-aligned dock; bottom-left is 100% clean |
-| **Bottom Dock Bar** | Height `120px`, docked at `bottom: 84px; right: 48px;` | Perfectly centered vertically with equal `84px` breathing margins above and below |
+| **Game Viewport** | `3424px × 1926px` (Strict 16:9) | 89.2% scale of 4K, positioned at `top: 30px; right: 48px;` |
+| **Top & Right Margins** | `30px` top, `48px` right | Compact broadcast margins for expansive game display |
+| **Left Sidebar Margin** | `368px` width (`0px` to `368px`) | Dedicated zone reserved for webcam, VTuber avatar model, or chat stream box |
+| **Bottom Margin Zone** | `204px` height (`1956px` to `2160px`) | Houses the compact right-aligned dock; bottom-left is 100% clean |
+| **Bottom Dock Bar** | Height `104px`, docked at `bottom: 50px; right: 48px;` | Perfectly centered vertically with equal `50px` breathing margins above and below |
 | **Notice Marquee** | Width `1040px`, Font `40px` | Bold `40px` typography across domain, game title, and notices |
-| **Clock Roller** | Height `80px`, Font `72px` | Giant studio master clock with rolling digit physics |
+| **Clock Roller** | Height `76px`, Font `70px` | Giant studio master clock with rolling digit physics |
 | **Atmosphere Stages** | Custom framing around Game Viewport & Dock | Zero decor in bottom-left; lanterns, web, and frost frame the game viewport |
 
 ---
@@ -175,8 +175,8 @@ Open [`controller.html`](file:///C:/Users/keita/.gemini/antigravity/scratch/obs-
    * **Height**: `2160`
    * **FPS**: `60`
 4. In Full Mode, add your **Game Capture** or **Window Capture** and place it **underneath** the browser source in the source list:
-   * Position game capture at $(X = 528\text{px}, Y = 36\text{px})$.
-   * Set game capture size to `3264 × 1836`.
+   * Position game capture at $(X = 368\text{px}, Y = 30\text{px})$.
+   * Set game capture size to `3424 × 1926`.
    * The 18px obsidian frame will overlap the game boundaries, seamlessly hiding all sharp square corners!
 5. Recommended settings:
    * Check **Shutdown source when not visible**.
