@@ -1260,14 +1260,14 @@ body.effect-romantic .hud-corner-tr {
   50% { opacity: 1; filter: drop-shadow(0 0 14px rgba(186, 230, 253, 0.85)); }
 }
 
-/* ================= Full-Screen Stage Mode (93.5% 4K Game Viewport + Bottom Dock) ================= */
+/* ================= Full-Screen Stage Mode (85% 4K Game Viewport + Bottom Dock) ================= */
 .game-viewport-frame {
   display: none;
   position: absolute;
-  top: 10px;
-  right: 30px;
-  width: 3590px;
-  height: 2020px;
+  top: 36px;
+  right: 48px;
+  width: 3264px;
+  height: 1836px;
   border-radius: 30px;
   pointer-events: none;
   z-index: 100;
@@ -1327,20 +1327,20 @@ body.mode-full .hud-corner-accent {
   display: none !important;
 }
 
-/* Substantial Scaled-Up Bottom Dock Bar */
+/* Substantial Scaled-Up Bottom Dock Bar (Vertically centered with 84px equal margins above & below) */
 body.mode-full .overlay-container {
   top: auto;
-  bottom: 10px;
-  right: 30px;
+  bottom: 84px;
+  right: 48px;
   left: auto;
   transform: none;
   width: auto;
-  max-width: 3590px;
-  height: 108px;
+  max-width: 3264px;
+  height: 120px;
   justify-content: flex-end;
   padding: 0 16px;
   gap: 12px;
-  border-radius: 26px;
+  border-radius: 28px;
   box-shadow: 
     0 20px 48px rgba(0, 0, 0, 0.8),
     0 0 20px rgba(139, 92, 246, 0.7),
@@ -1349,59 +1349,60 @@ body.mode-full .overlay-container {
 }
 
 body.mode-full .overlay-container::before {
-  border-radius: 29.5px;
+  border-radius: 31.5px;
 }
 
-/* 1. Notice Panel: Scaled typography with balanced compact width */
+/* 1. Notice Panel: Enlarged typography & expanded height */
 body.mode-full .notice-panel {
   order: 1;
-  width: 1000px;
-  max-width: 1000px;
-  flex: 0 1 1000px;
-  height: 90px;
-  border-radius: 18px;
-  padding: 0 18px;
-  gap: 14px;
+  width: 1040px;
+  max-width: 1040px;
+  flex: 0 1 1040px;
+  height: 98px;
+  border-radius: 20px;
+  padding: 0 20px;
+  gap: 16px;
 }
 
 body.mode-full .notice-badge {
-  padding: 6px 16px;
+  padding: 6px 18px;
   border-radius: 9999px;
 }
 
 body.mode-full .notice-badge-text {
-  font-size: var(--font-hero);
+  font-size: 40px;
 }
 
 body.mode-full .notice-badge-icon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
 }
 
 body.mode-full .notice-text-rail {
-  font-size: var(--font-hero);
+  font-size: 40px;
 }
 
 body.mode-full .notice-item {
-  font-size: var(--font-hero);
+  font-size: 40px;
 }
 
 body.mode-full .notice-item .sparkle-icon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
 }
 
 /* 2. Game Title Panel */
 body.mode-full .game-panel {
   order: 2;
   flex: 0 0 auto;
-  height: 90px;
-  padding: 0 20px;
-  border-radius: 18px;
+  height: 98px;
+  padding: 0 24px;
+  border-radius: 20px;
 }
 
 body.mode-full .game-title {
-  font-size: var(--font-hero);
+  font-size: 40px;
+  font-weight: 700;
 }
 
 /* 3. Brand Domain & Spectrum VU Meter */
@@ -1412,75 +1413,76 @@ body.mode-full .left-panel {
 }
 
 body.mode-full .brand-domain-bay {
-  height: 90px;
-  padding: 0 22px;
-  border-radius: 18px;
-  gap: 12px;
+  height: 98px;
+  padding: 0 24px;
+  border-radius: 20px;
+  gap: 14px;
 }
 
 body.mode-full .brand-domain-bay .sparkle-housing {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
 }
 
 body.mode-full .brand-domain-bay .sparkle-icon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
 }
 
 body.mode-full .brand-domain-label {
-  font-size: var(--font-hero);
+  font-size: 40px;
+  font-weight: 600;
 }
 
 body.mode-full .vu-meter-box {
-  height: 90px;
-  padding: 0 18px;
-  border-radius: 18px;
+  height: 98px;
+  padding: 0 20px;
+  border-radius: 20px;
 }
 
 body.mode-full .vu-bars {
-  height: 48px;
+  height: 52px;
   gap: 7px;
 }
 
 body.mode-full .vu-bar {
-  width: 9px;
-  height: 48px;
-  border-radius: 4.5px;
+  width: 10px;
+  height: 52px;
+  border-radius: 5px;
 }
 
 body.mode-full .vu-bar-fill {
-  background-size: 100% 100%, 185px 100%;
+  background-size: 100% 100%, 197px 100%;
 }
 
 body.mode-full .vu-bar-peak {
-  width: 9px;
-  height: 2px;
+  width: 10px;
+  height: 2.5px;
 }
 
-/* Slices across 185px total width (12 * 9px + 11 * 7px = 185px) */
+/* Slices across 197px total width (12 * 10px + 11 * 7px = 197px) */
 body.mode-full .vu-bar:nth-child(1) .vu-bar-fill { background-position: 0 0, 0px 0; }
-body.mode-full .vu-bar:nth-child(2) .vu-bar-fill { background-position: 0 0, -16px 0; }
-body.mode-full .vu-bar:nth-child(3) .vu-bar-fill { background-position: 0 0, -32px 0; }
-body.mode-full .vu-bar:nth-child(4) .vu-bar-fill { background-position: 0 0, -48px 0; }
-body.mode-full .vu-bar:nth-child(5) .vu-bar-fill { background-position: 0 0, -64px 0; }
-body.mode-full .vu-bar:nth-child(6) .vu-bar-fill { background-position: 0 0, -80px 0; }
-body.mode-full .vu-bar:nth-child(7) .vu-bar-fill { background-position: 0 0, -96px 0; }
-body.mode-full .vu-bar:nth-child(8) .vu-bar-fill { background-position: 0 0, -112px 0; }
-body.mode-full .vu-bar:nth-child(9) .vu-bar-fill { background-position: 0 0, -128px 0; }
-body.mode-full .vu-bar:nth-child(10) .vu-bar-fill { background-position: 0 0, -144px 0; }
-body.mode-full .vu-bar:nth-child(11) .vu-bar-fill { background-position: 0 0, -160px 0; }
-body.mode-full .vu-bar:nth-child(12) .vu-bar-fill { background-position: 0 0, -176px 0; }
+body.mode-full .vu-bar:nth-child(2) .vu-bar-fill { background-position: 0 0, -17px 0; }
+body.mode-full .vu-bar:nth-child(3) .vu-bar-fill { background-position: 0 0, -34px 0; }
+body.mode-full .vu-bar:nth-child(4) .vu-bar-fill { background-position: 0 0, -51px 0; }
+body.mode-full .vu-bar:nth-child(5) .vu-bar-fill { background-position: 0 0, -68px 0; }
+body.mode-full .vu-bar:nth-child(6) .vu-bar-fill { background-position: 0 0, -85px 0; }
+body.mode-full .vu-bar:nth-child(7) .vu-bar-fill { background-position: 0 0, -102px 0; }
+body.mode-full .vu-bar:nth-child(8) .vu-bar-fill { background-position: 0 0, -119px 0; }
+body.mode-full .vu-bar:nth-child(9) .vu-bar-fill { background-position: 0 0, -136px 0; }
+body.mode-full .vu-bar:nth-child(10) .vu-bar-fill { background-position: 0 0, -153px 0; }
+body.mode-full .vu-bar:nth-child(11) .vu-bar-fill { background-position: 0 0, -170px 0; }
+body.mode-full .vu-bar:nth-child(12) .vu-bar-fill { background-position: 0 0, -187px 0; }
 
 /* 4. Calendar & Digital Clock Panel */
 body.mode-full .time-panel,
 body.mode-full .right-panel {
   order: 4;
   flex: 0 0 auto;
-  height: 90px;
-  padding: 0 20px;
-  border-radius: 18px;
-  gap: 14px;
+  height: 98px;
+  padding: 0 24px;
+  border-radius: 20px;
+  gap: 16px;
 }
 
 body.mode-full .date-section,
@@ -1489,11 +1491,11 @@ body.mode-full .date-group {
 }
 
 body.mode-full .date-calendar {
-  font-size: 30px;
+  font-size: 34px;
 }
 
 body.mode-full .date-day {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 body.mode-full .clock-display {
@@ -1501,24 +1503,24 @@ body.mode-full .clock-display {
 }
 
 body.mode-full .clock-digits-roller {
-  height: 72px;
+  height: 80px;
 }
 
 body.mode-full .clock-digits-roller .roll-item {
-  font-size: 64px;
-  height: 72px;
-  line-height: 72px;
+  font-size: 72px;
+  height: 80px;
+  line-height: 80px;
 }
 
 body.mode-full .clock-seconds-roller {
-  height: 44px;
-  min-width: 48px;
+  height: 50px;
+  min-width: 52px;
 }
 
 body.mode-full .clock-seconds-roller .roll-item {
-  font-size: 34px;
-  height: 44px;
-  line-height: 44px;
+  font-size: 38px;
+  height: 50px;
+  line-height: 50px;
 }
 
 /* Full Mode Thematic Game Viewport Frame Overrides */
@@ -1580,55 +1582,55 @@ body.mode-full.effect-romantic .game-viewport-frame::before {
 }
 
 /* ==========================================================================
-   Full Mode Bespoke Festival Atmosphere Architecture (Tailored for 3590x2020 Frame)
+   Full Mode Bespoke Festival Atmosphere Architecture (Tailored for 3264x1836 Frame)
    - Bottom-Left Corner & Left Sidebar: 100% Unobstructed (Reserved for Camera/Avatar/Chat)
-   - Decorations frame the 3590x2020 Game Viewport Frame & Bottom Dock organically
+   - Decorations frame the 3264x1836 Game Viewport Frame & Bottom Dock organically
    ========================================================================== */
 
 /* 1. Chinese Lunar New Year in Full Mode */
-/* Flank the top-left and top-right of the 3590x2020 Game Viewport Frame */
+/* Flank the top-left and top-right of the 3264x1836 Game Viewport Frame */
 body.mode-full .cn-palace-lantern.lantern-pos-left {
-  left: 232px;
-  top: 0px;
+  left: 540px;
+  top: 10px;
   width: 140px;
 }
 body.mode-full .cn-palace-lantern.lantern-pos-right {
-  right: 52px;
-  top: 0px;
+  right: 70px;
+  top: 10px;
   width: 140px;
 }
 body.mode-full .cn-cloud-left {
-  left: 142px;
-  top: 4px;
+  left: 450px;
+  top: 15px;
   width: 220px;
 }
 body.mode-full .cn-cloud-right {
-  right: 7px;
-  top: 4px;
+  right: 25px;
+  top: 15px;
   width: 220px;
 }
 
 /* 2. Halloween Night in Full Mode */
 /* Cobweb & dangling spider anchor neatly to the top-left corner of the game frame */
 body.mode-full .hl-web-corner {
-  left: 202px;
-  top: 4px;
+  left: 510px;
+  top: 15px;
   width: 320px;
   height: 320px;
 }
 
 /* Bats glide across the upper stage above the game frame */
 body.mode-full .hl-bat-flock {
-  top: 4px;
+  top: 10px;
   height: 320px;
 }
 /* Glowing Jack-o'-Lantern perches on the bottom overlay bar */
 body.mode-full .hl-pumpkin-corner {
   left: auto;
-  right: 55px;
-  bottom: 120px;
-  width: 128px;
-  height: 112px;
+  right: 75px;
+  bottom: 206px;
+  width: 138px;
+  height: 121px;
   z-index: 120;
   will-change: transform;
   transform: translateZ(0);
@@ -1640,14 +1642,14 @@ body.mode-full .hl-pumpkin-corner {
 /* 4. Winter Frost in Full Mode */
 /* Crystalline icicles freeze along the top-left & top-right bezels of the game frame */
 body.mode-full .frost-left {
-  left: 220px;
-  top: 10px;
+  left: 528px;
+  top: 36px;
   width: 280px;
   height: 160px;
 }
 body.mode-full .frost-right {
-  right: 30px;
-  top: 10px;
+  right: 48px;
+  top: 36px;
   width: 280px;
   height: 160px;
 }
