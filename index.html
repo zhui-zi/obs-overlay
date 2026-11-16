@@ -302,8 +302,19 @@
       </div>
     </div>
 
-    <!-- Right Bay: Digital Clock & Date -->
+    <!-- Right Bay: Digital Clock, Date & Moon Phase -->
     <div class="panel-section time-panel right-panel">
+      <!-- Astronomical Moon Phase Complication -->
+      <div class="moon-phase-bay" id="moonPhaseBay" title="实时天文月相">
+        <div class="moon-phase-sphere" id="moonPhaseSphere">
+          <!-- Populated dynamically via script.js -->
+        </div>
+        <div class="moon-phase-text-group">
+          <span class="moon-phase-name" id="moonPhaseName">上弦月</span>
+          <span class="moon-lunar-date" id="moonLunarDate">初八</span>
+        </div>
+      </div>
+
       <div class="date-section">
         <span class="date-day" id="dateDay">周日</span>
         <span class="date-calendar" id="dateCalendar">11.08</span>
@@ -356,6 +367,17 @@
         <option value="newyear">🧧 Chinese New Year (Grand Palace Lanterns & Auspicious Gold Dust)</option>
         <option value="halloween">🎃 Halloween Night (Cobweb, Spider, Spooky Tree & Jack-o'-Lantern)</option>
         <option value="romantic">🌸 Romantic Sakura (Blooming Cherry Branches & Hanafubuki Petal Storm)</option>
+      </select>
+    </label>
+    <label>
+      Moon Phase:
+      <select id="inputMoon">
+        <option value="auto">Astronomical Auto (Realtime)</option>
+        <option value="满月">Full Moon 🌕 (满月)</option>
+        <option value="上弦月">First Quarter 🌓 (上弦月)</option>
+        <option value="下弦月">Last Quarter 🌗 (下弦月)</option>
+        <option value="新月">New Moon 🌑 (新月)</option>
+        <option value="none">Hidden (隐藏月相)</option>
       </select>
     </label>
     <div class="drawer-actions">

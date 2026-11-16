@@ -313,6 +313,29 @@
         </select>
       </div>
 
+      <div class="form-group">
+        <label>Moon Phase (月相显示)</label>
+        <select id="ctrlMoon">
+          <option value="auto">自动实时天文计算 (Realtime Astronomical)</option>
+          <option value="满月">满月 (Full Moon 🌕)</option>
+          <option value="上弦月">上弦月 (First Quarter 🌓)</option>
+          <option value="下弦月">下弦月 (Last Quarter 🌗)</option>
+          <option value="新月">新月 (New Moon 🌑)</option>
+          <option value="蛾眉月">蛾眉月 (Waxing Crescent 🌒)</option>
+          <option value="盈凸月">盈凸月 (Waxing Gibbous 🌔)</option>
+          <option value="亏凸月">亏凸月 (Waning Gibbous 🌖)</option>
+          <option value="残月">残月 (Waning Crescent 🌘)</option>
+          <option value="none">隐藏月相 (Hide)</option>
+        </select>
+        <div class="quick-preset-chips">
+          <span class="preset-chip" onclick="setMoon('auto')">🌌 实时天文计算</span>
+          <span class="preset-chip" onclick="setMoon('满月')">🌕 满月</span>
+          <span class="preset-chip" onclick="setMoon('上弦月')">🌓 上弦月</span>
+          <span class="preset-chip" onclick="setMoon('新月')">🌑 新月</span>
+          <span class="preset-chip" onclick="setMoon('none')">（隐藏月相）</span>
+        </div>
+      </div>
+
       <div class="button-row">
         <button type="submit" class="btn-submit">🚀 Sync to 4K OBS Canvas</button>
       </div>
@@ -351,6 +374,10 @@
       }
     }
 
+    function setMoon(val) {
+      document.getElementById('ctrlMoon').value = val;
+    }
+
     document.getElementById('controlForm').addEventListener('submit', (e) => {
       e.preventDefault();
       
@@ -360,6 +387,7 @@
       const themeEffect = document.getElementById('ctrlEffect').value;
       const layoutMode = document.getElementById('ctrlMode').value;
       const sceneName = document.getElementById('ctrlScene').value.trim();
+      const moonPhase = document.getElementById('ctrlMoon').value;
       const notices = rawNotices
         .split(/\r?\n|\|\|/)
         .map(s => s.trim())
@@ -371,7 +399,8 @@
         notices,
         themeEffect,
         layoutMode,
-        sceneName
+        sceneName,
+        moonPhase
       });
 
       showToast('✔ Synchronized to OBS canvas');

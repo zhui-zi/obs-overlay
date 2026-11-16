@@ -19,6 +19,7 @@ const state = {
   themeEffect: "none", // Options: "none" | "lights" | "snow" | "both" | "newyear" | "halloween" | "romantic"
   layoutMode: "light",  // Options: "light" (Top Capsule HUD) | "full" (85% Game Frame + Bottom Dock)
   dayLang: "zh",        // Options: "zh" (周日, 周一...) | "en" (SUN, MON...)
+  moonPhase: "auto",    // Options: "auto" | "满月" | "上弦月" | "下弦月" | "新月" | "none"
   currentNoticeIndex: 0
 };
 
@@ -35,12 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initClock();
   initVuMeter();
   initNotices();
+  updateMoonPhase();
   initSyncListener();
   initDrawer();
 });
 
 // Realtime OBS Custom CSS variable watcher
-let lastCssValues = { domain: undefined, title: undefined, notices: undefined, effect: undefined, mode: undefined, scene: undefined };
+let lastCssValues = { domain: undefined, title: undefined, notices: undefined, effect: undefined, mode: undefined, scene: undefined, moon: undefined };
 
 function readObsCustomCss() {
   const rootStyle = getComputedStyle(document.documentElement);
@@ -120,6 +122,16 @@ function readObsCustomCss() {
     if (cleanDayLang) state.dayLang = cleanDayLang;
   }
 
+  // 8. --moon-phase or --moon
+  let rawMoon = rootStyle.getPropertyValue('--moon-phase') || rootStyle.getPropertyValue('--moon');
+  if (rawMoon !== null && rawMoon !== undefined) {
+    let cleanMoon = rawMoon.trim().replace(/^["']|["']$/g, '');
+    if (cleanMoon && cleanMoon !== lastCssValues.moon) {
+      lastCssValues.moon = cleanMoon;
+      state.moonPhase = cleanMoon;
+    }
+  }
+
   updateDisplay();
 }
 
@@ -169,6 +181,12 @@ function initUrlParams() {
     state.dayLang = params.get('daylang').toLowerCase();
   } else if (params.has('lang')) {
     state.dayLang = params.get('lang').toLowerCase();
+  }
+
+  if (params.has('moon')) {
+    state.moonPhase = params.get('moon');
+  } else if (params.has('moonphase')) {
+    state.moonPhase = params.get('moonphase');
   }
 
   updateDisplay();
@@ -278,6 +296,163 @@ function updateDisplay() {
       elTitle.textContent = parsed.cleanTitle;
     }
   }
+
+  updateMoonPhase();
+}
+
+// ================= Astronomical Moon Phase Calculation & Complication =================
+function getMoonPhaseDetails(date = new Date(), manualOverride = null) {
+  let phase = null;
+  let manualName = null;
+
+  if (manualOverride && manualOverride !== 'auto') {
+    const norm = manualOverride.trim().toLowerCase();
+    if (norm === '新月' || norm === 'new') { phase = 0.0; manualName = '新月'; }
+    else if (norm === '蛾眉月' || norm === 'waxing-crescent') { phase = 0.12; manualName = '蛾眉月'; }
+    else if (norm === '上弦月' || norm === '上弦' || norm === 'first-quarter') { phase = 0.25; manualName = '上弦月'; }
+    else if (norm === '盈凸月' || norm === 'waxing-gibbous') { phase = 0.38; manualName = '盈凸月'; }
+    else if (norm === '满月' || norm === '望月' || norm === 'full') { phase = 0.50; manualName = '满月'; }
+    else if (norm === '亏凸月' || norm === 'waning-gibbous') { phase = 0.62; manualName = '亏凸月'; }
+    else if (norm === '下弦月' || norm === '下弦' || norm === 'last-quarter') { phase = 0.75; manualName = '下弦月'; }
+    else if (norm === '残月' || norm === 'waning-crescent') { phase = 0.88; manualName = '残月'; }
+    else if (!isNaN(parseFloat(norm))) {
+      phase = parseFloat(norm);
+    }
+  }
+
+  const refEpoch = new Date('2000-01-06T18:14:00Z').getTime();
+  const synodicMs = 29.530588853 * 86400 * 1000;
+  
+  if (phase === null) {
+    const diff = date.getTime() - refEpoch;
+    phase = ((diff % synodicMs) + synodicMs) % synodicMs / synodicMs;
+  }
+
+  const age = phase * 29.530588853;
+  const illumination = Math.round((1 - Math.cos(phase * 2 * Math.PI)) / 2 * 100);
+
+  let name = manualName;
+  if (!name) {
+    if (phase < 0.03 || phase >= 0.97) name = '新月';
+    else if (phase < 0.22) name = '蛾眉月';
+    else if (phase < 0.28) name = '上弦月';
+    else if (phase < 0.47) name = '盈凸月';
+    else if (phase < 0.53) name = '满月';
+    else if (phase < 0.72) name = '亏凸月';
+    else if (phase < 0.78) name = '下弦月';
+    else name = '残月';
+  }
+
+  let lunarDayStr = '';
+  try {
+    const formatter = new Intl.DateTimeFormat('zh-Hans-u-ca-chinese', { day: 'numeric' });
+    const parts = formatter.formatToParts(date);
+    const dayPart = parts.find(p => p.type === 'day');
+    if (dayPart && dayPart.value) {
+      const dayNum = parseInt(dayPart.value, 10);
+      const lunarDays = [
+        '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
+        '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+        '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十'
+      ];
+      if (dayNum >= 1 && dayNum <= 30) {
+        lunarDayStr = lunarDays[dayNum - 1];
+      }
+    }
+  } catch (e) {
+    const approxDay = Math.floor(age) + 1;
+    lunarDayStr = approxDay <= 30 ? `初${approxDay}` : '初一';
+  }
+
+  return {
+    phase,
+    age,
+    illumination,
+    name,
+    lunarDayStr
+  };
+}
+
+function renderMoonSvg(phase) {
+  const p = ((phase % 1) + 1) % 1;
+  const r = 13.5, cx = 16, cy = 16;
+  const topY = cy - r;
+  const botY = cy + r;
+  
+  const isWaxing = p < 0.5;
+  const k = Math.cos(2 * Math.PI * p);
+  const rx = Math.max(0.01, Math.abs(k) * r);
+  
+  let pathD = '';
+  if (p < 0.02 || p > 0.98) {
+    pathD = '';
+  } else if (p > 0.48 && p < 0.52) {
+    pathD = 'M ' + cx + ' ' + topY + ' A ' + r + ' ' + r + ' 0 1 1 ' + cx + ' ' + botY + ' A ' + r + ' ' + r + ' 0 1 1 ' + cx + ' ' + topY + ' Z';
+  } else if (isWaxing) {
+    const sweepTerm = k > 0 ? 0 : 1;
+    pathD = 'M ' + cx + ' ' + topY + ' A ' + r + ' ' + r + ' 0 0 1 ' + cx + ' ' + botY + ' A ' + rx.toFixed(2) + ' ' + r + ' 0 0 ' + sweepTerm + ' ' + cx + ' ' + topY + ' Z';
+  } else {
+    const sweepTerm = k > 0 ? 1 : 0;
+    pathD = 'M ' + cx + ' ' + topY + ' A ' + r + ' ' + r + ' 0 0 0 ' + cx + ' ' + botY + ' A ' + rx.toFixed(2) + ' ' + r + ' 0 0 ' + sweepTerm + ' ' + cx + ' ' + topY + ' Z';
+  }
+
+  return `<svg class="moon-svg" viewBox="0 0 32 32">
+    <defs>
+      <radialGradient id="moonSurfGrad" cx="38%" cy="32%" r="65%">
+        <stop offset="0%" stop-color="#fffdf5" />
+        <stop offset="55%" stop-color="#fef08a" />
+        <stop offset="100%" stop-color="#eab308" />
+      </radialGradient>
+      <radialGradient id="moonDarkGrad" cx="40%" cy="35%" r="60%">
+        <stop offset="0%" stop-color="#1e293b" />
+        <stop offset="70%" stop-color="#0f172a" />
+        <stop offset="100%" stop-color="#020617" />
+      </radialGradient>
+      <clipPath id="moonLitClip">
+        <path d="${pathD}" />
+      </clipPath>
+    </defs>
+    <!-- Dark Unlit Moon Silhouette -->
+    <circle cx="16" cy="16" r="13.5" fill="url(#moonDarkGrad)" stroke="rgba(254, 240, 138, 0.3)" stroke-width="0.8" />
+    <circle cx="3" cy="7" r="0.6" fill="#fef08a" opacity="0.6" />
+    <circle cx="29" cy="24" r="0.5" fill="#fef08a" opacity="0.5" />
+    <circle cx="28" cy="8" r="0.6" fill="#fef08a" opacity="0.7" />
+    <!-- Illuminated Moon Area & Maria -->
+    <g clip-path="url(#moonLitClip)">
+      <circle cx="16" cy="16" r="13.5" fill="url(#moonSurfGrad)" />
+      <circle cx="13" cy="13" r="2.8" fill="#ca8a04" opacity="0.25" />
+      <circle cx="19" cy="18" r="2.2" fill="#ca8a04" opacity="0.2" />
+      <circle cx="14" cy="20" r="1.8" fill="#ca8a04" opacity="0.22" />
+      <circle cx="19" cy="12" r="1.6" fill="#ca8a04" opacity="0.2" />
+    </g>
+  </svg>`;
+}
+
+function updateMoonPhase() {
+  const elBay = document.getElementById('moonPhaseBay');
+  const elSphere = document.getElementById('moonPhaseSphere');
+  const elName = document.getElementById('moonPhaseName');
+  const elLunarDate = document.getElementById('moonLunarDate');
+  if (!elBay) return;
+
+  const mode = (state.moonPhase || 'auto').trim().toLowerCase();
+  if (mode === 'none' || mode === 'hide' || mode === 'hidden' || mode === 'false') {
+    elBay.style.display = 'none';
+    return;
+  }
+  elBay.style.display = 'flex';
+
+  const details = getMoonPhaseDetails(new Date(), state.moonPhase);
+  if (elSphere) {
+    elSphere.innerHTML = renderMoonSvg(details.phase);
+  }
+  if (elName) {
+    elName.textContent = details.name;
+  }
+  if (elLunarDate) {
+    elLunarDate.textContent = details.lunarDayStr;
+  }
+  elBay.title = `天文月相：${details.name} (照度 ${details.illumination}%) · 农历${details.lunarDayStr}`;
 }
 
 // Clock & calendar tick with vertical roll ticker animation
@@ -291,6 +466,7 @@ function initClock() {
   const daysOfWeekEn = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   let lastTimeStr = '';
   let lastSecStr = '';
+  let lastDateStr = '';
 
   function rollTo(element, newValue, duration = 300) {
     if (!element) return;
@@ -345,9 +521,14 @@ function initClock() {
 
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
-    if (elCalendar) elCalendar.textContent = `${month}.${day}`;
-    const days = state.dayLang === 'en' ? daysOfWeekEn : daysOfWeekZh;
-    if (elDay) elDay.textContent = days[now.getDay()];
+    const dateStr = `${month}.${day}`;
+    if (dateStr !== lastDateStr) {
+      lastDateStr = dateStr;
+      if (elCalendar) elCalendar.textContent = dateStr;
+      const days = state.dayLang === 'en' ? daysOfWeekEn : daysOfWeekZh;
+      if (elDay) elDay.textContent = days[now.getDay()];
+      updateMoonPhase();
+    }
   }
 
   tick();
@@ -480,6 +661,9 @@ function initSyncListener() {
       lastEvaluatedScene = '';
       evaluateSceneName(data.sceneName);
     }
+    if (data.moonPhase !== undefined) {
+      state.moonPhase = data.moonPhase;
+    }
 
     updateDisplay();
   };
@@ -503,6 +687,8 @@ function initDrawer() {
         if (selectEffect) selectEffect.value = state.themeEffect;
         const selectMode = document.getElementById('inputMode');
         if (selectMode) selectMode.value = state.layoutMode;
+        const selectMoon = document.getElementById('inputMoon');
+        if (selectMoon) selectMoon.value = state.moonPhase || 'auto';
       }
     }
   });
@@ -532,6 +718,11 @@ function initDrawer() {
       const selectMode = document.getElementById('inputMode');
       if (selectMode) {
         setLayoutMode(selectMode.value);
+      }
+
+      const selectMoon = document.getElementById('inputMoon');
+      if (selectMoon) {
+        state.moonPhase = selectMoon.value;
       }
       
       updateDisplay();
