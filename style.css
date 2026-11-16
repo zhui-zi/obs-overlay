@@ -25,7 +25,6 @@
   --brand-domain: "keita.cc";
   --title: "【游戏】黑神话：悟空";
   --notices: "没啥说的了，都来我家喝酒吧^^b";
-  --moon-phase: "auto"; /* Optional: "auto" | "满月" | "上弦月" | "下弦月" | "新月" | "none" */
   --theme-effect: "none"; /* Optional atmosphere: "none" | "lights" | "snow" | "both" | "newyear" | "halloween" | "romantic" */
 
   --canvas-width: 3840px;
@@ -740,72 +739,6 @@ body.effect-romantic .vu-bar-peak {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--border-bay-clean);
-}
-
-/* ================= Moon Phase Complication ================= */
-.moon-phase-bay {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  position: relative;
-  cursor: default;
-  transition: all 0.3s ease;
-}
-
-.moon-phase-sphere {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  animation: moon-phase-glow 4s ease-in-out infinite;
-}
-
-@keyframes moon-phase-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(254, 240, 138, 0.4));
-  }
-  50% {
-    filter: drop-shadow(0 0 14px rgba(254, 240, 138, 0.7));
-  }
-}
-
-.moon-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.moon-phase-text-group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  line-height: 1.1;
-}
-
-.moon-phase-name {
-  font-family: 'LXGW 975 Yuan SC', 'Google Sans', 'Noto Sans SC', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: #fef08a;
-  letter-spacing: 0.8px;
-  text-shadow: 0 0 10px rgba(254, 240, 138, 0.45);
-  white-space: nowrap;
-}
-
-.moon-lunar-date {
-  font-family: 'LXGW 975 Yuan SC', 'Google Sans', 'Noto Sans SC', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: #94a3b8;
-  letter-spacing: 0.5px;
-  margin-top: 2px;
-  white-space: nowrap;
 }
 
 .date-section {
@@ -1851,24 +1784,7 @@ body.mode-full .right-panel {
   height: 88px;
   padding: 0 22px;
   border-radius: 18px;
-  gap: 16px;
-}
-
-body.mode-full .moon-phase-bay {
-  gap: 10px;
-}
-
-body.mode-full .moon-phase-sphere {
-  width: 42px;
-  height: 42px;
-}
-
-body.mode-full .moon-phase-name {
-  font-size: 24px;
-}
-
-body.mode-full .moon-lunar-date {
-  font-size: 18px;
+  gap: 14px;
 }
 
 body.mode-full .date-section,

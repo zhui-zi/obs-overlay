@@ -23,11 +23,6 @@
   * Continuous horizontal gradient across all 12 bars matching the outer frame (Cyan ➔ Lavender ➔ Rose ➔ Amber), eliminating single-bar isolated blocky colors.
   * Dual-layer vertical glass shine with floating crystal transient peak needles and gravitational falloff physics.
 
-* 🌙 **Realtime Astronomical Moon Phase & Lunar Calendar (实时天文月相与农历)**
-  * Photorealistic vector moon complication nestled alongside the studio master clock.
-  * Dynamically computes precise lunar phase, illuminated fraction, and terminator curve using astronomical synodic ephemeris ($29.530588853\text{ d}$) paired with native Chinese lunar calendar dates (e.g. `上弦月 · 初八`, `满月 · 十六`).
-  * Features multi-stop craters, radial lunar glow, and subtle breathing moonlight luminescence. Supports real-time astronomical auto mode or manual overrides/hiding via Custom CSS, URL query, Web Controller, and Drawer.
-
 * 🎆 **Bespoke Full-Screen Festive Atmospheres**
   * Stages are custom-crafted across the entire 4K broadcast screen, with specialized layout geometry in Full Mode:
     * **Chinese New Year (`newyear`)**: Flanking grand red palace lanterns with gold tassels and auspicious clouds framing the top corners of the game viewport, plus shimmering gold foil dust.
@@ -134,10 +129,6 @@ In OBS Studio, right-click your Browser Source ➔ **Properties** ➔ **Custom C
 
   /* Notice marquee items separated by || */
   --notices: "没啥说的了，都来我家喝酒吧^^b";
-
-  /* Moon Phase Complication:
-     "auto" (实时天文计算) | "满月" | "上弦月" | "下弦月" | "新月" | "none" (隐藏) */
-  --moon-phase: "auto";
 }
 ```
 
@@ -146,7 +137,7 @@ In OBS Studio, right-click your Browser Source ➔ **Properties** ➔ **Custom C
 ### 3. URL Query Parameters
 
 ```text
-https://obs.keita.cc/?mode=full&effect=newyear&domain=keita.cc&title=【游戏】黑神话：悟空&moon=auto
+https://obs.keita.cc/?mode=full&effect=newyear&domain=keita.cc&title=【游戏】黑神话：悟空
 ```
 
 Supported query keys:
@@ -156,7 +147,6 @@ Supported query keys:
 * `domain`: e.g. `keita.cc`
 * `title`: e.g. `【游戏】黑神话：悟空` (or `game`)
 * `notice`: `Notice+One||Notice+Two`
-* `moon`: `auto` | `满月` | `上弦月` | `下弦月` | `新月` | `none`
 
 ---
 
